@@ -3,11 +3,11 @@
 .emojiSelector {
 	position: absolute;
 	top: 27%;
+	cursor: pointer;
 }
 
 .emojiList {
 	position: absolute;
-	right: 2px;
 	outline: none;
 	top: 9px;
 	z-index: 999;
@@ -23,6 +23,7 @@
 		list-style: none;
 		li {
 			text-decoration: none;
+			cursor: pointer;
 			display: inline-block;
 			font-size: 24px;
 			padding-right: 5px;

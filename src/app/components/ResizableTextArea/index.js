@@ -30,7 +30,7 @@ class ResizableTextarea extends Component {
 	emojiOnSelectHandler(selectedEmoji) {
 		let { maxChars } = this.props;
 		if (this.el.value.length < maxChars) {
-			this.el.value += " " + selectedEmoji;
+			this.el.value += selectedEmoji;
 		}
 	}
 

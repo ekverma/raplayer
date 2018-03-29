@@ -1,6 +1,6 @@
-import { h, Component } from 'preact';
-import style from './index.scss';
-import smileyImage from 'images/smiley@2x.png';
+import { h, Component } from "preact";
+import style from "./index.scss";
+import smileyImage from "images/smiley@2x.png";
 
 const SUPPORTED_EMOJIS = [
 	// 0x1f601,
@@ -70,9 +70,9 @@ class EmojiPicker extends Component {
 					var index = -1;
 					var length = arguments.length;
 					if (!length) {
-						return '';
+						return "";
 					}
-					var result = '';
+					var result = "";
 					while (++index < length) {
 						var codePoint = Number(arguments[index]);
 						if (
@@ -81,7 +81,7 @@ class EmojiPicker extends Component {
 							codePoint > 0x10ffff || // not a valid Unicode code point
 							floor(codePoint) != codePoint // not an integer
 						) {
-							throw RangeError('Invalid code point: ' + codePoint);
+							throw RangeError("Invalid code point: " + codePoint);
 						}
 						if (codePoint <= 0xffff) {
 							// BMP code point
@@ -102,7 +102,7 @@ class EmojiPicker extends Component {
 					return result;
 				};
 				if (defineProperty) {
-					defineProperty(String, 'fromCodePoint', {
+					defineProperty(String, "fromCodePoint", {
 						value: fromCodePoint,
 						configurable: true,
 						writable: true
@@ -127,21 +127,24 @@ class EmojiPicker extends Component {
 		this.setState({
 			showEmojiList: false
 		});
-		if (typeof this.props.onSelect === 'function') {
+		if (typeof this.props.onSelect === "function") {
 			this.props.onSelect(event.target.innerHTML);
 		}
 	}
 
 	render() {
 		let { showEmojiList } = this.state;
+		let { toLeft } = this.props;
+		let emojiListStyle = {};
+		toLeft ? (emojiListStyle.left = "2px") : (emojiListStyle.right = "2px");
 		return (
 			<div className={style.posRel} style="width:15px;">
 				<div className={style.emojiSelector} onClick={this.emojiClickHandler}>
-					<img src={smileyImage} style="height:15px;"/>
+					<img src={smileyImage} style="height:15px;" />
 				</div>
 
 				{showEmojiList && (
-					<div className={style.emojiList}>
+					<div className={style.emojiList} style={emojiListStyle}>
 						<ul>
 							{SUPPORTED_EMOJIS.map((item, i) => {
 								return (

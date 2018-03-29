@@ -11,6 +11,7 @@ import {
 	STRING_CANCEL,
 	MAX_CHAR_LIMIT_COMMENT
 } from "@config/constants";
+import EmojiPicker from "@components/EmojiPicker";
 
 class CommentBox extends Component {
 	constructor() {
@@ -19,11 +20,24 @@ class CommentBox extends Component {
 		this.editClickHandler = this.editClickHandler.bind(this);
 		this.deleteClickHandler = this.deleteClickHandler.bind(this);
 		this.closeSelf = this.closeSelf.bind(this);
+		this.emojiOnSelectHandler = this.emojiOnSelectHandler.bind(this);
 		this.postCommentHandler = this.postCommentHandler.bind(this);
 		let intialState = {
 			disableSaveButton: true
 		};
 		this.setState(intialState);
+	}
+
+	emojiOnSelectHandler(selectedEmoji) {
+		if (this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT) {
+			let text = this.commentTextArea.value + selectedEmoji;
+			this.props.showCommentBox({
+				text
+			});
+			this.setState({
+				disableSaveButton: false
+			});
+		}
 	}
 
 	textAreaChangeHandler(e) {
@@ -188,6 +202,7 @@ class CommentBox extends Component {
 						value={parseText(commentText)}
 					/>
 					<div className={style.acBoxControls + " " + (readOnly ? style.hide : style.show)}>
+						<EmojiPicker toLeft="true" onSelect={this.emojiOnSelectHandler}  />
 						<span title="save" className={[style.acActionButton,style.save,(disableSaveButton ? style.disable : "")].join(' ')} onClick={this.postCommentHandler} />
 						<span title="discard" className={[style.acActionButton,style.cancel].join(' ')} onClick={this.closeSelf} />
 					</div>
