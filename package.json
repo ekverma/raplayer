@@ -1,6 +1,6 @@
 {
   "name": "raplayer",
-  "version": "2.2.44",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.build.js",
   "scripts": {
