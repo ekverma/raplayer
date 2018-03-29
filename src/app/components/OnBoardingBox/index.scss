@@ -1,0 +1,49 @@
+.container {
+	width: 320px;
+	height: 250px;
+	background-color: #ffffff;
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.14);
+	position: relative;
+	.content {
+		padding: 20px;
+		z-index: 2;
+		position: relative;
+		background: #fff;
+		img {
+			width: 277px;
+			height: 109px;
+			margin-bottom: 10px;
+		}
+		.button {
+			height: 26px;
+			border-radius: 16px;
+			background-color: #0072bc;
+			color: #f7f7f7;
+			outline: none;
+			cursor: pointer;
+			padding-left: 15px;
+			padding-right: 15px;
+			font-size: 13px;
+			font-weight: normal;
+			border: 0;
+		}
+		.text {
+			margin-bottom: 10px;
+			font-size: 13px;
+		}
+	}
+
+	.downArrow {
+		content: '\00a0';
+		display: block;
+		left: 120px;
+		position: absolute;
+		top: -9px;
+		transform: rotate(45deg);
+		width: 20px;
+		height: 20px;
+		z-index: 1;
+		box-shadow: 0 0 8px 0 rgba(97, 120, 148, 0.26);
+		background: #fff;
+	}
+}

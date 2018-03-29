@@ -1,0 +1,110 @@
+@import "~styles/index.scss";
+
+.commentCard {
+	font-size: 13px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+	padding: 15px;
+	cursor: pointer;
+	position: relative;
+	transition: background-color 0.25s ease-in-out, border 0.15s ease-in-out;
+	.commentDivider {
+		position: absolute;
+		bottom: 0px;
+		left: 10px;
+		right: 10px;
+		height: 1px;
+		background-color: #abb5bf;
+		opacity: 0.3;
+	}
+	.errorContainer {
+		text-align: right;
+	}
+	.actionControls {
+		text-align: right;
+		margin-top: 5px;
+		.save {
+			background-image: url(images/circle-tick.svg);
+			width: 20px;
+			height: 20px;
+			margin-right: 10px;
+			cursor: pointer;
+			background-color: transparent;
+			display: inline-block;
+			&.disable {
+				background-image: url(images/circle-tick-inactive.svg);
+			}
+		}
+		.discard {
+			background-image: url(images/circle-close.svg);
+			width: 22px;
+			height: 22px;
+			cursor: pointer;
+			background-color: transparent;
+			display: inline-block;
+		}
+	}
+	&:hover {
+		background: #fff;
+	}
+	.timestampContainer {
+		margin-bottom: 10px;
+		.timestamp {
+			width: 30px;
+			height: 16px;
+			border-radius: 4px;
+			background-color: #0ed5c9;
+			padding-left: 4px;
+			padding-right: 4px;
+			padding-top: 2px;
+			padding-bottom: 2px;
+			color: #fff;
+			font-size: 11px;
+			font-weight: 600;
+		}
+		.author {
+			font-size: 13px;
+			margin-left: 10px;
+			color: #666;
+		}
+		.controls {
+			display: none;
+			float: right;
+			cursor: pointer;
+			opacity: 0;
+			visibility: hidden;
+			display: inline;
+			margin-left: 10px;
+		}
+		.showControls {
+			opacity: 1;
+			visibility: visible;
+			transition: visibility 1s, opacity 1s;
+		}
+		.edit {
+			background-image: url(images/edit.svg);
+			width: 16px;
+			height: 16px;
+			cursor: pointer;
+			background-color: transparent;
+			display: inline-block;
+		}
+		.delete {
+			background-image: url(images/delete.svg);
+			width: 16px;
+			height: 16px;
+			cursor: pointer;
+			background-color: transparent;
+			display: inline-block;
+		}
+	}
+	.text {
+		word-wrap: break-word;
+		white-space: pre-wrap;
+	}
+}

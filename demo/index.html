@@ -1,0 +1,48 @@
+<html>
+<head>
+	<script type="text/javascript" src='../dist/index.bundle.js'></script>
+</head>
+<body>
+		<div id='targetContainer' style='width:672px;height:378px;float:left'></div>
+		<div id='targetCommentContainer' style='width:672px;float:right;position:relative'></div>
+</body>
+<script>
+
+var obj = {
+	targetVideoContainer: 'targetContainer',
+	targetCommentContainer: 'targetCommentContainer',
+	primaryTracks: [
+	{
+		src: '360p.mp4',
+		label: '360p'
+	},
+	,{
+		src: '360p.mp4',
+		label: '144p'
+	}],
+	app: {
+		subjectId: 123,
+		companyName: 423,
+		socialId: 111,
+		author:{id: '1222222',name: "123"}
+	},
+	showControlsOnly: false,
+	edit: true,
+	showOnboarding: true,
+	onRenderComplete: function(){
+		console.info("dne...");
+	},
+	onCommentPaneRender: function(count){
+		console.info(count);
+	}
+};
+try{
+	const raPlayer = new RaPlayer(obj);
+	raPlayer.setup();
+} catch(ex){
+	console.info(ex);
+}
+
+
+</script>
+</html>
