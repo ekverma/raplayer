@@ -1,0 +1,22 @@
+.container {
+	position: relative;
+	width: 100%;
+	border: 1px solid #ddd;
+	background: #fff;
+	.emojiContainer{
+		position: absolute;
+		right: 6px;
+		bottom: 24px;
+	}
+	.textarea {
+		overflow-y: scroll;
+		max-height: 100px;
+		width: 93%;
+		display: block;
+		box-sizing: content-box;
+		outline: none;
+		resize: none;
+		padding: 5px;
+		border:none;
+	}
+}
