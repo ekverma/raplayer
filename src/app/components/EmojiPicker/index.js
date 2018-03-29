@@ -40,6 +40,7 @@ class EmojiPicker extends Component {
 		super();
 		this.emojiClickHandler = this.emojiClickHandler.bind(this);
 		this.emojiSelectHandler = this.emojiSelectHandler.bind(this);
+		this.collapse = this.collapse.bind(this);
 		this.setState({
 			showEmojiList: false
 		});
@@ -132,13 +133,19 @@ class EmojiPicker extends Component {
 		}
 	}
 
+	collapse(){
+		this.setState({
+			showEmojiList: false
+		});
+	}
+
 	render() {
 		let { showEmojiList } = this.state;
 		let { toLeft } = this.props;
 		let emojiListStyle = {};
 		toLeft ? (emojiListStyle.left = "2px") : (emojiListStyle.right = "2px");
 		return (
-			<div className={style.posRel} style="width:15px;">
+			<div className={style.posRel} style="width:15px;" tabIndex={0} onBlur={this.collapse}>
 				<div className={style.emojiSelector} onClick={this.emojiClickHandler}>
 					<img src={smileyImage} style="height:15px;" />
 				</div>
