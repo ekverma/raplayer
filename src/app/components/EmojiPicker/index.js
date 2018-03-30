@@ -145,7 +145,7 @@ class EmojiPicker extends Component {
 		let emojiListStyle = {};
 		toLeft ? (emojiListStyle.left = "2px") : (emojiListStyle.right = "2px");
 		return (
-			<div className={style.posRel} style="width:15px;" tabIndex={0} onBlur={this.collapse}>
+			<div className={style.posRel} style="width:15px;outline:none" tabIndex={0} onBlur={this.collapse}>
 				<div className={style.emojiSelector} onClick={this.emojiClickHandler}>
 					<img src={smileyImage} style="height:15px;" />
 				</div>
