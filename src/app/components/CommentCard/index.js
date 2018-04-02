@@ -121,6 +121,7 @@ class CommentCard extends Component {
 	}
 
 	componentWillReceiveProps({ cardObj }) {
+		this.setEdit(false);
 		if (cardObj.error) {
 			this.setEdit(true);
 			clearTimeout(this.timer);
@@ -131,7 +132,7 @@ class CommentCard extends Component {
 			}
 			return;
 		}
-		this.setEdit(false);
+
 	}
 
 	componentWillUnmount() {
