@@ -17,6 +17,9 @@ class App extends Component {
 	componentDidMount() {
 		const { targetCommentContainer, edit, onCommentPaneRender, showOnboarding, filter, secondaryId } = this.props;
 		let targetCommentContainerRef = document.getElementById(targetCommentContainer);
+		if(!targetCommentContainerRef){
+			return;
+		}
 
 		this.commentContainerRoot = render(
 			<Provider store={this.context.store}>
@@ -46,7 +49,9 @@ class App extends Component {
 	componentWillUnmount() {
 		const { targetCommentContainer } = this.props;
 		let targetCommentContainerRef = document.getElementById(targetCommentContainer);
-		render("", document.getElementById(targetCommentContainerRef), this.commentContainerRoot);
+		if(this.commentContainerRoot){
+			render("", document.getElementById(targetCommentContainerRef), this.commentContainerRoot);
+		}
 		if (this.onBoardingContainerRoot) {
 			render("", document.getElementById(targetCommentContainerRef), this.onBoardingContainerRoot);
 		}
