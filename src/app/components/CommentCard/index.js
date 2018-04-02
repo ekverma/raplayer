@@ -131,6 +131,7 @@ class CommentCard extends Component {
 			}
 			return;
 		}
+		this.setEdit(false);
 	}
 
 	componentWillUnmount() {
