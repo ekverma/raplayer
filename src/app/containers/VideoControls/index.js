@@ -69,8 +69,9 @@ class VideoControls extends Component {
 	}
 
 	toggleFullscreen() {
+		this.props.hideCommentBox();
 		const pfx = getPrefixes();
-		let parent = this.container.parentNode.parentNode;
+		let parent = this.container.parentNode.parentNode; // Hackish i know, will modfiy very soon
 		var that = this;
 		if (runPrefixMethod(document, "FullScreen") || runPrefixMethod(document, "IsFullScreen")) {
 			runPrefixMethod(document, "CancelFullScreen");
@@ -116,12 +117,12 @@ class VideoControls extends Component {
 		if (percentage < 0) {
 			percentage = 0;
 		}
-		if(xPos < 0) {
+		if (xPos < 0) {
 			xPos = 0;
 		}
 
-		let time = (percentage / 100 * video.duration),
-			availableWindowForCommentHelperBox = xPos + 200 ,
+		let time = percentage / 100 * video.duration,
+			availableWindowForCommentHelperBox = xPos + 200,
 			upperXLimit = e.target.clientWidth,
 			downArrowXPos;
 		downArrowXPos = 8;
@@ -151,13 +152,12 @@ class VideoControls extends Component {
 			return;
 		}
 
-		let  style = window.getComputedStyle(e.target, null);
-		let xPos = parseInt(style.getPropertyValue('left'));
+		let style = window.getComputedStyle(e.target, null);
+		let xPos = parseInt(style.getPropertyValue("left"));
 		let targetElement = e.target.parentElement;
 		let clientWidth = targetElement.clientWidth;
 
-
-		let availableWindowForCommentHelperBox = xPos + 300 ,
+		let availableWindowForCommentHelperBox = xPos + 300,
 			upperXLimit = clientWidth,
 			downArrowXPos,
 			_xPos = xPos;
@@ -179,7 +179,6 @@ class VideoControls extends Component {
 			readOnly: true,
 			downArrowXPos: downArrowXPos
 		});
-
 	}
 
 	commentBarDotOnMouseOutHandler(event) {
@@ -192,7 +191,7 @@ class VideoControls extends Component {
 		}
 		this.props.hideCommentBox();
 	}
-	
+
 	onMouseOutHandler(event) {
 		if (this.props.isCommentBoxActive) {
 			return;
@@ -234,12 +233,12 @@ class VideoControls extends Component {
 			seekTime = 0;
 		if (this.video) {
 			currentTimeString =
-				(!currentTime || currentTime === 0 )
+				!currentTime || currentTime === 0
 					? "00:00"
 					: toHHMMSS(currentTime) + " / " + toHHMMSS(this.video.duration);
 			seekTime = currentTime / this.video.duration * 100;
 		}
-		seekTime = (seekTime) ? (seekTime - 0.01) : 0;
+		seekTime = seekTime ? seekTime - 0.01 : 0;
 		let mediaPlayPauseKlass;
 		switch (mediaState) {
 			case "PLAY":
@@ -254,7 +253,7 @@ class VideoControls extends Component {
 		let colorMap = getColorMap(authors);
 
 		let videoControlsStyle = {
-			height: isIE() ? '60px': '55px'
+			height: isIE() ? "60px" : "55px"
 		};
 
 		return (
@@ -327,7 +326,9 @@ class VideoControls extends Component {
 					</div>
 					<div className={style.clear} />
 				</div>
-				{commentBox.show ? <CommentBox edit={edit} namespace={namespace} popupSelector={popupSelector} /> : null}
+				{commentBox.show ? (
+					<CommentBox edit={edit} namespace={namespace} popupSelector={popupSelector} />
+				) : null}
 				{commentHelperBox.show && edit ? (
 					<CommentHelperBox
 						targetPlayerId={targetPlayerId}

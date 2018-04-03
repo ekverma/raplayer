@@ -20,11 +20,13 @@ class RaPlayer {
 	 * @returns {void}
 	 */
 	setup() {
-		let { targetVideoContainer } = this.props;
+		let { targetVideoContainer, showControlsOnly } = this.props;
 		let namespace = "ra_" + count++;
 		this.id = this.props.id = this.props.id || "an-vid-" + namespace;
 		this.props.secondaryId = this.id + "-secondary";
-		this.props.popupSelector = this.id + "-popup";
+		if(!showControlsOnly){
+			this.props.popupSelector = this.id + "-popup";
+		}
 		let store = getStore(namespace, {
 			app: this.props.app
 		});
