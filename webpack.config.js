@@ -162,6 +162,11 @@ var WebpackConfig = {
 if (process.env.ENV === "prod") {
     WebpackConfig.plugins = WebpackConfig.plugins || [];
     WebpackConfig.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': JSON.stringify(process.env.ENV)
+            }
+        }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
