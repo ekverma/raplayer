@@ -125,7 +125,8 @@ class VideoPlayerContainer extends Component {
 			showControlsOnly,
 			namespace,
 			controlOptions,
-			downloadSrc
+			downloadSrc,
+			popupSelector
 		} = this.props;
 		let { controls, selectedTrack, showPlayButton, currentTime } = this.state;
 		controls = showControlsOnly || controls;
@@ -141,6 +142,7 @@ class VideoPlayerContainer extends Component {
 				onMouseOut={this.hideControls}
 			>
 				{showPlayButton && !showControlsOnly && <div className={style.play}  onClick={this.togglePlayPause} />}
+				<div id={popupSelector} />
 				<Player
 					ref={e => (this.videoPlayer = e)}
 					src={primaryTracks[selectedTrack].src}
@@ -170,6 +172,7 @@ class VideoPlayerContainer extends Component {
 						videoPauseAtTimeHandler={this.videoPauseAtTimeHandler}
 						controlOptions={controlOptions}
 						namespace={namespace}
+						popupSelector={popupSelector}
 						currentTime={currentTime}
 					/>
 				</div>

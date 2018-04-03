@@ -87,6 +87,7 @@ class CommentPaneContainer extends Component {
 				<CommentPane
 					comments={this.props.activeComments}
 					edit={this.props.edit}
+					popupSelector={this.props.popupSelector}
 					targetPlayerId={this.props.targetPlayerId}
 					onPaneCardClickHandler={this.onPaneCardClickHandler}
 					editComment={this.editCommentHandler}

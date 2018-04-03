@@ -49,6 +49,7 @@ class CommentCard extends Component {
 		this.props.onDeleteConfirm();
 		ConfirmAlert({
 			title: STRING_DELETE_COMMENT,
+			popupSelector: this.props.popupSelector,
 			message: STRING_DELETED_COMMENT_CANT_BE_RESTORED,
 			confirmLabel: STRING_DELETE,
 			cancelLabel: STRING_CANCEL,

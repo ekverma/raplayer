@@ -15,7 +15,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		const { targetCommentContainer, edit, onCommentPaneRender, showOnboarding, filter, secondaryId } = this.props;
+		const { targetCommentContainer, edit, onCommentPaneRender, showOnboarding, filter, secondaryId, popupSelector } = this.props;
 		let targetCommentContainerRef = document.getElementById(targetCommentContainer);
 		if(!targetCommentContainerRef){
 			return;
@@ -28,6 +28,7 @@ class App extends Component {
 					targetPlayerId={this.props.id}
 					secondaryTargetPlayerId={secondaryId}
 					filter={filter}
+					popupSelector={popupSelector}
 					namespace={this.props.namespace}
 					onCommentPaneRender={onCommentPaneRender}
 				/>
@@ -67,7 +68,8 @@ class App extends Component {
 			namespace,
 			controlOptions,
 			downloadSrc,
-			secondaryId
+			secondaryId,
+			popupSelector
 		} = this.props;
 
 		return (
@@ -77,6 +79,7 @@ class App extends Component {
 				id={this.props.id}
 				secondaryId={secondaryId}
 				edit={edit}
+				popupSelector={popupSelector}
 				namespace={namespace}
 				secondaryTracks={secondaryTracks}
 				onRenderComplete={onRenderComplete}

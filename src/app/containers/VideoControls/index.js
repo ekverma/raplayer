@@ -223,7 +223,8 @@ class VideoControls extends Component {
 			namespace,
 			videoPauseAtTimeHandler,
 			controlOptions = {},
-			downloadSrc
+			downloadSrc,
+			popupSelector
 		},
 		{ showTrackList }
 	) => {
@@ -326,7 +327,7 @@ class VideoControls extends Component {
 					</div>
 					<div className={style.clear} />
 				</div>
-				{commentBox.show ? <CommentBox edit={edit} namespace={namespace} /> : null}
+				{commentBox.show ? <CommentBox edit={edit} namespace={namespace} popupSelector={popupSelector} /> : null}
 				{commentHelperBox.show && edit ? (
 					<CommentHelperBox
 						targetPlayerId={targetPlayerId}

@@ -53,7 +53,11 @@ function removeElementReconfirm() {
 function createElementReconfirm(properties) {
 	const divTarget = document.createElement('div');
 	divTarget.id = targetId;
-	document.body.appendChild(divTarget);
+	let domElem = document.body;
+	if(properties.popupSelector){
+		domElem = document.getElementById(properties.popupSelector);
+	}
+	domElem.appendChild(divTarget);
 	root = render(<ConfirmAlertBox {...properties} />, divTarget);
 }
 

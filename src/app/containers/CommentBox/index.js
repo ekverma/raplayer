@@ -82,6 +82,7 @@ class CommentBox extends Component {
 			message: STRING_DELETED_COMMENT_CANT_BE_RESTORED,
 			confirmLabel: STRING_DELETE,
 			cancelLabel: STRING_CANCEL,
+			popupSelector: this.props.popupSelector,
 			onConfirm: () => {
 				this.props.deleteComment(props);
 				this.props.hideCommentBox();

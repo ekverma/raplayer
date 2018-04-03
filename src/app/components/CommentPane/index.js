@@ -31,7 +31,8 @@ class CommentPane extends Component {
 			onPaneCardClickHandler,
 			noCommentDiv,
 			onDeleteConfirm,
-			hideCommentCardError
+			hideCommentCardError,
+			popupSelector
 		} = this.props;
 		if (!comments || !comments.length) {
 			return <div className={style.commentPane}>{noCommentDiv}</div>;
@@ -46,6 +47,7 @@ class CommentPane extends Component {
 							key={i}
 							ref={c => (this.commentPaneComponents[i] = c)}
 							edit={edit}
+							popupSelector={popupSelector}
 							targetPlayerId={targetPlayerId}
 							editComment={editComment}
 							deleteComment={deleteComment}
