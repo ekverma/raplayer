@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import style from "./index.scss";
 import { actions } from "../../actions";
-import { toHHMMSS, getColorMap, parseText } from "@utils/core";
+import { toHHMMSS, getColorMap, parseText, insertAtCursor } from "@utils/core";
 import { namespaceConnect } from "@utils/enhancer";
 import { ConfirmAlert } from "@components/ConfirmAlertBox";
 import {
@@ -27,10 +27,10 @@ class CommentBox extends Component {
 		};
 		this.setState(intialState);
 	}
-
 	emojiOnSelectHandler(selectedEmoji) {
 		if (this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT) {
-			let text = this.commentTextArea.value + selectedEmoji;
+			insertAtCursor(this.commentTextArea,selectedEmoji)
+			let text = this.commentTextArea.value;
 			this.props.showCommentBox({
 				text
 			});

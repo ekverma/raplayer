@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import style from "./index.scss";
 import EmojiPicker from "@components/EmojiPicker";
-import { parseText } from "@utils/core";
+import { parseText, insertAtCursor } from "@utils/core";
 
 class ResizableTextarea extends Component {
 	constructor(props) {
@@ -30,7 +30,7 @@ class ResizableTextarea extends Component {
 	emojiOnSelectHandler(selectedEmoji) {
 		let { maxChars } = this.props;
 		if (this.el.value.length < maxChars) {
-			this.el.value += selectedEmoji;
+			insertAtCursor(this.el,selectedEmoji);
 		}
 	}
 
