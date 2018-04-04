@@ -60,6 +60,7 @@ class VideoControls extends Component {
 	}
 
 	exitHandler() {
+		this.props.hideCommentBox();
 		const pfx = getPrefixes();
 		let that = this;
 		let parent = this.container.parentNode.parentNode;

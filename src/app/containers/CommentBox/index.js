@@ -34,6 +34,7 @@ class CommentBox extends Component {
 			this.props.showCommentBox({
 				text
 			});
+			this.commentTextArea.focus();
 			this.setState({
 				disableSaveButton: false
 			});
