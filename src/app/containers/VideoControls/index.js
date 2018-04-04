@@ -63,12 +63,12 @@ class VideoControls extends Component {
 		this.props.hideCommentBox();
 		const pfx = getPrefixes();
 		let that = this;
-		if(!this.container){
-			return;
-		}
-		let parent = this.container.parentNode.parentNode;
+		let parent = this.container && this.container.parentNode.parentNode;
 		pfx.forEach(function(prefix) {
-			parent.removeEventListener(prefix + "fullscreenchange", that.exitHandler.bind(that));
+			if (parent) {
+				parent.removeEventListener(prefix + "fullscreenchange", that.exitHandler.bind(that));
+			}
+			document.removeEventListener(prefix + "fullscreenchange", that.exitHandler.bind(that));
 		});
 	}
 
@@ -86,7 +86,8 @@ class VideoControls extends Component {
 			runPrefixMethod(parent, "RequestFullScreen") || runPrefixMethod(parent, "RequestFullscreen");
 			setTimeout(function() {
 				pfx.forEach(function(prefix) {
-					parent.addEventListener(prefix + "fullscreenchange", that.exitHandler, false);
+					parent.addEventListener(prefix + "fullscreenchange", that.exitHandler.bind(that), false);
+					document.addEventListener(prefix + "fullscreenchange", that.exitHandler.bind(that), false);
 				});
 			}, 700);
 		}
