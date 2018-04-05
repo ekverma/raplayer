@@ -55,7 +55,7 @@ class CommentHelperBox extends Component {
 		});
 	}
 
-	render({ xPos, time, downArrowXPos }) {
+	render({ xPos, time, downArrowXPos ,fullScreen}) {
 		let divStyle = {
 				left: xPos
 			},
@@ -65,6 +65,9 @@ class CommentHelperBox extends Component {
 			downArrowStyle = {
 				left: downArrowXPos + 'px'
 			};
+		}
+		if(fullScreen){
+			divStyle.position = 'fixed !important';
 		}
 		return (
 			<div style={divStyle} className={style.chBox}>
@@ -85,6 +88,7 @@ class CommentHelperBox extends Component {
 
 function mapStateToProps(state) {
 	return {
+		fullScreen: state.media.fullScreen,
 		xPos: state.commentHelperBox.data.xPos,
 		time: state.commentHelperBox.data.time,
 		downArrowXPos: state.commentHelperBox.data.downArrowXPos

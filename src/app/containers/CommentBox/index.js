@@ -152,7 +152,7 @@ class CommentBox extends Component {
 		this.autosize();
 	}
 
-	render({ xPos, time, commentText, readOnly, downArrowXPos, edit, showError, author }, { disableSaveButton }) {
+	render({ xPos, time, commentText, readOnly, downArrowXPos, edit, showError, author ,fullScreen}, { disableSaveButton }) {
 		let divStyle = {
 				left: xPos
 			},
@@ -173,6 +173,9 @@ class CommentBox extends Component {
 			timeStampColor = {
 				backgroundColor: colorMap[author.id]
 			};
+		}
+		if(fullScreen){
+			divStyle.position = 'fixed !important';
 		}
 
 		return (
@@ -228,7 +231,8 @@ function mapStateToProps(state) {
 		readOnly: state.commentBox.data.readOnly,
 		id: state.commentBox.data.id,
 		downArrowXPos: state.commentBox.data.downArrowXPos,
-		showError: state.commentBox.error
+		showError: state.commentBox.error,
+		fullScreen: state.media.fullScreen
 	};
 }
 
