@@ -1,7 +1,16 @@
 import { h, Component } from "preact";
 import style from "./index.scss";
 import { actions } from "../../actions";
-import { runPrefixMethod, getPrefixes, toHHMMSS, getElementOffset, getColorMap, isIE } from "@utils/core";
+import {
+	runPrefixMethod,
+	getPrefixes,
+	toHHMMSS,
+	getElementOffset,
+	getColorMap,
+	isIE,
+	addClass,
+	removeClass
+} from "@utils/core";
 import { namespaceConnect } from "@utils/enhancer";
 import CommentBox from "../CommentBox";
 import CommentHelperBox from "../CommentHelperBox";
@@ -9,6 +18,7 @@ import TimeBar from "@components/TimeBar";
 import VolumeBar from "@components/VolumeBar";
 import CommentBarDot from "@components/CommentBarDot";
 import TracksList from "@components/TracksList";
+import FullscreenApi from "@api/fullscreen-api.js";
 
 let defaultControlOptions = {
 	download: true,
@@ -26,6 +36,7 @@ class VideoControls extends Component {
 		this.commentBarDotOnMouseOutHandler = this.commentBarDotOnMouseOutHandler.bind(this);
 		this.showTrackListHandler = this.showTrackListHandler.bind(this);
 		this.hideTrackListHandler = this.hideTrackListHandler.bind(this);
+		this.fullWindowOnEscKey = this.fullWindowOnEscKey.bind(this);
 		this.showTrackList;
 		this.setState({
 			showTrackList: false
@@ -72,11 +83,39 @@ class VideoControls extends Component {
 		});
 	}
 
+	enterFullWindow() {
+		this.fullWindow = true;
+		this.docOrigOverflow = document.documentElement.style.overflow;
+		document.addEventListener("keydown", this.fullWindowOnEscKey);
+		document.documentElement.style.overflow = "hidden";
+		addClass(document.body, "ra-full-window");
+		addClass(this.rootElem,"fullScreen");
+	}
+
+	fullWindowOnEscKey(event) {
+		if (event.keyCode === 27) {
+			this.exitFullWindow();
+		}
+	}
+
+	exitFullWindow() {
+		this.fullWindow = false;
+		document.removeEventListener("keydown", this.fullWindowOnEscKey);
+		document.documentElement.style.overflow = this.docOrigOverflow;
+		removeClass(document.body, "ra-full-window");
+		removeClass(this.rootElem,"fullScreen");
+	}
+
 	toggleFullscreen() {
+		const fsApi = FullscreenApi;
 		this.props.hideCommentBox();
 		const pfx = getPrefixes();
 		let parent = this.container.parentNode.parentNode; // Hackish i know, will modfiy very soon
 		var that = this;
+		if (!fsApi.requestFullscreen) {
+			(this.fullWindow) ? this.exitFullWindow() : this.enterFullWindow();
+			return;
+		}
 		if (runPrefixMethod(document, "FullScreen") || runPrefixMethod(document, "IsFullScreen")) {
 			runPrefixMethod(document, "CancelFullScreen");
 			this.props.updateMediaAttributes({ fullScreen: false });
@@ -207,6 +246,9 @@ class VideoControls extends Component {
 		}
 		this.props.hideCommentHelperBox();
 		this.props.hideCommentBox();
+	}
+	componentDidMount(){
+		this.rootElem = this.container.parentNode.parentNode.parentNode;
 	}
 
 	render = (

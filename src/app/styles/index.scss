@@ -1,6 +1,14 @@
 @import "./colors.scss";
 
 :global {
+	.ra-full-window {
+		width: 100% !important;
+		height: 100% !important;
+	}
+	.fullScreen {
+		width: 100% !important;
+		height: 100% !important;
+	}
 	button: {
 		outline: none;
 	}

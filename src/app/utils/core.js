@@ -1,6 +1,114 @@
 let colorMap = {};
 export deepmerge from "deepmerge";
 
+/**
+ * Throws an error if the passed string has whitespace. This is used by
+ * class methods to be relatively consistent with the classList API.
+ *
+ * @param {string} str
+ *         The string to check for whitespace.
+ *
+ * @throws {Error}
+ *         Throws an error if there is whitespace in the string.
+ *
+ */
+function throwIfWhitespace(str) {
+	if (/\s/.test(str)) {
+		throw new Error("class has illegal whitespace characters");
+	}
+}
+
+/**
+ * Produce a regular expression for matching a className within an elements className.
+ *
+ * @param {string} className
+ *         The className to generate the RegExp for.
+ *
+ * @return {RegExp}
+ *         The RegExp that will check for a specific `className` in an elements
+ *         className.
+ */
+function classRegExp(className) {
+	return new RegExp("(^|\\s)" + className + "($|\\s)");
+}
+
+/**
+ * Check if an element has a CSS class
+ *
+ * @param {Element} element
+ *        Element to check
+ *
+ * @param {string} classToCheck
+ *        Class name to check for
+ *
+ * @return {boolean}
+ *         - True if the element had the class
+ *         - False otherwise.
+ *
+ * @throws {Error}
+ *         Throws an error if `classToCheck` has white space.
+ */
+export function hasClass(element, classToCheck) {
+	throwIfWhitespace(classToCheck);
+	if (element.classList) {
+		return element.classList.contains(classToCheck);
+	}
+	return classRegExp(classToCheck).test(element.className);
+}
+
+/**
+ * Add a CSS class name to an element
+ *
+ * @param {Element} element
+ *        Element to add class name to.
+ *
+ * @param {string} classToAdd
+ *        Class name to add.
+ *
+ * @return {Element}
+ *         The dom element with the added class name.
+ */
+export function addClass(element, classToAdd) {
+	if (element.classList) {
+		element.classList.add(classToAdd);
+
+		// Don't need to `throwIfWhitespace` here because `hasElClass` will do it
+		// in the case of classList not being supported.
+	} else if (!hasClass(element, classToAdd)) {
+		element.className = (element.className + " " + classToAdd).trim();
+	}
+
+	return element;
+}
+
+/**
+ * Remove a CSS class name from an element
+ *
+ * @param {Element} element
+ *        Element to remove a class name from.
+ *
+ * @param {string} classToRemove
+ *        Class name to remove
+ *
+ * @return {Element}
+ *         The dom element with class name removed.
+ */
+export function removeClass(element, classToRemove) {
+	if (element.classList) {
+		element.classList.remove(classToRemove);
+	} else {
+		throwIfWhitespace(classToRemove);
+		element.className = element.className
+			.split(/\s+/)
+			.filter(function(c) {
+				return c !== classToRemove;
+			})
+			.join(" ");
+	}
+
+	return element;
+}
+
 export function getPrefixes() {
 	var pfx = ["webkit", "moz", "ms", "o", "", "MS"];
 	return pfx;
@@ -110,23 +218,20 @@ export function isIE() {
 	return false;
 }
 
-
 export function insertAtCursor(myField, myValue) {
 	let sel;
-    //IE support
-    if (document.selection) {
-        myField.focus();
-        sel = document.selection.createRange();
-        sel.text = myValue;
-    }
-    //MOZILLA and others
-    else if (myField.selectionStart || myField.selectionStart == '0') {
-        var startPos = myField.selectionStart;
-        var endPos = myField.selectionEnd;
-        myField.value = myField.value.substring(0, startPos)
-            + myValue
-            + myField.value.substring(endPos, myField.value.length);
-    } else {
-        myField.value += myValue;
-    }
+	//IE support
+	if (document.selection) {
+		myField.focus();
+		sel = document.selection.createRange();
+		sel.text = myValue;
+	} else if (myField.selectionStart || myField.selectionStart == "0") {
+		//MOZILLA and others
+		var startPos = myField.selectionStart;
+		var endPos = myField.selectionEnd;
+		myField.value =
+			myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos, myField.value.length);
+	} else {
+		myField.value += myValue;
+	}
 }
