@@ -41,7 +41,7 @@ export function getPlayer(api) {
 		}
 	}
 	return null;
-}t5
+}
 
 /**
  * @public
