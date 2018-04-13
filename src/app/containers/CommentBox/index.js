@@ -85,7 +85,7 @@ class CommentBox extends Component {
 			cancelLabel: STRING_CANCEL,
 			popupSelector: this.props.popupSelector,
 			onConfirm: () => {
-				this.props.deleteComment(props);
+				this.props.deleteComment({commentObj: props, isCommentBox: true});
 				this.props.hideCommentBox();
 			},
 			onCancel: () => {}

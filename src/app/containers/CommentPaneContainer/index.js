@@ -7,6 +7,8 @@ import { namespaceConnect } from "@utils/enhancer";
 import style from "./index.scss";
 import { STRING_NO_COMMENT_ON_SUBMISSION, STRING_NO_COMMENT } from "@config/constants";
 import addCommentImage from "images/empty-comment.svg";
+import { track } from "@api/api";
+import event from "@config/trackEvents";
 
 class CommentPaneContainer extends Component {
 	constructor(props) {
@@ -25,6 +27,7 @@ class CommentPaneContainer extends Component {
 	}
 
 	authorOnSelectHandler(selectOptions) {
+		track(event.FILTER_CLICKED);
 		this.props.filterComments({
 			authorId: selectOptions && selectOptions.value
 		});
@@ -54,6 +57,9 @@ class CommentPaneContainer extends Component {
 		if(videoElem){
 			videoElem.currentTime = cardObj.time;
 		}
+		track(event.COMMENT_VIEWED,{
+			commentId: cardObj.id
+		});
 	}
 
 	noCommentDiv() {

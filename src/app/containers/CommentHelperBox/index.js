@@ -4,6 +4,8 @@ import { actions } from '../../actions';
 import { toHHMMSS } from '@utils/core';
 import { namespaceConnect} from '@utils/enhancer';
 import EmojiPicker from '@components/EmojiPicker';
+import { track } from "@api/api";
+import event from "@config/trackEvents";
 
 class CommentHelperBox extends Component {
 	constructor() {
@@ -45,7 +47,7 @@ class CommentHelperBox extends Component {
 		if(typeof this.props.onClickHandler === "function") {
 			this.props.onClickHandler(time);
 		}
-		
+		track(event.ADD_COMMENT);
 	}
 
 	emojiOnSelectHandler(selectedEmoji) {

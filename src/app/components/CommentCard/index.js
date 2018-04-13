@@ -38,7 +38,7 @@ class CommentCard extends Component {
 		}
 	}
 
-	setEdit(flag){
+	setEdit(flag) {
 		this.setState({
 			editComment: flag
 		});
@@ -54,7 +54,7 @@ class CommentCard extends Component {
 			confirmLabel: STRING_DELETE,
 			cancelLabel: STRING_CANCEL,
 			onConfirm: () => {
-				this.props.deleteComment(this.props.cardObj);
+				this.props.deleteComment({ commentObj: this.props.cardObj });
 			},
 			onCancel: () => {}
 		});
@@ -66,7 +66,7 @@ class CommentCard extends Component {
 		this.setEdit(true);
 	}
 
-	discard(){
+	discard() {
 		this.setEdit(false);
 	}
 
@@ -82,7 +82,7 @@ class CommentCard extends Component {
 		});
 	}
 
-	saveClickHandler(event){
+	saveClickHandler(event) {
 		event.stopPropagation();
 		let text = this.textareaElem.getText();
 		this.saveHandler(text);
@@ -91,7 +91,7 @@ class CommentCard extends Component {
 	saveHandler(text) {
 		text = text || this.textareaElem.getText();
 		text = text && text.trim();
-		if(!text) {
+		if (!text) {
 			return;
 		}
 		this.setEdit(false);
@@ -107,13 +107,13 @@ class CommentCard extends Component {
 		}
 	}
 
-	discardHandler(event){
+	discardHandler(event) {
 		event.stopPropagation();
 		this.discard();
 		this.hideControlsHandler();
 	}
 
-	onKeyChange(e){
+	onKeyChange(e) {
 		let text = e.target.value;
 		text = text && text.trim();
 		this.setState({
@@ -133,7 +133,6 @@ class CommentCard extends Component {
 			}
 			return;
 		}
-
 	}
 
 	componentWillUnmount() {
@@ -195,7 +194,11 @@ class CommentCard extends Component {
 				)}
 				{editComment && (
 					<div className={style.actionControls}>
-						<span title="save" className={[style.save,(disableSaveButton ? style.disable : "")].join(' ')} onClick={this.saveClickHandler} />
+						<span
+							title="save"
+							className={[style.save, disableSaveButton ? style.disable : ""].join(" ")}
+							onClick={this.saveClickHandler}
+						/>
 						<span title="discard" className={style.discard} onClick={this.discardHandler} />
 					</div>
 				)}

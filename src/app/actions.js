@@ -1,6 +1,8 @@
 import { post, get, put, del } from "@utils/apiUtils";
 import apiConfig from "@config/api.config";
 import commentModel from "@models/comment";
+import { track } from "@api/api";
+import event from "@config/trackEvents";
 
 export let actions = () => ({
 	showCommentHelperBox: (state, payload) => {
@@ -117,6 +119,7 @@ export let actions = () => ({
 				if (!response.id) {
 					return {};
 				}
+				track(event.POST_COMMENT);
 				let commentArray = state.commentPane.allComments || [];
 				let commentObj = commentModel.read({
 					...state.app,
@@ -297,7 +300,7 @@ export let actions = () => ({
 		// });
 		/*eslint-disable */
 	},
-	deleteComment: (state, commentObj) => {
+	deleteComment: (state, {commentObj, isCommentBox}) => {
 		let urlObj = {
 			cname: state.app.cname,
 			socialId: commentObj.id
@@ -305,6 +308,10 @@ export let actions = () => ({
 
 		return del(apiConfig.deleteComment(urlObj)).then(
 			response => {
+				track(event.DELETE_COMMENT,{
+					commentId: commentObj.id,
+					source: isCommentBox ? "seekbar": "tab"
+				});
 				let commentArray = state.commentPane.allComments,
 					newCommentArray = [];
 				commentArray.forEach(comment => {
@@ -353,6 +360,10 @@ export let actions = () => ({
 
 		return put(apiConfig.editComment(urlObj), { body: payload }).then(
 			response => {
+				track(event.EDIT_COMMENT,{
+					commentId: commentObj.id,
+					source: isCommentBox ? "seekbar": "tab"
+				});
 				let commentArray = state.commentPane.allComments,
 					newCommentArray = [];
 				commentArray.forEach(comment => {

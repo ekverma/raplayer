@@ -19,6 +19,8 @@ import VolumeBar from "@components/VolumeBar";
 import CommentBarDot from "@components/CommentBarDot";
 import TracksList from "@components/TracksList";
 import FullscreenApi from "@api/fullscreen-api.js";
+import { track } from "@api/api";
+import event from "@config/trackEvents";
 
 let defaultControlOptions = {
 	download: true,
@@ -244,6 +246,10 @@ class VideoControls extends Component {
 			...comment,
 			readOnly: true,
 			downArrowXPos: downArrowXPos
+		});
+
+		track(event.COMMENT_VIEWED,{
+			commentId: comment.id
 		});
 	}
 
