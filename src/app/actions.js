@@ -119,7 +119,9 @@ export let actions = () => ({
 				if (!response.id) {
 					return {};
 				}
-				track(event.POST_COMMENT);
+				track(event.POST_COMMENT,{
+					commentId: response.id
+				});
 				let commentArray = state.commentPane.allComments || [];
 				let commentObj = commentModel.read({
 					...state.app,
