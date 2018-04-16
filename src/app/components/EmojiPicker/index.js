@@ -1,38 +1,22 @@
 import { h, Component } from "preact";
 import style from "./index.scss";
 import smileyImage from "images/smiley@2x.png";
+import { track } from "@api/api";
+import trackEvents from "@config/trackEvents";
 
 const SUPPORTED_EMOJIS = [
-	// 0x1f601,
-	// 0x1f621,
-	// 0x1f602,
-	// 0x1f609,
-	0x1f44d,
-	0x1f60a,
-	// 0x1f648,
-	// 0x1f62c,
-	// 0x1f61d,
-	// 0x1f618,
-	// 0x1f49b,
-	// 0x1f60d,
-	// 0x1f638,
-	// 0x1f614,
-	// 0x1f62d,
-	// 0x1f48b,
-	// 0x1f612,
-	// 0x1f633,
-	// 0x1f61c,
-	0x1f603
-	// 0x1f622,
-	// 0x1f631,
-	// 0x1f60f,
-	// 0x1f61e,
-	// 0x1f605,
-	// 0x1f61a,
-	// 0x1f64a,
-	// 0x1f60c,
-	// 0x1f600,
-	// 0x1f61d
+	{
+		name: "thumbs up",
+		value: "0x1f44d"
+	},
+	{
+		name: "smiling face with smiling eyes",
+		value: "0x1f60a"
+	},
+	{
+		name: "smiling face with open mouth",
+		value: "0x1f603"
+	}
 ];
 
 class EmojiPicker extends Component {
@@ -122,6 +106,7 @@ class EmojiPicker extends Component {
 			showEmojiList: this.show
 		});
 		event.stopPropagation();
+		track(trackEvents.EMOJI_CLICKED)
 	}
 
 	emojiSelectHandler(event) {
@@ -131,6 +116,11 @@ class EmojiPicker extends Component {
 		if (typeof this.props.onSelect === "function") {
 			this.props.onSelect(event.target.innerHTML);
 		}
+		let index = event.target.getAttribute("index") || 0;
+		track(trackEvents.EMOJI_CHOSEN,{
+			name: SUPPORTED_EMOJIS[index].name,
+			value: event.target.innerHTML
+		});
 	}
 
 	collapse(){
@@ -155,8 +145,8 @@ class EmojiPicker extends Component {
 						<ul>
 							{SUPPORTED_EMOJIS.map((item, i) => {
 								return (
-									<li onClick={this.emojiSelectHandler} key={i}>
-										{String.fromCodePoint(item)}
+									<li onClick={this.emojiSelectHandler} index={i} key={i}>
+										{String.fromCodePoint(item.value)}
 									</li>
 								);
 							})}

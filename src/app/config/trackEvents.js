@@ -5,6 +5,8 @@ let events = {
 	ADD_COMMENT: "add video comments",
 	FILTER_CLICKED: "mission video comments filter",
 	COMMENT_VIEWED: "mission video comments view",
+	EMOJI_CLICKED: "emoji clicked",
+	EMOJI_CHOSEN: "emoji chosen"
 };
 
 export default events;
