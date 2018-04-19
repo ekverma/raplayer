@@ -1,5 +1,7 @@
 @import "./colors.scss";
-
+body{
+    font-family: 'Open Sans', Arial, sans-serif;
+}
 :global {
 	.ra-full-window {
 		width: 100% !important;
@@ -24,8 +26,16 @@
 		}
 	}
 }
+.ellipsis{
+overflow: hidden;
+white-space: nowrap;
+font-size: 13px;
+text-overflow: ellipsis;}
 
 .posRel {
+	position: relative;
+}
+.pos_rel {
 	position: relative;
 }
 

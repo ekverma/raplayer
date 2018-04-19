@@ -1,6 +1,7 @@
 import { h, Component, render } from "preact";
 import VideoPlayerContainer from "@containers/VideoPlayer";
 import CommentPaneContainer from "@containers/CommentPaneContainer";
+import TranscriptionContainer from "@containers/TranscriptionContainer";
 import OnBoardingBox from "@components/OnBoardingBox";
 import { Provider } from "unistore/preact";
 import { namespaceConnect } from "@utils/enhancer";
@@ -36,6 +37,18 @@ class App extends Component {
 			targetCommentContainerRef,
 			targetCommentContainerRef.lastChild
 		);
+
+
+		this.transContainerRoot = render(
+			<Provider store={this.context.store}>
+				<TranscriptionContainer
+				/>
+			</Provider>,
+			targetCommentContainerRef,
+			targetCommentContainerRef.lastChild
+		);
+
+
 
 		if (showOnboarding && edit) {
 			this.onBoardingContainerRoot = render(
