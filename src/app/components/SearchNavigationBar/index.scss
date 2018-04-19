@@ -11,16 +11,25 @@
     .sortingSearch{
         float: left;
     }
-    .arrowUp{
+    .arrow{
         float: left;
-        margin-left: 8px;
-        padding: 6px 4px 4px 4px;
+        margin-left: 10px;
         cursor: pointer;
-    }
-    .arrowDown{
-        float: left;
-        margin-left: 8px;
-        padding: 6px 4px 4px 4px;
-        cursor: pointer;
+        background-image: url(images/down_Arrow.svg); 
+        background-repeat: no-repeat;  
+        background-size: 12px;
+        width:14px;
+        height: 6px;
+
+        &.up{
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);    
+            margin-top: 6px;
+        }
+        &.down{
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            margin-top: 6px;
+        }
     }
 }

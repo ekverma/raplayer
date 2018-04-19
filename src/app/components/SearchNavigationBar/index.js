@@ -1,5 +1,4 @@
 import { h, Component } from "preact";
-import downarrowImage from "images/downarrow.svg";
 import style from "./index.scss";
 class SearchNavigationBar extends Component {
 	constructor(props) {
@@ -13,8 +12,8 @@ class SearchNavigationBar extends Component {
 					<div>1 of 20 matches</div>
 				</div>
 				<div className={style.sortingSearch}>
-					<div className={style.arrowUp}><img src={downarrowImage} style="height:6px;" /></div>
-					<div className={style.arrowDown}><img src={downarrowImage} style="height:6px;" /></div>
+					<div className={[style.arrow, style.up].join(" ")}></div>
+					<div className={[style.arrow, style.down].join(" ")}></div>
 					<div className={style.clear} />
 				</div>
 				<div className={style.clear} />
