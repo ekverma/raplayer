@@ -37,7 +37,7 @@ class SearchBar extends Component {
 				</div>
 				<div className={style.clear} />
 			</div>
-			<input type="text" name="search" value="" maxlength="9999999" 
+			<input type="text" name="search" value=""
 				placeholder="Search words in the transcription"  className={style.inputStyle} />
 			<div className={style.clear} />
 		</div>

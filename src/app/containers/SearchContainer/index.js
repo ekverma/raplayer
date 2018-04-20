@@ -14,7 +14,7 @@ class SearchContainer extends Component {
 	}
 	render() {
 		return (
-			<div className={style.searchContainer}>
+			<div>
 				<SearchBar />
                 <SearchFilter />
                 <div className={style.clear} />

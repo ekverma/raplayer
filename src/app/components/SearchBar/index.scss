@@ -30,7 +30,7 @@
         font-size: 13px;
         width:63%;
         color: #888;
-        ::-moz-placeholder, :-ms-input-placeholder, ::-ms-input-placeholder, ::-webkit-input-placeholder{
+        ::placeholder{
             color: #969696
         }
     }
