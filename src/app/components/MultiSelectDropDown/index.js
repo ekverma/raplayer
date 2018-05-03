@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import style from "./index.scss";
 
-class DropDown extends Component {
+class MultiSelectDropdown extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -32,4 +32,4 @@ class DropDown extends Component {
 		);
 	}
 }
-export default DropDown;
+export default MultiSelectDropdown;

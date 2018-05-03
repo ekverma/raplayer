@@ -1,6 +1,6 @@
 import { h, Component } from "preact";
 import filterImage from "images/filter.svg";
-import DropDown from "@components/DropDown";
+import MultiSelectDropdown from "@components/MultiSelectDropdown";
 import style from "./index.scss";
 
 class SearchFilter extends Component {
@@ -13,7 +13,7 @@ class SearchFilter extends Component {
 				<div className={style.filterIconHolder}>
 					<img src={filterImage} style="height:15px;" />
 				</div>
-				<DropDown style={{width: '300px'}} />
+				<MultiSelectDropdown style={{width: '300px'}} />
 			</div>
 		);
 	}
