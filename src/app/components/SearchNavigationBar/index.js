@@ -12,8 +12,8 @@ class SearchNavigationBar extends Component {
 					<div>1 of 20 matches</div>
 				</div>
 				<div className={style.sortingSearch}>
-					<div className={[style.arrow, style.up].join(" ")}></div>
-					<div className={[style.arrow, style.down].join(" ")}></div>
+					<div className={[style.arrow, style.up].join(" ")} />
+					<div className={[style.arrow, style.down].join(" ")} />
 					<div className={style.clear} />
 				</div>
 				<div className={style.clear} />

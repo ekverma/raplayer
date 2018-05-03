@@ -42,6 +42,7 @@ class App extends Component {
 		this.transContainerRoot = render(
 			<Provider store={this.context.store}>
 				<TranscriptionContainer
+					namespace={this.props.namespace}
 				/>
 			</Provider>,
 			targetCommentContainerRef,

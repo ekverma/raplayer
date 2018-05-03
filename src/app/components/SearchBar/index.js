@@ -9,7 +9,7 @@ class SearchBar extends Component {
 	render() {
 		return (
 		<div className={style.searchBar}>
-			<div className={style.searchIcon}></div>
+			<div className={style.searchIcon} />
 			<div className={style.tagItemTag}>
 				<div className={style.tagItemTagname}>
 				Magna
