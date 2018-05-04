@@ -7399,6 +7399,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 				_this.onOptionsChangedHandler = _this.onOptionsChangedHandler.bind(_this);
 				_this.getOptionsFromEvalParams = _this.getOptionsFromEvalParams.bind(_this);
+				_this.onFilterClickHandler = _this.onFilterClickHandler.bind(_this);
+				_this.hideFilters = _this.hideFilters.bind(_this);
 				_this.state = {
 					showFilters: false
 				};
@@ -7420,14 +7422,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					return options;
 				}
 			}, {
+				key: "onFilterClickHandler",
+				value: function onFilterClickHandler() {
+					this.setState({ showFilters: !this.state.showFilters });
+				}
+			}, {
+				key: "hideFilters",
+				value: function hideFilters() {
+					this.setState({ showFilters: false });
+				}
+			}, {
 				key: "render",
 				value: function render() {
 					var dropdownOptions = this.getOptionsFromEvalParams(this.props.evalParams);
-					return (0, _preact.h)("div", { className: _index2.default.selectFilter }, (0, _preact.h)("div", { className: _index2.default.filterIconHolder }, (0, _preact.h)("img", { src: _filter2.default, style: "height:15px;" })), (0, _preact.h)(_MultiSelectDropdown2.default, {
-						style: _extends({}, !this.state.showFilters ? { display: 'none' } : null, { width: '300px' }),
+					return (0, _preact.h)("div", { className: _index2.default.selectFilter, onBlur: this.hideFilters }, (0, _preact.h)("div", { className: _index2.default.filterIconHolder, onClick: this.onFilterClickHandler }, (0, _preact.h)("img", { src: _filter2.default, style: "height:15px;" })), (0, _preact.h)("div", { style: _extends({}, !this.state.showFilters ? { display: 'none' } : { display: 'block' }, { width: '300px' }) }, (0, _preact.h)(_MultiSelectDropdown2.default, {
 						options: dropdownOptions,
 						onOptionsChangedHandler: this.onOptionsChangedHandler
-					}));
+					})));
 				}
 			}]);
 

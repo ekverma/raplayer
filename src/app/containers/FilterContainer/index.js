@@ -10,6 +10,8 @@ class FilterContainer extends Component {
 		super(props);
 		this.onOptionsChangedHandler = this.onOptionsChangedHandler.bind(this);
 		this.getOptionsFromEvalParams = this.getOptionsFromEvalParams.bind(this);
+		this.onFilterClickHandler = this.onFilterClickHandler.bind(this);
+		this.hideFilters = this.hideFilters.bind(this);
 		this.state = {
 			showFilters: false,
 		};
@@ -27,18 +29,27 @@ class FilterContainer extends Component {
 		return options;
 	}
 
+	onFilterClickHandler() {
+		this.setState({ showFilters: !this.state.showFilters });
+	}
+
+	hideFilters() {
+		this.setState({ showFilters: false });
+	}
+
 	render() {
 		let dropdownOptions = this.getOptionsFromEvalParams(this.props.evalParams);
 		return (
-			<div className={style.selectFilter}>
-				<div className={style.filterIconHolder}>
+			<div className={style.selectFilter} onBlur={this.hideFilters}>
+				<div className={style.filterIconHolder} onClick={this.onFilterClickHandler}>
 					<img src={filterImage} style="height:15px;" />
 				</div>
-				<MultiSelectDropdown
-					style={{ ...!this.state.showFilters ? { display: 'none' } : null, width: '300px' }}
-					options={dropdownOptions}
-					onOptionsChangedHandler={this.onOptionsChangedHandler}
-				/>
+				<div style={{ ...!this.state.showFilters ? { display: 'none' } : { display: 'block' }, width: '300px' }}>
+					<MultiSelectDropdown
+						options={dropdownOptions}
+						onOptionsChangedHandler={this.onOptionsChangedHandler}
+					/>
+				</div>
 			</div>
 		);
 	}
