@@ -5,28 +5,32 @@ class MultiSelectDropdown extends Component {
 	constructor(props) {
 		super(props);
 		this.onOptionClick = this.onOptionClick.bind(this);
+		this.isOptionSelected = this.isOptionSelected.bind(this);
 		this.state = {
-			selectedOptions: ["option1"],
+			selectedOptions: [],
 		};
 	}
 
 	onOptionClick(option) {
 		let selectedOptions = [...this.state.selectedOptions];
-		let label = option.label;
-		if (selectedOptions.includes(label)) {
-			let index = selectedOptions.indexOf(label);
-			selectedOptions.splice(index, 1)
+
+		if (this.isOptionSelected(option)) {
+			selectedOptions = selectedOptions.filter(selectedOption => selectedOption.value != option.value);
 		}
 		else {
-			selectedOptions = [...selectedOptions, label];
+			selectedOptions = [...selectedOptions, option];
 		}
+
 		this.setState({ selectedOptions: selectedOptions });
+		this.props.onOptionsChangedHandler({ selectedOptions: this.state.selectedOptions });
+	}
+
+	isOptionSelected(option) {
+		return this.state.selectedOptions.some(selectedOption => option.value === selectedOption.value);
 	}
 
 	render() {
-		let props = this.props;
-		let state = this.state;
-		let options = props.options && Array.isArray(props.options) ? props.options : [{label: "option1"}, {label: "option2"}];
+		let options = this.props.options && Array.isArray(this.props.options) ? this.props.options : [];
 		return (
 		<div className={style.dropdownMenu}>
 			<ul style={{maxHeight: '150px'}}>
@@ -36,7 +40,7 @@ class MultiSelectDropdown extends Component {
 				
 				{options.map(option => (
 					<li onClick={() => this.onOptionClick(option)}>
-						<div className={[style.checkbox, state.selectedOptions.includes(option.label) ? style.checkedbox : null].join(" ")} />
+						<div className={[style.checkbox, this.isOptionSelected(option) ? style.checkedbox : null].join(" ")} />
 						<div className={[style.menuItem, style.ellipsis].join(" ")}>{option.label}</div>
 						<div className={style.clear} />
 					</li>
@@ -47,3 +51,4 @@ class MultiSelectDropdown extends Component {
 	}
 }
 export default MultiSelectDropdown;
+

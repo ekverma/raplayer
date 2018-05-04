@@ -18,8 +18,12 @@ class TranscriptionContainer extends Component {
 	render() {
 		return (
 			<div className={style.rightContainor}>
-				<FilterContainer />
-				<SearchContainer />
+				<FilterContainer 
+					namespace={this.props.namespace}
+				/>
+				<SearchContainer 
+					namespace={this.props.namespace}
+				/>
 				<CommentPaneContainer
 					namespace={this.props.namespace}
 				/>

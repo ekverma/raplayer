@@ -22,6 +22,13 @@ const initialState = {
 	commentPane: {
 		allComments: [],
 		activeComments: []
+	},
+	searchBar: {
+		searchWords: [],
+		searchKeywords: []
+	},
+	transcriptionPane: {
+		timestampedTranscripts: []
 	}
 };
 

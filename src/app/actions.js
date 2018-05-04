@@ -176,7 +176,7 @@ export let actions = () => ({
 					id: 12,
 					name: "Afroz alam"
 				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
+				text: "kw clarity 2 TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
 			},
 			{
 				time: 12,
@@ -206,7 +206,7 @@ export let actions = () => ({
 					id: 12,
 					name: "Afroz"
 				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw knowledge 2"
 			},
 			{
 				time: 35,
@@ -216,7 +216,7 @@ export let actions = () => ({
 					id: 123,
 					name: "Afroz kaana"
 				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+				text: "test keywords kw knowledge 1"
 			},
 			{
 				time: 40,
@@ -236,7 +236,7 @@ export let actions = () => ({
 					id: 123,
 					name: "Afroz kaana"
 				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw clarity 1"
 			}
 		];
 
@@ -445,4 +445,7 @@ export let actions = () => ({
 			}
 		};
 	}
+
+	// Transcription actions
+	// getTimestampedTranscript: (state, )
 });
