@@ -1,7 +1,8 @@
 import { h, Component } from "preact";
 import { actions } from "../../actions";
 import { namespaceConnect } from "@utils/enhancer";
-import  SearchContainer from "@containers/SearchContainer";
+import SearchContainer from "@containers/SearchContainer";
+import FilterContainer from "@containers/FilterContainer";
 import CommentPaneContainer from "@containers/CommentPaneContainer";
 import style from "./index.scss";
 
@@ -17,8 +18,8 @@ class TranscriptionContainer extends Component {
 	render() {
 		return (
 			<div className={style.rightContainor}>
-				<SearchContainer
-				/>
+				<FilterContainer />
+				<SearchContainer />
 				<CommentPaneContainer
 					namespace={this.props.namespace}
 				/>
