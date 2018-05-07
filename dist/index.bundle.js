@@ -5698,7 +5698,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 			_createClass(TranscriptionContainer, [{
 				key: "componentDidMount",
-				value: function componentDidMount() {}
+				value: function componentDidMount() {
+					// this.props.getTimestampedTrascript();
+				}
 			}, {
 				key: "render",
 				value: function render() {
@@ -7857,23 +7859,42 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			function SearchContainer(props) {
 				_classCallCheck(this, SearchContainer);
 
-				return _possibleConstructorReturn(this, (SearchContainer.__proto__ || Object.getPrototypeOf(SearchContainer)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (SearchContainer.__proto__ || Object.getPrototypeOf(SearchContainer)).call(this, props));
+
+				_this.state = {
+					totalMatches: 0,
+					currentMatch: 0
+
+				};
+				return _this;
 			}
 
 			_createClass(SearchContainer, [{
-				key: "componentDidMount",
-				value: function componentDidMount() {}
+				key: "onSearchWordsChangedHandler",
+				value: function onSearchWordsChangedHandler(searchWords) {
+					this.state.searchWordsInTranscription(searchWords);
+				}
 			}, {
 				key: "render",
 				value: function render() {
-					return (0, _preact.h)("div", null, (0, _preact.h)(_SearchBar2.default, null), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)(_SearchNavigationBar2.default, null));
+					return (0, _preact.h)("div", null, (0, _preact.h)(_SearchBar2.default, {
+						onSearchWordsChangedHandler: this.onSearchWordsChangedHandler
+					}), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)("div", { style: this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null }, (0, _preact.h)(_SearchNavigationBar2.default, null)));
 				}
 			}]);
 
 			return SearchContainer;
 		}(_preact.Component);
 
-		exports.default = (0, _enhancer.namespaceConnect)(undefined, _actions.actions)(SearchContainer);
+		function mapStateToProps(state) {
+			return {
+				searchWords: state.searchBar.searchWords,
+				searchKeywords: state.searchBar.searchKeywords,
+				timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
+			};
+		}
+
+		exports.default = (0, _enhancer.namespaceConnect)(mapStateToProps, _actions.actions)(SearchContainer);
 		module.exports = exports["default"];
 	});
 });
@@ -8168,6 +8189,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			};
 		}
 
+		function _toConsumableArray(arr) {
+			if (Array.isArray(arr)) {
+				for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+					arr2[i] = arr[i];
+				}
+
+				return arr2;
+			} else {
+				return Array.from(arr);
+			}
+		}
+
 		function _classCallCheck(instance, Constructor) {
 			if (!(instance instanceof Constructor)) {
 				throw new TypeError("Cannot call a class as a function");
@@ -8222,13 +8255,53 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			function SearchBar(props) {
 				_classCallCheck(this, SearchBar);
 
-				return _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+
+				_this.handleKeyPress = _this.handleKeyPress.bind(_this);
+				_this.addSearchWord = _this.addSearchWord.bind(_this);
+				_this.removeSearchWord = _this.removeSearchWord.bind(_this);
+				_this.state = {
+					inputValue: "initinput",
+					searchWords: ["abc"]
+				};
+				return _this;
 			}
 
 			_createClass(SearchBar, [{
+				key: "handleKeyPress",
+				value: function handleKeyPress(event) {
+					if (event.key == 'Enter') {
+						this.addSearchWord(event.target.value);
+					}
+				}
+			}, {
+				key: "addSearchWord",
+				value: function addSearchWord(newWord) {
+					if (this.state.searchWords.includes(newWord)) {
+						this.setState({ inputValue: "" });
+					} else {
+						this.setState({ searchWords: [].concat(_toConsumableArray(this.state.searchWords), [newWord]), inputValue: "" });
+					}
+					this.onSearchWordsChangedHandler(this.state.searchWords);
+				}
+			}, {
+				key: "removeSearchWord",
+				value: function removeSearchWord(word) {
+					this.setState({ searchWords: this.state.searchWords.filter(function (searchWord) {
+							return searchWord != word;
+						}) });
+					this.onSearchWordsChangedHandler(this.state.searchWords);
+				}
+			}, {
 				key: "render",
 				value: function render() {
-					return (0, _preact.h)("div", { className: _index2.default.searchBar }, (0, _preact.h)("div", { className: _index2.default.searchIcon }), (0, _preact.h)("div", { className: _index2.default.tagItemTag }, (0, _preact.h)("div", { className: _index2.default.tagItemTagname }, "Magna"), (0, _preact.h)("div", { className: _index2.default.icon }, (0, _preact.h)("img", { src: _close_w2.default, style: "height:8px;" })), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("div", { className: _index2.default.tagItemTag }, (0, _preact.h)("div", { className: _index2.default.tagItemTagname }, "Magna big text"), (0, _preact.h)("div", { className: _index2.default.icon }, (0, _preact.h)("img", { src: _close_w2.default, style: "height:8px;" })), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("div", { className: _index2.default.tagItemTag }, (0, _preact.h)("div", { className: _index2.default.tagItemTagname }, "Magna"), (0, _preact.h)("div", { className: _index2.default.icon }, (0, _preact.h)("img", { src: _close_w2.default, style: "height:8px;" })), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("input", { type: "text", name: "search", value: "",
+					var _this2 = this;
+
+					return (0, _preact.h)("div", { className: _index2.default.searchBar }, (0, _preact.h)("div", { className: _index2.default.searchIcon }), this.state.searchWords.map(function (searchWord) {
+						return (0, _preact.h)("div", { className: _index2.default.tagItemTag }, (0, _preact.h)("div", { className: _index2.default.tagItemTagname }, searchWord), (0, _preact.h)("div", { className: _index2.default.icon, onClick: function onClick() {
+								return _this2.removeSearchWord(searchWord);
+							} }, (0, _preact.h)("img", { src: _close_w2.default, style: "height:8px;" })), (0, _preact.h)("div", { className: _index2.default.clear }));
+					}), (0, _preact.h)("input", { type: "text", name: "search", value: this.state.inputValue, onKeyPress: this.handleKeyPress,
 						placeholder: "Search words in the transcription", className: _index2.default.inputStyle }), (0, _preact.h)("div", { className: _index2.default.clear }));
 				}
 			}]);

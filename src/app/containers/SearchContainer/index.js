@@ -8,17 +8,39 @@ import style from "./index.scss";
 class SearchContainer extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			totalMatches: 0,
+			currentMatch: 0,
+
+		};
 	}
-	componentDidMount() {
+
+	onSearchWordsChangedHandler(searchWords) {
+		this.state.searchWordsInTranscription(searchWords);
 	}
+
 	render() {
 		return (
 			<div>
-				<SearchBar />
-                <div className={style.clear} />
-                <SearchNavigationBar />
+				<SearchBar
+					onSearchWordsChangedHandler={this.onSearchWordsChangedHandler}
+				/>
+				<div className={style.clear} />
+				<div style={this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null}>
+					<SearchNavigationBar />
+				</div>
 			</div>
 		);
 	}
 }
-export default namespaceConnect(undefined, actions)(SearchContainer);
+
+
+function mapStateToProps(state) {
+	return {
+		searchWords: state.searchBar.searchWords,
+		searchKeywords: state.searchBar.searchKeywords,
+		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
+	};
+}
+
+export default namespaceConnect(mapStateToProps, actions)(SearchContainer);

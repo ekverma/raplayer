@@ -4,7 +4,22 @@ import { namespaceConnect } from "@utils/enhancer";
 import SearchContainer from "@containers/SearchContainer";
 import FilterContainer from "@containers/FilterContainer";
 import CommentPaneContainer from "@containers/CommentPaneContainer";
+// import CommentPane from "@components/CommentPane";
 import style from "./index.scss";
+
+
+// <CommentPane
+	// comments={this.props.activeComments}
+	// edit={this.props.edit}
+	// popupSelector={this.props.popupSelector}
+	// targetPlayerId={this.props.targetPlayerId}
+	// onPaneCardClickHandler={this.onPaneCardClickHandler}
+	// editComment={this.editCommentHandler}
+	// onDeleteConfirm={this.hideCommentBoxHandler}
+	// hideCommentCardError={this.hideCommentCardErrorHandler}
+	// deleteComment={this.deleteCommentHandler}
+	// noCommentDiv={this.noCommentDiv()}
+// />
 
 class TranscriptionContainer extends Component {
 	constructor(props) {
@@ -12,8 +27,8 @@ class TranscriptionContainer extends Component {
 	}
 
 	componentDidMount() {
+		// this.props.getTimestampedTrascript();
 	}
-
 
 	render() {
 		return (
@@ -27,6 +42,7 @@ class TranscriptionContainer extends Component {
 				<CommentPaneContainer
 					namespace={this.props.namespace}
 				/>
+				
 			</div>
 		);
 	}
