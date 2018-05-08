@@ -16,8 +16,9 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		const { targetCommentContainer, edit, onCommentPaneRender, showOnboarding, filter, secondaryId, popupSelector } = this.props;
+		const { targetCommentContainer, targetTranscriptionContainer, edit, onCommentPaneRender, showOnboarding, filter, secondaryId, popupSelector } = this.props;
 		let targetCommentContainerRef = document.getElementById(targetCommentContainer);
+		let targetTranscriptionContainerRef = document.getElementById(targetTranscriptionContainer);
 		if(!targetCommentContainerRef){
 			return;
 		}
@@ -39,14 +40,15 @@ class App extends Component {
 		);
 
 
-		this.transContainerRoot = render(
+		this.transcriptionContainerRoot = render(
 			<Provider store={this.context.store}>
 				<TranscriptionContainer
 					namespace={this.props.namespace}
+					targetPlayerId={this.props.id}
 				/>
 			</Provider>,
-			targetCommentContainerRef,
-			targetCommentContainerRef.lastChild
+			targetTranscriptionContainerRef,
+			targetTranscriptionContainerRef.lastChild
 		);
 
 
@@ -62,13 +64,17 @@ class App extends Component {
 	}
 
 	componentWillUnmount() {
-		const { targetCommentContainer } = this.props;
+		const { targetCommentContainer, targetTranscriptionContainer } = this.props;
 		let targetCommentContainerRef = document.getElementById(targetCommentContainer);
+		let targetTranscriptionContainerRef = document.getElementById(targetTranscriptionContainer);
 		if(this.commentContainerRoot){
 			render("", document.getElementById(targetCommentContainerRef), this.commentContainerRoot);
 		}
 		if (this.onBoardingContainerRoot) {
 			render("", document.getElementById(targetCommentContainerRef), this.onBoardingContainerRoot);
+		}
+		if (this.transcriptionContainerRoot) {
+			render("", document.getElementById(targetTranscriptionContainerRef), this.transcriptionContainerRoot);
 		}
 	}
 

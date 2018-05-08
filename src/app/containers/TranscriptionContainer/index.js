@@ -3,8 +3,8 @@ import { actions } from "../../actions";
 import { namespaceConnect } from "@utils/enhancer";
 import SearchContainer from "@containers/SearchContainer";
 import FilterContainer from "@containers/FilterContainer";
-import CommentPaneContainer from "@containers/CommentPaneContainer";
-// import CommentPane from "@components/CommentPane";
+// import CommentPaneContainer from "@containers/CommentPaneContainer";
+import CommentPane from "@components/CommentPane";
 import style from "./index.scss";
 
 
@@ -27,7 +27,7 @@ class TranscriptionContainer extends Component {
 	}
 
 	componentDidMount() {
-		// this.props.getTimestampedTrascript();
+		this.props.getTimestampedTranscripts();
 	}
 
 	render() {
@@ -39,8 +39,17 @@ class TranscriptionContainer extends Component {
 				<SearchContainer 
 					namespace={this.props.namespace}
 				/>
-				<CommentPaneContainer
-					namespace={this.props.namespace}
+				<CommentPane
+					comments={this.props.timestampedTranscripts}
+					// edit={this.props.edit}
+					// popupSelector={this.props.popupSelector}
+					targetPlayerId={this.props.targetPlayerId}
+					// onPaneCardClickHandler={this.onPaneCardClickHandler}
+					// editComment={this.editCommentHandler}
+					// onDeleteConfirm={this.hideCommentBoxHandler}
+					// hideCommentCardError={this.hideCommentCardErrorHandler}
+					// deleteComment={this.deleteCommentHandler}
+					// noCommentDiv={this.noCommentDiv()}
 				/>
 				
 			</div>
@@ -48,5 +57,14 @@ class TranscriptionContainer extends Component {
 	}
 }
 
+//<CommentPaneContainer
+//	namespace={this.props.namespace}
+///>
 
-export default namespaceConnect(undefined, actions)(TranscriptionContainer);
+function mapStateToProps(state) {
+	return {
+		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
+	};
+}
+
+export default namespaceConnect(mapStateToProps, actions)(TranscriptionContainer);

@@ -2412,10 +2412,82 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 							activeComments: newCommentArray
 						})
 					});
-				}
+				},
 
 				// Transcription actions
-				// getTimestampedTranscript: (state, )
+				getTimestampedTranscripts: function getTimestampedTranscripts(state) {
+
+					var commentArray = [{
+						time: 1,
+						id: 1,
+						cname: 2,
+						author: {
+							id: 12,
+							name: "Afroz alam"
+						},
+						text: "kw clarity 2 TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
+					}, {
+						time: 12,
+						id: 13,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kana"
+						},
+						text: "TI feel like "
+					}, {
+						time: 13,
+						id: 12,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kana"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+					}, {
+						time: 25,
+						id: 3,
+						cname: 2,
+						author: {
+							id: 12,
+							name: "Afroz"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw knowledge 2"
+					}, {
+						time: 35,
+						id: 4,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kaana"
+						},
+						text: "test keywords kw knowledge 1"
+					}, {
+						time: 40,
+						id: 41111,
+						cname: 2,
+						author: {
+							id: 12,
+							name: "Afroz"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+					}, {
+						time: 60,
+						id: 12564,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kaana"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw clarity 1"
+					}];
+
+					return _extends({}, state, {
+						transcriptionPane: {
+							timestampedTranscripts: commentArray
+						}
+					});
+				}
 			};
 		};
 	});
@@ -3317,7 +3389,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			},
 			searchBar: {
 				searchWords: [],
-				searchKeywords: []
+				searchKeywords: [],
+				currentMatchedIndex: 0
 			},
 			transcriptionPane: {
 				timestampedTranscripts: []
@@ -4910,6 +4983,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				value: function componentDidMount() {
 					var _props = this.props,
 					    targetCommentContainer = _props.targetCommentContainer,
+					    targetTranscriptionContainer = _props.targetTranscriptionContainer,
 					    edit = _props.edit,
 					    onCommentPaneRender = _props.onCommentPaneRender,
 					    showOnboarding = _props.showOnboarding,
@@ -4918,6 +4992,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					    popupSelector = _props.popupSelector;
 
 					var targetCommentContainerRef = document.getElementById(targetCommentContainer);
+					var targetTranscriptionContainerRef = document.getElementById(targetTranscriptionContainer);
 					if (!targetCommentContainerRef) {
 						return;
 					}
@@ -4932,9 +5007,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						onCommentPaneRender: onCommentPaneRender
 					})), targetCommentContainerRef, targetCommentContainerRef.lastChild);
 
-					this.transContainerRoot = (0, _preact.render)((0, _preact.h)(_preact2.Provider, { store: this.context.store }, (0, _preact.h)(_TranscriptionContainer2.default, {
-						namespace: this.props.namespace
-					})), targetCommentContainerRef, targetCommentContainerRef.lastChild);
+					this.transcriptionContainerRoot = (0, _preact.render)((0, _preact.h)(_preact2.Provider, { store: this.context.store }, (0, _preact.h)(_TranscriptionContainer2.default, {
+						namespace: this.props.namespace,
+						targetPlayerId: this.props.id
+					})), targetTranscriptionContainerRef, targetTranscriptionContainerRef.lastChild);
 
 					if (showOnboarding && edit) {
 						this.onBoardingContainerRoot = (0, _preact.render)((0, _preact.h)("div", { className: _index2.default.onBoardingContainer }, (0, _preact.h)(_OnBoardingBox2.default, { text: _constants.STRING_ONBOARDING, image: _onboarding2.default })), document.getElementById(targetCommentContainer));
@@ -4943,30 +5019,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}, {
 				key: "componentWillUnmount",
 				value: function componentWillUnmount() {
-					var targetCommentContainer = this.props.targetCommentContainer;
+					var _props2 = this.props,
+					    targetCommentContainer = _props2.targetCommentContainer,
+					    targetTranscriptionContainer = _props2.targetTranscriptionContainer;
 
 					var targetCommentContainerRef = document.getElementById(targetCommentContainer);
+					var targetTranscriptionContainerRef = document.getElementById(targetTranscriptionContainer);
 					if (this.commentContainerRoot) {
 						(0, _preact.render)("", document.getElementById(targetCommentContainerRef), this.commentContainerRoot);
 					}
 					if (this.onBoardingContainerRoot) {
 						(0, _preact.render)("", document.getElementById(targetCommentContainerRef), this.onBoardingContainerRoot);
 					}
+					if (this.transcriptionContainerRoot) {
+						(0, _preact.render)("", document.getElementById(targetTranscriptionContainerRef), this.transcriptionContainerRoot);
+					}
 				}
 			}, {
 				key: "render",
 				value: function render() {
-					var _props2 = this.props,
-					    primaryTracks = _props2.primaryTracks,
-					    edit = _props2.edit,
-					    secondaryTracks = _props2.secondaryTracks,
-					    onRenderComplete = _props2.onRenderComplete,
-					    showControlsOnly = _props2.showControlsOnly,
-					    namespace = _props2.namespace,
-					    controlOptions = _props2.controlOptions,
-					    downloadSrc = _props2.downloadSrc,
-					    secondaryId = _props2.secondaryId,
-					    popupSelector = _props2.popupSelector;
+					var _props3 = this.props,
+					    primaryTracks = _props3.primaryTracks,
+					    edit = _props3.edit,
+					    secondaryTracks = _props3.secondaryTracks,
+					    onRenderComplete = _props3.onRenderComplete,
+					    showControlsOnly = _props3.showControlsOnly,
+					    namespace = _props3.namespace,
+					    controlOptions = _props3.controlOptions,
+					    downloadSrc = _props3.downloadSrc,
+					    secondaryId = _props3.secondaryId,
+					    popupSelector = _props3.popupSelector;
 
 					return (0, _preact.h)(_VideoPlayer2.default, {
 						primaryTracks: primaryTracks,
@@ -5581,17 +5663,17 @@ if(false) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	if (true) {
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(58), __webpack_require__(53), __webpack_require__(14), __webpack_require__(32)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(58), __webpack_require__(53), __webpack_require__(39), __webpack_require__(32)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else if (typeof exports !== "undefined") {
-		factory(module, exports, require("preact"), require("../../actions"), require("@utils/enhancer"), require("@containers/SearchContainer"), require("@containers/FilterContainer"), require("@containers/CommentPaneContainer"), require("./index.scss"));
+		factory(module, exports, require("preact"), require("../../actions"), require("@utils/enhancer"), require("@containers/SearchContainer"), require("@containers/FilterContainer"), require("@components/CommentPane"), require("./index.scss"));
 	} else {
 		var mod = {
 			exports: {}
 		};
-		factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.SearchContainer, global.FilterContainer, global.CommentPaneContainer, global.index);
+		factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.SearchContainer, global.FilterContainer, global.CommentPane, global.index);
 		global.index = mod.exports;
 	}
 })(this, function (module, exports) {
@@ -5605,7 +5687,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	(function (global, factory) {
 		if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(58), __webpack_require__(53), __webpack_require__(14), __webpack_require__(32)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(58), __webpack_require__(53), __webpack_require__(39), __webpack_require__(32)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5615,10 +5697,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			var mod = {
 				exports: {}
 			};
-			factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.SearchContainer, global.FilterContainer, global.CommentPaneContainer, global.index);
+			factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.SearchContainer, global.FilterContainer, global.CommentPane, global.index);
 			global.index = mod.exports;
 		}
-	})(undefined, function (module, exports, _preact, _actions, _enhancer, _SearchContainer, _FilterContainer, _CommentPaneContainer, _index) {
+	})(undefined, function (module, exports, _preact, _actions, _enhancer, _SearchContainer, _FilterContainer, _CommentPane, _index) {
 		"use strict";
 
 		Object.defineProperty(exports, "__esModule", {
@@ -5629,7 +5711,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		var _FilterContainer2 = _interopRequireDefault(_FilterContainer);
 
-		var _CommentPaneContainer2 = _interopRequireDefault(_CommentPaneContainer);
+		var _CommentPane2 = _interopRequireDefault(_CommentPane);
 
 		var _index2 = _interopRequireDefault(_index);
 
@@ -5699,7 +5781,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			_createClass(TranscriptionContainer, [{
 				key: "componentDidMount",
 				value: function componentDidMount() {
-					// this.props.getTimestampedTrascript();
+					this.props.getTimestampedTranscripts();
 				}
 			}, {
 				key: "render",
@@ -5708,8 +5790,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						namespace: this.props.namespace
 					}), (0, _preact.h)(_SearchContainer2.default, {
 						namespace: this.props.namespace
-					}), (0, _preact.h)(_CommentPaneContainer2.default, {
-						namespace: this.props.namespace
+					}), (0, _preact.h)(_CommentPane2.default, {
+						comments: this.props.timestampedTranscripts
+						// edit={this.props.edit}
+						// popupSelector={this.props.popupSelector}
+						, targetPlayerId: this.props.targetPlayerId
+						// onPaneCardClickHandler={this.onPaneCardClickHandler}
+						// editComment={this.editCommentHandler}
+						// onDeleteConfirm={this.hideCommentBoxHandler}
+						// hideCommentCardError={this.hideCommentCardErrorHandler}
+						// deleteComment={this.deleteCommentHandler}
+						// noCommentDiv={this.noCommentDiv()}
 					}));
 				}
 			}]);
@@ -5717,7 +5808,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			return TranscriptionContainer;
 		}(_preact.Component);
 
-		exports.default = (0, _enhancer.namespaceConnect)(undefined, _actions.actions)(TranscriptionContainer);
+		//<CommentPaneContainer
+		//	namespace={this.props.namespace}
+		///>
+
+		function mapStateToProps(state) {
+			return {
+				timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
+			};
+		}
+
+		exports.default = (0, _enhancer.namespaceConnect)(mapStateToProps, _actions.actions)(TranscriptionContainer);
 		module.exports = exports["default"];
 	});
 });

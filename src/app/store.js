@@ -25,7 +25,8 @@ const initialState = {
 	},
 	searchBar: {
 		searchWords: [],
-		searchKeywords: []
+		searchKeywords: [],
+		currentMatchedIndex: 0
 	},
 	transcriptionPane: {
 		timestampedTranscripts: []
