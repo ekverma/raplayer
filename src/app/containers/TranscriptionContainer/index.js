@@ -31,13 +31,11 @@ class TranscriptionContainer extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.currentMatchNumber != this.props.currentMatchNumber) {
+		if (nextProps.currentMatchNumber != this.props.currentMatchNumber && nextProps.currentMatchNumber > 0) {
 			let transcriptIndex = nextProps.matchedTranscriptIndices[nextProps.currentMatchNumber - 1];
 			let elementId = "#commentCardId_" + this.props.searchedTranscripts[transcriptIndex].id;
-			// setTimeout(function(){
-				let elem = this.base.querySelector(elementId);
-				elem.scrollIntoViewIfNeeded();
-			// }, 100);
+			let elem = this.base.querySelector(elementId);
+			elem.scrollIntoViewIfNeeded();
 		}
 	}
 

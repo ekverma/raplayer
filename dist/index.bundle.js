@@ -2493,16 +2493,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				},
 
 				updateSearchWordsInTranscription: function updateSearchWordsInTranscription(state, _ref6) {
-					var searchWords = _ref6.searchWords;
+					var searchWords = _ref6.searchWords,
+					    searchKeywords = _ref6.searchKeywords;
 
-					var _transcriptionModel$s = _transcription2.default.search(state.transcriptionPane.timestampedTranscripts, searchWords),
+					searchWords = searchWords || state.searchBar.searchWords;
+					searchKeywords = searchKeywords || state.searchBar.searchKeywords;
+
+					var allWords = searchWords.concat(searchKeywords);
+
+					var _transcriptionModel$s = _transcription2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
 					    searchedTranscripts = _transcriptionModel$s.searchedTranscripts,
 					    matchedTranscriptIndices = _transcriptionModel$s.matchedTranscriptIndices;
+
+					var currentMatchNumber = 1;
+					if (allWords.length == 0) {
+						currentMatchNumber = 0;
+					}
 
 					return _extends({}, state, {
 						searchBar: _extends({}, state.searchBar, {
 							searchWords: searchWords,
-							currentMatchNumber: 1,
+							searchKeywords: searchKeywords,
+							currentMatchNumber: currentMatchNumber,
 							numberOfMatches: matchedTranscriptIndices.length
 						}),
 						transcriptionPane: _extends({}, state.transcriptionPane, {
@@ -5905,13 +5917,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}, {
 				key: "componentWillReceiveProps",
 				value: function componentWillReceiveProps(nextProps) {
-					if (nextProps.currentMatchNumber != this.props.currentMatchNumber) {
+					if (nextProps.currentMatchNumber != this.props.currentMatchNumber && nextProps.currentMatchNumber > 0) {
 						var transcriptIndex = nextProps.matchedTranscriptIndices[nextProps.currentMatchNumber - 1];
 						var elementId = "#commentCardId_" + this.props.searchedTranscripts[transcriptIndex].id;
-						// setTimeout(function(){
 						var elem = this.base.querySelector(elementId);
 						elem.scrollIntoViewIfNeeded();
-						// }, 100);
 					}
 				}
 			}, {

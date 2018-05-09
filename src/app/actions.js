@@ -533,16 +533,27 @@ export let actions = () => ({
 		}
 	},
 
-	updateSearchWordsInTranscription: (state, { searchWords }) => {
+	updateSearchWordsInTranscription: (state, { searchWords, searchKeywords }) => {
+		searchWords = searchWords || state.searchBar.searchWords;
+		searchKeywords = searchKeywords || state.searchBar.searchKeywords;
+
+		let allWords = searchWords.concat(searchKeywords);
+
 		let { searchedTranscripts, matchedTranscriptIndices } = 
-			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, searchWords);
+			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, allWords);
+
+		let currentMatchNumber = 1;
+		if (allWords.length == 0) {
+			currentMatchNumber = 0;
+		}
 
 		return {
 			...state,
 			searchBar: {
 				...state.searchBar,
 				searchWords: searchWords,
-				currentMatchNumber: 1,
+				searchKeywords: searchKeywords,
+				currentMatchNumber: currentMatchNumber,
 				numberOfMatches: matchedTranscriptIndices.length
 			},
 			transcriptionPane: {
