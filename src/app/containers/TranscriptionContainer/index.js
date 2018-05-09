@@ -30,6 +30,17 @@ class TranscriptionContainer extends Component {
 		this.props.getTimestampedTranscripts();
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.currentMatchNumber != this.props.currentMatchNumber) {
+			let transcriptIndex = nextProps.matchedTranscriptIndices[nextProps.currentMatchNumber - 1];
+			let elementId = "#commentCardId_" + this.props.searchedTranscripts[transcriptIndex].id;
+			// setTimeout(function(){
+				let elem = this.base.querySelector(elementId);
+				elem.scrollIntoViewIfNeeded();
+			// }, 100);
+		}
+	}
+
 	render() {
 		return (
 			<div className={style.rightContainor}>

@@ -5903,6 +5903,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					this.props.getTimestampedTranscripts();
 				}
 			}, {
+				key: "componentWillReceiveProps",
+				value: function componentWillReceiveProps(nextProps) {
+					if (nextProps.currentMatchNumber != this.props.currentMatchNumber) {
+						var transcriptIndex = nextProps.matchedTranscriptIndices[nextProps.currentMatchNumber - 1];
+						var elementId = "#commentCardId_" + this.props.searchedTranscripts[transcriptIndex].id;
+						// setTimeout(function(){
+						var elem = this.base.querySelector(elementId);
+						elem.scrollIntoViewIfNeeded();
+						// }, 100);
+					}
+				}
+			}, {
 				key: "render",
 				value: function render() {
 					return (0, _preact.h)("div", { className: _index2.default.rightContainor }, (0, _preact.h)(_FilterContainer2.default, {
@@ -6289,7 +6301,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						className: _index2.default.commentCard,
 						onClick: this.cardClickHandler,
 						onMouseOver: this.showControlsHandler,
-						onMouseOut: this.hideControlsHandler
+						onMouseOut: this.hideControlsHandler,
+						id: "commentCardId_" + cardObj.id
 					}, (0, _preact.h)("div", { className: _index2.default.timestampContainer }, (0, _preact.h)("span", { className: _index2.default.timestamp, style: timeStampColor }, timestampReadable), !edit && cardObj.author && cardObj.author.name && (0, _preact.h)("span", { className: _index2.default.author }, (0, _core.titleCase)(cardObj.author.name)), edit && !editComment && (0, _preact.h)("span", null, (0, _preact.h)("span", {
 						className: [_index2.default.controls, showControlsClass, _index2.default.delete].join(" "),
 						onClick: this.deleteHandler,
@@ -7427,8 +7440,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				}
 			}, {
 				key: "navigateToMatchHandler",
-				value: function navigateToMatchHandler(currentMatchNum) {
-					this.props.navigateToMatchNum({ currentMatchNum: currentMatchNum });
+				value: function navigateToMatchHandler(currentMatchNumber) {
+					this.props.navigateToMatchNum({ currentMatchNumber: currentMatchNumber });
 				}
 			}, {
 				key: "render",
@@ -7436,6 +7449,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					return (0, _preact.h)("div", null, (0, _preact.h)(_SearchBar2.default, {
 						searchWordsChangedHandler: this.searchWordsChangedHandler
 					}), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)("div", { style: this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null }, (0, _preact.h)(_SearchNavigationBar2.default, {
+						currentMatchNumber: this.props.currentMatchNumber,
 						numberOfMatches: this.props.numberOfMatches,
 						navigateToMatchHandler: this.navigateToMatchHandler
 					})));
@@ -7450,6 +7464,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				searchWords: state.searchBar.searchWords,
 				searchKeywords: state.searchBar.searchKeywords,
 				numberOfMatches: state.searchBar.numberOfMatches,
+				currentMatchNumber: state.searchBar.currentMatchNumber,
 				timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
 			};
 		}
@@ -7633,8 +7648,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 			_createClass(SearchNavigationBar, [{
 				key: "componentWillReceiveProps",
-				value: function componentWillReceiveProps() {
-					this.setState({ currentMatchNumber: 1 });
+				value: function componentWillReceiveProps(nextProps) {
+					if (nextProps.currentMatchNumber != this.state.currentMatchNumber) {
+						this.setState({ currentMatchNumber: nextProps.currentMatchNumber });
+					}
 				}
 			}, {
 				key: "onUpClicked",

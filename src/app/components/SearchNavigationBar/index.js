@@ -10,8 +10,10 @@ class SearchNavigationBar extends Component {
 		};
 	}
 
-	componentWillReceiveProps() {
-		this.setState({ currentMatchNumber: 1 });
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.currentMatchNumber != this.state.currentMatchNumber) {
+			this.setState({ currentMatchNumber: nextProps.currentMatchNumber });
+		}
 	}
 
 	onUpClicked() {

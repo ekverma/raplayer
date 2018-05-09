@@ -16,8 +16,8 @@ class SearchContainer extends Component {
 		this.props.updateSearchWordsInTranscription({ searchWords });
 	}
 
-	navigateToMatchHandler(currentMatchNum) {
-		this.props.navigateToMatchNum({ currentMatchNum });
+	navigateToMatchHandler(currentMatchNumber) {
+		this.props.navigateToMatchNum({ currentMatchNumber });
 	}
 
 	render() {
@@ -29,6 +29,7 @@ class SearchContainer extends Component {
 				<div className={style.clear} />
 				<div style={this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null}>
 					<SearchNavigationBar
+						currentMatchNumber={this.props.currentMatchNumber}
 						numberOfMatches={this.props.numberOfMatches}
 						navigateToMatchHandler={this.navigateToMatchHandler}
 					/>
@@ -43,6 +44,7 @@ function mapStateToProps(state) {
 		searchWords: state.searchBar.searchWords,
 		searchKeywords: state.searchBar.searchKeywords,
 		numberOfMatches: state.searchBar.numberOfMatches,
+		currentMatchNumber: state.searchBar.currentMatchNumber,
 		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
 	};
 }
