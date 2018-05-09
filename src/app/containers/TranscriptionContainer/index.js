@@ -63,8 +63,9 @@ class TranscriptionContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		// timestampedTranscripts: state.transcriptionPane.timestampedTranscripts,
-		searchedTranscripts: state.transcriptionPane.searchedTranscripts
+		searchedTranscripts: state.transcriptionPane.searchedTranscripts,
+		matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
+		currentMatchNumber: state.searchBar.currentMatchNumber
 	};
 }
 

@@ -2502,12 +2502,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					return _extends({}, state, {
 						searchBar: _extends({}, state.searchBar, {
 							searchWords: searchWords,
-							currentMatchIndex: 1,
-							totalNumberOfMatches: matchedTranscriptIndices.length
+							currentMatchNumber: 1,
+							numberOfMatches: matchedTranscriptIndices.length
 						}),
 						transcriptionPane: _extends({}, state.transcriptionPane, {
 							searchedTranscripts: searchedTranscripts,
 							matchedTranscriptIndices: matchedTranscriptIndices
+						})
+					});
+				},
+
+				navigateToMatchNum: function navigateToMatchNum(state, _ref7) {
+					var currentMatchNumber = _ref7.currentMatchNumber;
+
+					return _extends({}, state, {
+						searchBar: _extends({}, state.searchBar, {
+							currentMatchNumber: currentMatchNumber
 						})
 					});
 				}
@@ -3413,8 +3423,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			searchBar: {
 				searchWords: [],
 				searchKeywords: [],
-				currentMatchIndex: 0,
-				totalNumberOfMatches: 0
+				currentMatchNumber: 0,
+				numberOfMatches: 0
 			},
 			transcriptionPane: {
 				timestampedTranscripts: [],
@@ -5923,8 +5933,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		function mapStateToProps(state) {
 			return {
-				// timestampedTranscripts: state.transcriptionPane.timestampedTranscripts,
-				searchedTranscripts: state.transcriptionPane.searchedTranscripts
+				searchedTranscripts: state.transcriptionPane.searchedTranscripts,
+				matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
+				currentMatchNumber: state.searchBar.currentMatchNumber
 			};
 		}
 
@@ -7404,28 +7415,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 				var _this = _possibleConstructorReturn(this, (SearchContainer.__proto__ || Object.getPrototypeOf(SearchContainer)).call(this, props));
 
-				_this.onSearchWordsChangedHandler = _this.onSearchWordsChangedHandler.bind(_this);
-				_this.state = {
-					totalMatches: 0,
-					currentMatch: 0
-				};
+				_this.searchWordsChangedHandler = _this.searchWordsChangedHandler.bind(_this);
+				_this.navigateToMatchHandler = _this.navigateToMatchHandler.bind(_this);
 				return _this;
 			}
 
 			_createClass(SearchContainer, [{
-				key: "componentWillUpdate",
-				value: function componentWillUpdate() {}
-			}, {
-				key: "onSearchWordsChangedHandler",
-				value: function onSearchWordsChangedHandler(searchWords) {
+				key: "searchWordsChangedHandler",
+				value: function searchWordsChangedHandler(searchWords) {
 					this.props.updateSearchWordsInTranscription({ searchWords: searchWords });
+				}
+			}, {
+				key: "navigateToMatchHandler",
+				value: function navigateToMatchHandler(currentMatchNum) {
+					this.props.navigateToMatchNum({ currentMatchNum: currentMatchNum });
 				}
 			}, {
 				key: "render",
 				value: function render() {
 					return (0, _preact.h)("div", null, (0, _preact.h)(_SearchBar2.default, {
-						onSearchWordsChangedHandler: this.onSearchWordsChangedHandler
-					}), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)("div", { style: this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null }, (0, _preact.h)(_SearchNavigationBar2.default, null)));
+						searchWordsChangedHandler: this.searchWordsChangedHandler
+					}), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)("div", { style: this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null }, (0, _preact.h)(_SearchNavigationBar2.default, {
+						numberOfMatches: this.props.numberOfMatches,
+						navigateToMatchHandler: this.navigateToMatchHandler
+					})));
 				}
 			}]);
 
@@ -7436,6 +7449,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			return {
 				searchWords: state.searchBar.searchWords,
 				searchKeywords: state.searchBar.searchKeywords,
+				numberOfMatches: state.searchBar.numberOfMatches,
 				timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
 			};
 		}
@@ -7607,13 +7621,41 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			function SearchNavigationBar(props) {
 				_classCallCheck(this, SearchNavigationBar);
 
-				return _possibleConstructorReturn(this, (SearchNavigationBar.__proto__ || Object.getPrototypeOf(SearchNavigationBar)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (SearchNavigationBar.__proto__ || Object.getPrototypeOf(SearchNavigationBar)).call(this, props));
+
+				_this.onUpClicked = _this.onUpClicked.bind(_this);
+				_this.onDownClicked = _this.onDownClicked.bind(_this);
+				_this.state = {
+					currentMatchNumber: 1
+				};
+				return _this;
 			}
 
 			_createClass(SearchNavigationBar, [{
+				key: "componentWillReceiveProps",
+				value: function componentWillReceiveProps() {
+					this.setState({ currentMatchNumber: 1 });
+				}
+			}, {
+				key: "onUpClicked",
+				value: function onUpClicked() {
+					if (this.state.currentMatchNumber < this.props.numberOfMatches) {
+						this.setState({ currentMatchNumber: this.state.currentMatchNumber + 1 });
+					}
+					this.props.navigateToMatchHandler(this.state.currentMatchNumber);
+				}
+			}, {
+				key: "onDownClicked",
+				value: function onDownClicked() {
+					if (this.state.currentMatchNumber > 1) {
+						this.setState({ currentMatchNumber: this.state.currentMatchNumber - 1 });
+					}
+					this.props.navigateToMatchHandler(this.state.currentMatchNumber);
+				}
+			}, {
 				key: "render",
 				value: function render() {
-					return (0, _preact.h)("div", { className: _index2.default.searchNavBar }, (0, _preact.h)("div", { className: _index2.default.resultRelatedText }, (0, _preact.h)("div", null, "No match found"), (0, _preact.h)("div", null, "1 of 20 matches")), (0, _preact.h)("div", { className: _index2.default.sortingSearch }, (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.up].join(" ") }), (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.down].join(" ") }), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("div", { className: _index2.default.clear }));
+					return (0, _preact.h)("div", { className: _index2.default.searchNavBar }, (0, _preact.h)("div", { className: _index2.default.resultRelatedText }, (0, _preact.h)("div", { style: this.props.numberOfMatches > 0 ? { display: 'none' } : null }, "No match found"), (0, _preact.h)("div", { style: this.props.numberOfMatches == 0 ? { display: 'none' } : null }, this.state.currentMatchNumber, " of ", this.props.numberOfMatches, " matches")), (0, _preact.h)("div", { className: _index2.default.sortingSearch, style: this.props.numberOfMatches == 0 ? { display: 'none' } : null }, (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.up].join(" "), onClick: this.onUpClicked }), (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.down].join(" "), onClick: this.onDownClicked }), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("div", { className: _index2.default.clear }));
 				}
 			}]);
 
@@ -7828,7 +7870,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					} else {
 						this.setState({ searchWords: [].concat(_toConsumableArray(this.state.searchWords), [newWord]), inputValue: "" });
 					}
-					this.props.onSearchWordsChangedHandler(this.state.searchWords);
+					this.props.searchWordsChangedHandler(this.state.searchWords);
 				}
 			}, {
 				key: "removeSearchWord",
@@ -7836,7 +7878,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					this.setState({ searchWords: this.state.searchWords.filter(function (searchWord) {
 							return searchWord != word;
 						}) });
-					this.props.onSearchWordsChangedHandler(this.state.searchWords);
+					this.props.searchWordsChangedHandler(this.state.searchWords);
 				}
 			}, {
 				key: "render",

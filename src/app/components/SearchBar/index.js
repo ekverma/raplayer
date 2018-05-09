@@ -27,12 +27,12 @@ class SearchBar extends Component {
 		else {
 			this.setState( {searchWords: [...this.state.searchWords, newWord], inputValue: ""} );
 		}
-		this.props.onSearchWordsChangedHandler(this.state.searchWords);
+		this.props.searchWordsChangedHandler(this.state.searchWords);
 	}
 
 	removeSearchWord(word) {
 		this.setState( {searchWords: this.state.searchWords.filter(searchWord => searchWord != word)} );
-		this.props.onSearchWordsChangedHandler(this.state.searchWords);
+		this.props.searchWordsChangedHandler(this.state.searchWords);
 	}
 	
 	render() {

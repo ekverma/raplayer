@@ -542,13 +542,23 @@ export let actions = () => ({
 			searchBar: {
 				...state.searchBar,
 				searchWords: searchWords,
-				currentMatchIndex: 1,
-				totalNumberOfMatches: matchedTranscriptIndices.length
+				currentMatchNumber: 1,
+				numberOfMatches: matchedTranscriptIndices.length
 			},
 			transcriptionPane: {
 				...state.transcriptionPane,
 				searchedTranscripts: searchedTranscripts,
 				matchedTranscriptIndices: matchedTranscriptIndices
+			}
+		}
+	},
+
+	navigateToMatchNum:(state, { currentMatchNumber }) => {
+		return {
+			...state,
+			searchBar: {
+				...state.searchBar,
+				currentMatchNumber: currentMatchNumber,
 			}
 		}
 	}

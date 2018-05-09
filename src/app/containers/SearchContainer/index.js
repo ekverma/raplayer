@@ -8,41 +8,41 @@ import style from "./index.scss";
 class SearchContainer extends Component {
 	constructor(props) {
 		super(props);
-		this.onSearchWordsChangedHandler = this.onSearchWordsChangedHandler.bind(this);
-		this.state = {
-			totalMatches: 0,
-			currentMatch: 0
-		};
+		this.searchWordsChangedHandler = this.searchWordsChangedHandler.bind(this);
+		this.navigateToMatchHandler = this.navigateToMatchHandler.bind(this);
 	}
 
-	componentWillUpdate() {
-
-	}
-
-	onSearchWordsChangedHandler(searchWords) {
+	searchWordsChangedHandler(searchWords) {
 		this.props.updateSearchWordsInTranscription({ searchWords });
+	}
+
+	navigateToMatchHandler(currentMatchNum) {
+		this.props.navigateToMatchNum({ currentMatchNum });
 	}
 
 	render() {
 		return (
 			<div>
 				<SearchBar
-					onSearchWordsChangedHandler={this.onSearchWordsChangedHandler}
+					searchWordsChangedHandler={this.searchWordsChangedHandler}
 				/>
 				<div className={style.clear} />
 				<div style={this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null}>
-					<SearchNavigationBar />
+					<SearchNavigationBar
+						numberOfMatches={this.props.numberOfMatches}
+						navigateToMatchHandler={this.navigateToMatchHandler}
+					/>
 				</div>
 			</div>
 		);
 	}
 }
 
-
 function mapStateToProps(state) {
 	return {
 		searchWords: state.searchBar.searchWords,
 		searchKeywords: state.searchBar.searchKeywords,
+		numberOfMatches: state.searchBar.numberOfMatches,
 		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
 	};
 }
