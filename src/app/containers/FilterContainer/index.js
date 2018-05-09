@@ -62,7 +62,7 @@ class FilterContainer extends Component {
 function mapStateToProps(state) {
 	return {
 		evalParams: state.app.evaluationParameters,
-		selectedEvalParams: state.searchBar.selectedEvalParams
+		selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams
 	};
 }
 

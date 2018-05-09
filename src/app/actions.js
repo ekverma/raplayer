@@ -535,7 +535,7 @@ export let actions = () => ({
 	},
 
 	updateTranscriptionSearchWords: (state, { searchWords }) => {
-		let searchKeywords = transcriptionUtils.getKeywordsInParams(state.searchBar.selectedEvalParams);
+		let searchKeywords = transcriptionUtils.getKeywordsInParams(state.transcriptionPane.filter.selectedEvalParams);
 		let allWords = searchWords.concat(searchKeywords);
 
 		let { searchedTranscripts, matchedTranscriptIndices } = 
@@ -543,14 +543,14 @@ export let actions = () => ({
 
 		return {
 			...state,
-			searchBar: {
-				...state.searchBar,
-				searchWords: searchWords,
-				currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
-				numberOfMatches: matchedTranscriptIndices.length
-			},
 			transcriptionPane: {
 				...state.transcriptionPane,
+				searchBar: {
+					...state.transcriptionPane.searchBar,
+					searchWords: searchWords,
+					currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
+					numberOfMatches: matchedTranscriptIndices.length
+				},
 				searchedTranscripts: searchedTranscripts,
 				matchedTranscriptIndices: matchedTranscriptIndices
 			}
@@ -560,29 +560,34 @@ export let actions = () => ({
 	navigateToMatchNum:(state, { currentMatchNumber }) => {
 		return {
 			...state,
-			searchBar: {
-				...state.searchBar,
-				currentMatchNumber: currentMatchNumber,
+			transcriptionPane: {
+				...state.transcriptionPane,
+				searchBar: {
+					...state.transcriptionPane.searchBar,
+					currentMatchNumber: currentMatchNumber,
+				}
 			}
 		}
 	},
 
 	updateTranscriptionFilters: (state, { selectedEvalParams }) => {
-		let allWords = transcriptionUtils.getKeywordsInParams(selectedEvalParams).concat(state.searchBar.searchWords);
+		let allWords = transcriptionUtils.getKeywordsInParams(selectedEvalParams).concat(state.transcriptionPane.searchBar.searchWords);
 
 		let { searchedTranscripts, matchedTranscriptIndices } = 
 			transcriptionUtils.search(state.transcriptionPane.timestampedTranscripts, allWords);
 
 		return {
 			...state,
-			searchBar: {
-				...state.searchBar,
-				selectedEvalParams: selectedEvalParams,
-				currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
-				numberOfMatches: matchedTranscriptIndices.length
-			},
 			transcriptionPane: {
 				...state.transcriptionPane,
+				searchBar: {
+					...state.transcriptionPane.searchBar,
+					currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
+					numberOfMatches: matchedTranscriptIndices.length
+				},
+				filter: {
+					selectedEvalParams: selectedEvalParams,
+				},
 				searchedTranscripts: searchedTranscripts,
 				matchedTranscriptIndices: matchedTranscriptIndices
 			}

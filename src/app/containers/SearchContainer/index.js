@@ -42,10 +42,10 @@ class SearchContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		searchWords: state.searchBar.searchWords,
-		selectedEvalParams: state.searchBar.selectedEvalParams,
-		numberOfMatches: state.searchBar.numberOfMatches,
-		currentMatchNumber: state.searchBar.currentMatchNumber,
+		searchWords: state.transcriptionPane.searchBar.searchWords,
+		numberOfMatches: state.transcriptionPane.searchBar.numberOfMatches,
+		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
+		selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams,
 		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
 	};
 }

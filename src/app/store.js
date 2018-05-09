@@ -23,13 +23,15 @@ const initialState = {
 		allComments: [],
 		activeComments: []
 	},
-	searchBar: {
-		searchWords: [],
-		selectedEvalParams: [],
-		currentMatchNumber: 0,
-		numberOfMatches: 0
-	},
 	transcriptionPane: {
+		searchBar: {
+			searchWords: [],
+			currentMatchNumber: 0,
+			numberOfMatches: 0
+		},
+		filter: {
+			selectedEvalParams: []
+		},
 		timestampedTranscripts: [],
 		searchedTranscripts: [],
 		matchedTranscriptIndices: []

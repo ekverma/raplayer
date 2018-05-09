@@ -2495,7 +2495,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				updateTranscriptionSearchWords: function updateTranscriptionSearchWords(state, _ref6) {
 					var searchWords = _ref6.searchWords;
 
-					var searchKeywords = _transcriptionUtils2.default.getKeywordsInParams(state.searchBar.selectedEvalParams);
+					var searchKeywords = _transcriptionUtils2.default.getKeywordsInParams(state.transcriptionPane.filter.selectedEvalParams);
 					var allWords = searchWords.concat(searchKeywords);
 
 					var _transcriptionUtils$s = _transcriptionUtils2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
@@ -2503,12 +2503,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					    matchedTranscriptIndices = _transcriptionUtils$s.matchedTranscriptIndices;
 
 					return _extends({}, state, {
-						searchBar: _extends({}, state.searchBar, {
-							searchWords: searchWords,
-							currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
-							numberOfMatches: matchedTranscriptIndices.length
-						}),
 						transcriptionPane: _extends({}, state.transcriptionPane, {
+							searchBar: _extends({}, state.transcriptionPane.searchBar, {
+								searchWords: searchWords,
+								currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
+								numberOfMatches: matchedTranscriptIndices.length
+							}),
 							searchedTranscripts: searchedTranscripts,
 							matchedTranscriptIndices: matchedTranscriptIndices
 						})
@@ -2519,8 +2519,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					var currentMatchNumber = _ref7.currentMatchNumber;
 
 					return _extends({}, state, {
-						searchBar: _extends({}, state.searchBar, {
-							currentMatchNumber: currentMatchNumber
+						transcriptionPane: _extends({}, state.transcriptionPane, {
+							searchBar: _extends({}, state.transcriptionPane.searchBar, {
+								currentMatchNumber: currentMatchNumber
+							})
 						})
 					});
 				},
@@ -2528,19 +2530,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				updateTranscriptionFilters: function updateTranscriptionFilters(state, _ref8) {
 					var selectedEvalParams = _ref8.selectedEvalParams;
 
-					var allWords = _transcriptionUtils2.default.getKeywordsInParams(selectedEvalParams).concat(state.searchBar.searchWords);
+					var allWords = _transcriptionUtils2.default.getKeywordsInParams(selectedEvalParams).concat(state.transcriptionPane.searchBar.searchWords);
 
 					var _transcriptionUtils$s2 = _transcriptionUtils2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
 					    searchedTranscripts = _transcriptionUtils$s2.searchedTranscripts,
 					    matchedTranscriptIndices = _transcriptionUtils$s2.matchedTranscriptIndices;
 
 					return _extends({}, state, {
-						searchBar: _extends({}, state.searchBar, {
-							selectedEvalParams: selectedEvalParams,
-							currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
-							numberOfMatches: matchedTranscriptIndices.length
-						}),
 						transcriptionPane: _extends({}, state.transcriptionPane, {
+							searchBar: _extends({}, state.transcriptionPane.searchBar, {
+								currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
+								numberOfMatches: matchedTranscriptIndices.length
+							}),
+							filter: {
+								selectedEvalParams: selectedEvalParams
+							},
 							searchedTranscripts: searchedTranscripts,
 							matchedTranscriptIndices: matchedTranscriptIndices
 						})
@@ -3445,13 +3449,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				allComments: [],
 				activeComments: []
 			},
-			searchBar: {
-				searchWords: [],
-				selectedEvalParams: [],
-				currentMatchNumber: 0,
-				numberOfMatches: 0
-			},
 			transcriptionPane: {
+				searchBar: {
+					searchWords: [],
+					currentMatchNumber: 0,
+					numberOfMatches: 0
+				},
+				filter: {
+					selectedEvalParams: []
+				},
 				timestampedTranscripts: [],
 				searchedTranscripts: [],
 				matchedTranscriptIndices: []
@@ -5847,7 +5853,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			return {
 				searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 				matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
-				currentMatchNumber: state.searchBar.currentMatchNumber
+				currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber
 			};
 		}
 
@@ -6926,7 +6932,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		function mapStateToProps(state) {
 			return {
 				evalParams: state.app.evaluationParameters,
-				selectedEvalParams: state.searchBar.selectedEvalParams
+				selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams
 			};
 		}
 
@@ -7378,10 +7384,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		function mapStateToProps(state) {
 			return {
-				searchWords: state.searchBar.searchWords,
-				selectedEvalParams: state.searchBar.selectedEvalParams,
-				numberOfMatches: state.searchBar.numberOfMatches,
-				currentMatchNumber: state.searchBar.currentMatchNumber,
+				searchWords: state.transcriptionPane.searchBar.searchWords,
+				numberOfMatches: state.transcriptionPane.searchBar.numberOfMatches,
+				currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
+				selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams,
 				timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
 			};
 		}

@@ -74,7 +74,7 @@ function mapStateToProps(state) {
 	return {
 		searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 		matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
-		currentMatchNumber: state.searchBar.currentMatchNumber
+		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber
 	};
 }
 
