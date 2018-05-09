@@ -26,10 +26,13 @@ const initialState = {
 	searchBar: {
 		searchWords: [],
 		searchKeywords: [],
-		currentMatchedIndex: 0
+		currentMatchIndex: 0,
+		totalNumberOfMatches: 0
 	},
 	transcriptionPane: {
-		timestampedTranscripts: []
+		timestampedTranscripts: [],
+		searchedTranscripts: [],
+		matchedTranscriptIndices: []
 	}
 };
 

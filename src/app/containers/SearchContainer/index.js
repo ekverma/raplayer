@@ -8,15 +8,19 @@ import style from "./index.scss";
 class SearchContainer extends Component {
 	constructor(props) {
 		super(props);
+		this.onSearchWordsChangedHandler = this.onSearchWordsChangedHandler.bind(this);
 		this.state = {
 			totalMatches: 0,
-			currentMatch: 0,
-
+			currentMatch: 0
 		};
 	}
 
+	componentWillUpdate() {
+
+	}
+
 	onSearchWordsChangedHandler(searchWords) {
-		this.state.searchWordsInTranscription(searchWords);
+		this.props.updateSearchWordsInTranscription({ searchWords });
 	}
 
 	render() {

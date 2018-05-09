@@ -40,7 +40,7 @@ class TranscriptionContainer extends Component {
 					namespace={this.props.namespace}
 				/>
 				<CommentPane
-					comments={this.props.timestampedTranscripts}
+					comments={this.props.searchedTranscripts}
 					// edit={this.props.edit}
 					// popupSelector={this.props.popupSelector}
 					targetPlayerId={this.props.targetPlayerId}
@@ -63,7 +63,8 @@ class TranscriptionContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
+		// timestampedTranscripts: state.transcriptionPane.timestampedTranscripts,
+		searchedTranscripts: state.transcriptionPane.searchedTranscripts
 	};
 }
 

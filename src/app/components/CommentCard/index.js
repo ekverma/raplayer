@@ -176,7 +176,7 @@ class CommentCard extends Component {
 						)}
 				</div>
 				<div className={style.commentDivider} />
-				{!editComment && <div className={style.text}>{parseText(cardObj.text)}</div>}
+				{!editComment && <div className={style.text} dangerouslySetInnerHTML={{__html: parseText(cardObj.text)}} />}
 				{editComment && (
 					<ResizableTextArea
 						ref={c => (this.textareaElem = c)}

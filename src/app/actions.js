@@ -1,6 +1,7 @@
 import { post, get, put, del } from "@utils/apiUtils";
 import apiConfig from "@config/api.config";
 import commentModel from "@models/comment";
+import transcriptionModel from "@models/transcription";
 import { track } from "@api/api";
 import event from "@config/trackEvents";
 
@@ -525,7 +526,29 @@ export let actions = () => ({
 		return {
 			...state,
 			transcriptionPane: {
-				timestampedTranscripts: commentArray
+				...state.transcriptionPane,
+				timestampedTranscripts: commentArray,
+				searchedTranscripts: commentArray
+			}
+		}
+	},
+
+	updateSearchWordsInTranscription: (state, { searchWords }) => {
+		let { searchedTranscripts, matchedTranscriptIndices } = 
+			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, searchWords);
+
+		return {
+			...state,
+			searchBar: {
+				...state.searchBar,
+				searchWords: searchWords,
+				currentMatchIndex: 1,
+				totalNumberOfMatches: matchedTranscriptIndices.length
+			},
+			transcriptionPane: {
+				...state.transcriptionPane,
+				searchedTranscripts: searchedTranscripts,
+				matchedTranscriptIndices: matchedTranscriptIndices
 			}
 		}
 	}
