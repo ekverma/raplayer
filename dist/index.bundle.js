@@ -1939,17 +1939,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	if (true) {
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(29), __webpack_require__(28), __webpack_require__(27), __webpack_require__(26), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(29), __webpack_require__(28), __webpack_require__(27), __webpack_require__(136), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else if (typeof exports !== "undefined") {
-		factory(exports, require("@utils/apiUtils"), require("@config/api.config"), require("@models/comment"), require("@models/transcription"), require("@api/api"), require("@config/trackEvents"));
+		factory(exports, require("@utils/apiUtils"), require("@config/api.config"), require("@models/comment"), require("@utils/transcriptionUtils"), require("@api/api"), require("@config/trackEvents"));
 	} else {
 		var mod = {
 			exports: {}
 		};
-		factory(mod.exports, global.apiUtils, global.api, global.comment, global.transcription, global.api, global.trackEvents);
+		factory(mod.exports, global.apiUtils, global.api, global.comment, global.transcriptionUtils, global.api, global.trackEvents);
 		global.actions = mod.exports;
 	}
 })(this, function (exports) {
@@ -1957,7 +1957,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	(function (global, factory) {
 		if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(29), __webpack_require__(28), __webpack_require__(27), __webpack_require__(26), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(29), __webpack_require__(28), __webpack_require__(27), __webpack_require__(136), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1967,10 +1967,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			var mod = {
 				exports: {}
 			};
-			factory(mod.exports, global.apiUtils, global.api, global.comment, global.transcription, global.api, global.trackEvents);
+			factory(mod.exports, global.apiUtils, global.api, global.comment, global.transcriptionUtils, global.api, global.trackEvents);
 			global.actions = mod.exports;
 		}
-	})(undefined, function (exports, _apiUtils, _api, _comment, _transcription, _api3, _trackEvents) {
+	})(undefined, function (exports, _apiUtils, _api, _comment, _transcriptionUtils, _api3, _trackEvents) {
 		"use strict";
 
 		Object.defineProperty(exports, "__esModule", {
@@ -1982,7 +1982,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		var _comment2 = _interopRequireDefault(_comment);
 
-		var _transcription2 = _interopRequireDefault(_transcription);
+		var _transcriptionUtils2 = _interopRequireDefault(_transcriptionUtils);
 
 		var _trackEvents2 = _interopRequireDefault(_trackEvents);
 
@@ -2492,29 +2492,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					});
 				},
 
-				updateSearchWordsInTranscription: function updateSearchWordsInTranscription(state, _ref6) {
-					var searchWords = _ref6.searchWords,
-					    searchKeywords = _ref6.searchKeywords;
+				updateTranscriptionSearchWords: function updateTranscriptionSearchWords(state, _ref6) {
+					var searchWords = _ref6.searchWords;
 
-					searchWords = searchWords || state.searchBar.searchWords;
-					searchKeywords = searchKeywords || state.searchBar.searchKeywords;
-
+					var searchKeywords = _transcriptionUtils2.default.getKeywordsInParams(state.searchBar.selectedEvalParams);
 					var allWords = searchWords.concat(searchKeywords);
 
-					var _transcriptionModel$s = _transcription2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
-					    searchedTranscripts = _transcriptionModel$s.searchedTranscripts,
-					    matchedTranscriptIndices = _transcriptionModel$s.matchedTranscriptIndices;
-
-					var currentMatchNumber = 1;
-					if (allWords.length == 0) {
-						currentMatchNumber = 0;
-					}
+					var _transcriptionUtils$s = _transcriptionUtils2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
+					    searchedTranscripts = _transcriptionUtils$s.searchedTranscripts,
+					    matchedTranscriptIndices = _transcriptionUtils$s.matchedTranscriptIndices;
 
 					return _extends({}, state, {
 						searchBar: _extends({}, state.searchBar, {
 							searchWords: searchWords,
-							searchKeywords: searchKeywords,
-							currentMatchNumber: currentMatchNumber,
+							currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
 							numberOfMatches: matchedTranscriptIndices.length
 						}),
 						transcriptionPane: _extends({}, state.transcriptionPane, {
@@ -2530,6 +2521,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					return _extends({}, state, {
 						searchBar: _extends({}, state.searchBar, {
 							currentMatchNumber: currentMatchNumber
+						})
+					});
+				},
+
+				updateTranscriptionFilters: function updateTranscriptionFilters(state, _ref8) {
+					var selectedEvalParams = _ref8.selectedEvalParams;
+
+					var allWords = _transcriptionUtils2.default.getKeywordsInParams(selectedEvalParams).concat(state.searchBar.searchWords);
+
+					var _transcriptionUtils$s2 = _transcriptionUtils2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
+					    searchedTranscripts = _transcriptionUtils$s2.searchedTranscripts,
+					    matchedTranscriptIndices = _transcriptionUtils$s2.matchedTranscriptIndices;
+
+					return _extends({}, state, {
+						searchBar: _extends({}, state.searchBar, {
+							selectedEvalParams: selectedEvalParams,
+							currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
+							numberOfMatches: matchedTranscriptIndices.length
+						}),
+						transcriptionPane: _extends({}, state.transcriptionPane, {
+							searchedTranscripts: searchedTranscripts,
+							matchedTranscriptIndices: matchedTranscriptIndices
 						})
 					});
 				}
@@ -3434,7 +3447,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			},
 			searchBar: {
 				searchWords: [],
-				searchKeywords: [],
+				selectedEvalParams: [],
 				currentMatchNumber: 0,
 				numberOfMatches: 0
 			},
@@ -5138,130 +5151,7 @@ if(false) {
 }
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-	if (true) {
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else if (typeof exports !== "undefined") {
-		factory(module, exports);
-	} else {
-		var mod = {
-			exports: {}
-		};
-		factory(mod, mod.exports);
-		global.transcription = mod.exports;
-	}
-})(this, function (module, exports) {
-	"use strict";
-
-	(function (global, factory) {
-		if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof exports !== "undefined") {
-			factory(module, exports);
-		} else {
-			var mod = {
-				exports: {}
-			};
-			factory(mod, mod.exports);
-			global.transcription = mod.exports;
-		}
-	})(undefined, function (module, exports) {
-		"use strict";
-
-		Object.defineProperty(exports, "__esModule", {
-			value: true
-		});
-
-		var _extends = Object.assign || function (target) {
-			for (var i = 1; i < arguments.length; i++) {
-				var source = arguments[i];
-
-				for (var key in source) {
-					if (Object.prototype.hasOwnProperty.call(source, key)) {
-						target[key] = source[key];
-					}
-				}
-			}
-
-			return target;
-		};
-
-		// import { h } from "preact";
-		// import { MatchedWord } from "@components/MatchedWord";
-
-		var transcriptionModel = {
-			search: function search(timestampedTranscripts, searchPhrases) {
-				var matchedTranscriptIndices = [];
-				var searchedTranscripts = timestampedTranscripts.map(function (timestampedTranscript, index) {
-					var text = timestampedTranscript.text;
-					searchPhrases.forEach(function (phrase) {
-						var pos = text.toLowerCase().indexOf(phrase.toLowerCase());
-						if (pos != -1) {
-							text = text.substr(0, pos) + transcriptionModel.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
-							matchedTranscriptIndices.push(index);
-						}
-					});
-					return _extends({}, timestampedTranscript, { text: text });
-				});
-				return {
-					searchedTranscripts: searchedTranscripts,
-					matchedTranscriptIndices: matchedTranscriptIndices
-				};
-			},
-
-			// search: (timstampedTranscripts, oldSearchWords, newSearchWords) => {
-			// 	let addedWords = newSearchWords.filter((word) => !oldSearchWords.includes(word));
-			// 	let removedWords = oldSearchWords.filter((word) => !newSearchWords.includes(word));
-			// 	let numberOfMatches = 0;
-			// 	let searchedTranscripts = timestampedTranscripts.map(function(timestampedTranscript) {
-			// 		let text = timestampedTranscript.text;
-			// 		addedWords.forEach((phrase) => {
-			// 			let pos = text.toLowerCase().indexOf(phrase.toLowerCase());
-			// 			if (pos != -1) {
-			// 				text = text.substr(0, pos) + this.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
-			// 				numberOfMatches++;
-			// 			}
-			// 		});
-
-			// 		removedWords.forEach((phrase) => {
-			// 			let highlightedPhrase = this.highlightText(phrase);
-			// 			let pos = text.toLowerCase().indexOf(highlightedPhrase.toLowerCase());
-			// 			if (pos != -1) {
-			// 				text = text.substr(0, pos)
-			// 						+ this.unhighlightText(text.substr(pos, highlightedPhrase.length))
-			// 						+ text.substr(pos + highlightedPhrase.length);
-			// 			}
-			// 		});
-			// 		return {...timestampedTranscript, text: text};
-			// 	});
-			// },
-
-			highlightText: function highlightText(text) {
-				// return <MatchedWord text='" + text + "' />
-				// return "<MatchedWord text={text} />"
-				return text.bold();
-			},
-
-			unhighlightText: function unhighlightText(text) {
-				return text.substr(3, text.length - 7);
-			}
-		};
-
-		exports.default = transcriptionModel;
-		module.exports = exports["default"];
-	});
-});
-
-/***/ }),
+/* 26 */,
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6988,9 +6878,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 			_createClass(FilterContainer, [{
 				key: "onOptionsChangedHandler",
-				value: function onOptionsChangedHandler(selectedOptions) {
-					// this.props.updateSearchKeywordsFromParams({ selectedEvalParams: selectedOptions });
-					window.console.log(String(selectedOptions));
+				value: function onOptionsChangedHandler(_ref) {
+					var selectedOptions = _ref.selectedOptions;
+
+					var selectedEvalParamIds = selectedOptions.map(function (option) {
+						return option.value;
+					});
+					var selectedEvalParams = this.props.evalParams.filter(function (evalParam) {
+						return selectedEvalParamIds.includes(evalParam.evalParamId);
+					});
+					this.props.updateTranscriptionFilters({ selectedEvalParams: selectedEvalParams });
 				}
 			}, {
 				key: "getOptionsFromEvalParams",
@@ -7326,17 +7223,17 @@ if(false) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	if (true) {
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(56), __webpack_require__(54), __webpack_require__(53)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(136), __webpack_require__(56), __webpack_require__(54), __webpack_require__(53)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else if (typeof exports !== "undefined") {
-		factory(module, exports, require("preact"), require("../../actions"), require("@utils/enhancer"), require("@components/SearchBar"), require("@components/SearchNavigationBar"), require("./index.scss"));
+		factory(module, exports, require("preact"), require("../../actions"), require("@utils/enhancer"), require("@utils/transcriptionUtils"), require("@components/SearchBar"), require("@components/SearchNavigationBar"), require("./index.scss"));
 	} else {
 		var mod = {
 			exports: {}
 		};
-		factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.SearchBar, global.SearchNavigationBar, global.index);
+		factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.transcriptionUtils, global.SearchBar, global.SearchNavigationBar, global.index);
 		global.index = mod.exports;
 	}
 })(this, function (module, exports) {
@@ -7350,7 +7247,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	(function (global, factory) {
 		if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(56), __webpack_require__(54), __webpack_require__(53)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(5), __webpack_require__(136), __webpack_require__(56), __webpack_require__(54), __webpack_require__(53)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -7360,15 +7257,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			var mod = {
 				exports: {}
 			};
-			factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.SearchBar, global.SearchNavigationBar, global.index);
+			factory(mod, mod.exports, global.preact, global.actions, global.enhancer, global.transcriptionUtils, global.SearchBar, global.SearchNavigationBar, global.index);
 			global.index = mod.exports;
 		}
-	})(undefined, function (module, exports, _preact, _actions, _enhancer, _SearchBar, _SearchNavigationBar, _index) {
+	})(undefined, function (module, exports, _preact, _actions, _enhancer, _transcriptionUtils, _SearchBar, _SearchNavigationBar, _index) {
 		"use strict";
 
 		Object.defineProperty(exports, "__esModule", {
 			value: true
 		});
+
+		var _transcriptionUtils2 = _interopRequireDefault(_transcriptionUtils);
 
 		var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
@@ -7446,7 +7345,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			_createClass(SearchContainer, [{
 				key: "searchWordsChangedHandler",
 				value: function searchWordsChangedHandler(searchWords) {
-					this.props.updateSearchWordsInTranscription({ searchWords: searchWords });
+					this.props.updateTranscriptionSearchWords({ searchWords: searchWords });
 				}
 			}, {
 				key: "navigateToMatchHandler",
@@ -7458,7 +7357,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				value: function render() {
 					return (0, _preact.h)("div", null, (0, _preact.h)(_SearchBar2.default, {
 						searchWordsChangedHandler: this.searchWordsChangedHandler
-					}), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)("div", { style: this.props.searchWords.length == 0 && this.props.searchKeywords.length == 0 ? { display: 'none' } : null }, (0, _preact.h)(_SearchNavigationBar2.default, {
+					}), (0, _preact.h)("div", { className: _index2.default.clear }), (0, _preact.h)("div", { style: this.props.searchWords.length == 0 && _transcriptionUtils2.default.getKeywordsInParams(this.props.selectedEvalParams).length == 0 ? { display: 'none' } : null }, (0, _preact.h)(_SearchNavigationBar2.default, {
 						currentMatchNumber: this.props.currentMatchNumber,
 						numberOfMatches: this.props.numberOfMatches,
 						navigateToMatchHandler: this.navigateToMatchHandler
@@ -7472,7 +7371,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		function mapStateToProps(state) {
 			return {
 				searchWords: state.searchBar.searchWords,
-				searchKeywords: state.searchBar.searchKeywords,
+				selectedEvalParams: state.searchBar.selectedEvalParams,
 				numberOfMatches: state.searchBar.numberOfMatches,
 				currentMatchNumber: state.searchBar.currentMatchNumber,
 				timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
@@ -14045,6 +13944,106 @@ exports.locals = {
 	"marginR15": "VideoPlayer__marginR15___1N5iQ",
 	"mediaClass": "VideoPlayer__mediaClass___2ZbQw"
 };
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (typeof exports !== "undefined") {
+		factory(module, exports);
+	} else {
+		var mod = {
+			exports: {}
+		};
+		factory(mod, mod.exports);
+		global.transcriptionUtils = mod.exports;
+	}
+})(this, function (module, exports) {
+	"use strict";
+
+	(function (global, factory) {
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof exports !== "undefined") {
+			factory(module, exports);
+		} else {
+			var mod = {
+				exports: {}
+			};
+			factory(mod, mod.exports);
+			global.transcriptionUtils = mod.exports;
+		}
+	})(undefined, function (module, exports) {
+		"use strict";
+
+		Object.defineProperty(exports, "__esModule", {
+			value: true
+		});
+
+		var _extends = Object.assign || function (target) {
+			for (var i = 1; i < arguments.length; i++) {
+				var source = arguments[i];
+
+				for (var key in source) {
+					if (Object.prototype.hasOwnProperty.call(source, key)) {
+						target[key] = source[key];
+					}
+				}
+			}
+
+			return target;
+		};
+
+		var transcriptionUtils = {
+			search: function search(timestampedTranscripts, searchPhrases) {
+				var matchedTranscriptIndices = [];
+				var searchedTranscripts = timestampedTranscripts.map(function (timestampedTranscript, index) {
+					var text = timestampedTranscript.text;
+					searchPhrases.forEach(function (phrase) {
+						var pos = text.toLowerCase().indexOf(phrase.toLowerCase());
+						if (pos != -1) {
+							text = text.substr(0, pos) + transcriptionUtils.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
+							matchedTranscriptIndices.push(index);
+						}
+					});
+					return _extends({}, timestampedTranscript, { text: text });
+				});
+				return {
+					searchedTranscripts: searchedTranscripts,
+					matchedTranscriptIndices: matchedTranscriptIndices
+				};
+			},
+
+			getKeywordsInParams: function getKeywordsInParams(evalParams) {
+				var keywords = [];
+				evalParams.forEach(function (evalParam) {
+					keywords = keywords.concat(evalParam.keywords);
+				});
+				return keywords;
+			},
+
+			highlightText: function highlightText(text) {
+				return text.bold();
+			},
+
+			unhighlightText: function unhighlightText(text) {
+				return text.substr(3, text.length - 7);
+			}
+		};
+
+		exports.default = transcriptionUtils;
+		module.exports = exports["default"];
+	});
+});
 
 /***/ })
 /******/ ]);

@@ -25,7 +25,7 @@ const initialState = {
 	},
 	searchBar: {
 		searchWords: [],
-		searchKeywords: [],
+		selectedEvalParams: [],
 		currentMatchNumber: 0,
 		numberOfMatches: 0
 	},

@@ -17,9 +17,10 @@ class FilterContainer extends Component {
 		};
 	}
 
-	onOptionsChangedHandler(selectedOptions) {
-		// this.props.updateSearchKeywordsFromParams({ selectedEvalParams: selectedOptions });
-		window.console.log(String(selectedOptions));
+	onOptionsChangedHandler({ selectedOptions }) {
+		let selectedEvalParamIds = selectedOptions.map(option => option.value);
+		let selectedEvalParams = this.props.evalParams.filter(evalParam => selectedEvalParamIds.includes(evalParam.evalParamId))
+		this.props.updateTranscriptionFilters({ selectedEvalParams });
 	}
 
 	getOptionsFromEvalParams(evalParams) {

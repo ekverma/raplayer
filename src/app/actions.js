@@ -1,7 +1,8 @@
 import { post, get, put, del } from "@utils/apiUtils";
 import apiConfig from "@config/api.config";
 import commentModel from "@models/comment";
-import transcriptionModel from "@models/transcription";
+// import transcriptionModel from "@models/transcription";
+import transcriptionUtils from "@utils/transcriptionUtils";
 import { track } from "@api/api";
 import event from "@config/trackEvents";
 
@@ -533,27 +534,19 @@ export let actions = () => ({
 		}
 	},
 
-	updateSearchWordsInTranscription: (state, { searchWords, searchKeywords }) => {
-		searchWords = searchWords || state.searchBar.searchWords;
-		searchKeywords = searchKeywords || state.searchBar.searchKeywords;
-
+	updateTranscriptionSearchWords: (state, { searchWords }) => {
+		let searchKeywords = transcriptionUtils.getKeywordsInParams(state.searchBar.selectedEvalParams);
 		let allWords = searchWords.concat(searchKeywords);
 
 		let { searchedTranscripts, matchedTranscriptIndices } = 
-			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, allWords);
-
-		let currentMatchNumber = 1;
-		if (allWords.length == 0) {
-			currentMatchNumber = 0;
-		}
+			transcriptionUtils.search(state.transcriptionPane.timestampedTranscripts, allWords);
 
 		return {
 			...state,
 			searchBar: {
 				...state.searchBar,
 				searchWords: searchWords,
-				searchKeywords: searchKeywords,
-				currentMatchNumber: currentMatchNumber,
+				currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
 				numberOfMatches: matchedTranscriptIndices.length
 			},
 			transcriptionPane: {
@@ -570,6 +563,28 @@ export let actions = () => ({
 			searchBar: {
 				...state.searchBar,
 				currentMatchNumber: currentMatchNumber,
+			}
+		}
+	},
+
+	updateTranscriptionFilters: (state, { selectedEvalParams }) => {
+		let allWords = transcriptionUtils.getKeywordsInParams(selectedEvalParams).concat(state.searchBar.searchWords);
+
+		let { searchedTranscripts, matchedTranscriptIndices } = 
+			transcriptionUtils.search(state.transcriptionPane.timestampedTranscripts, allWords);
+
+		return {
+			...state,
+			searchBar: {
+				...state.searchBar,
+				selectedEvalParams: selectedEvalParams,
+				currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
+				numberOfMatches: matchedTranscriptIndices.length
+			},
+			transcriptionPane: {
+				...state.transcriptionPane,
+				searchedTranscripts: searchedTranscripts,
+				matchedTranscriptIndices: matchedTranscriptIndices
 			}
 		}
 	}
