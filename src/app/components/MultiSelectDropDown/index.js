@@ -11,6 +11,10 @@ class MultiSelectDropdown extends Component {
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({ selectedOptions: nextProps.selectedOptions });
+	}
+
 	onOptionClick(option) {
 		let selectedOptions = [...this.state.selectedOptions];
 

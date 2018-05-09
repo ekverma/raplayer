@@ -6911,8 +6911,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				key: "render",
 				value: function render() {
 					var dropdownOptions = this.getOptionsFromEvalParams(this.props.evalParams);
+					var selectedOptions = this.getOptionsFromEvalParams(this.props.selectedEvalParams);
 					return (0, _preact.h)("div", { className: _index2.default.selectFilter, onBlur: this.hideFilters }, (0, _preact.h)("div", { className: _index2.default.filterIconHolder, onClick: this.onFilterClickHandler }, (0, _preact.h)("img", { src: _filter2.default, style: "height:15px;" })), (0, _preact.h)("div", { style: _extends({}, !this.state.showFilters ? { display: 'none' } : { display: 'block' }, { width: '300px' }) }, (0, _preact.h)(_MultiSelectDropdown2.default, {
 						options: dropdownOptions,
+						selectedOptions: selectedOptions,
 						onOptionsChangedHandler: this.onOptionsChangedHandler
 					})));
 				}
@@ -6923,7 +6925,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		function mapStateToProps(state) {
 			return {
-				evalParams: state.app.evaluationParameters
+				evalParams: state.app.evaluationParameters,
+				selectedEvalParams: state.searchBar.selectedEvalParams
 			};
 		}
 
@@ -7067,6 +7070,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}
 
 			_createClass(MultiSelectDropdown, [{
+				key: "componentWillReceiveProps",
+				value: function componentWillReceiveProps(nextProps) {
+					this.setState({ selectedOptions: nextProps.selectedOptions });
+				}
+			}, {
 				key: "onOptionClick",
 				value: function onOptionClick(option) {
 					var selectedOptions = [].concat(_toConsumableArray(this.state.selectedOptions));

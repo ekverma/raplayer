@@ -40,6 +40,7 @@ class FilterContainer extends Component {
 
 	render() {
 		let dropdownOptions = this.getOptionsFromEvalParams(this.props.evalParams);
+		let selectedOptions = this.getOptionsFromEvalParams(this.props.selectedEvalParams);
 		return (
 			<div className={style.selectFilter} onBlur={this.hideFilters}>
 				<div className={style.filterIconHolder} onClick={this.onFilterClickHandler}>
@@ -48,6 +49,7 @@ class FilterContainer extends Component {
 				<div style={{ ...!this.state.showFilters ? { display: 'none' } : { display: 'block' }, width: '300px' }}>
 					<MultiSelectDropdown
 						options={dropdownOptions}
+						selectedOptions={selectedOptions}
 						onOptionsChangedHandler={this.onOptionsChangedHandler}
 					/>
 				</div>
@@ -59,7 +61,8 @@ class FilterContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		evalParams: state.app.evaluationParameters
+		evalParams: state.app.evaluationParameters,
+		selectedEvalParams: state.searchBar.selectedEvalParams
 	};
 }
 
