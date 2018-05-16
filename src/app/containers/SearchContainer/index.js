@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import { actions } from "../../actions";
 import { namespaceConnect } from "@utils/enhancer";
-import transcriptionUtils from "@utils/transcriptionUtils";
+import transcriptionModel from "@models/transcriptionModel";
 import SearchBar from "@components/SearchBar";
 import SearchNavigationBar from "@components/SearchNavigationBar";
 import style from "./index.scss";
@@ -28,7 +28,7 @@ class SearchContainer extends Component {
 					searchWordsChangedHandler={this.searchWordsChangedHandler}
 				/>
 				<div className={style.clear} />
-				<div style={this.props.searchWords.length == 0 && transcriptionUtils.getKeywordsInParams(this.props.selectedEvalParams).length == 0 ? { display: 'none' } : null}>
+				<div style={this.props.searchWords.length == 0 && transcriptionModel.getKeywordsInParams(this.props.selectedEvalParams).length == 0 ? { display: 'none' } : null}>
 					<SearchNavigationBar
 						currentMatchNumber={this.props.currentMatchNumber}
 						numberOfMatches={this.props.numberOfMatches}

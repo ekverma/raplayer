@@ -1,5 +1,5 @@
 
-var transcriptionUtils = {
+var transcriptionModel = {
 	search: (timestampedTranscripts, searchPhrases) => {
 		let matchedTranscriptIndices = [];
 		let searchedTranscripts = timestampedTranscripts.map(function(timestampedTranscript, index) {
@@ -7,7 +7,7 @@ var transcriptionUtils = {
 			searchPhrases.forEach((phrase) => {
 				let pos = text.toLowerCase().indexOf(phrase.toLowerCase());
 				if (pos != -1) {
-					text = text.substr(0, pos) + transcriptionUtils.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
+					text = text.substr(0, pos) + transcriptionModel.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
 					matchedTranscriptIndices.push(index);
 				}
 			});
@@ -36,5 +36,5 @@ var transcriptionUtils = {
 	}
 }
 
-export default transcriptionUtils;
+export default transcriptionModel;
 

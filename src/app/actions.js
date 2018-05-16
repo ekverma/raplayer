@@ -1,8 +1,7 @@
 import { post, get, put, del } from "@utils/apiUtils";
 import apiConfig from "@config/api.config";
 import commentModel from "@models/comment";
-// import transcriptionModel from "@models/transcription";
-import transcriptionUtils from "@utils/transcriptionUtils";
+import transcriptionModel from "@models/transcriptionModel";
 import { track } from "@api/api";
 import event from "@config/trackEvents";
 
@@ -535,11 +534,11 @@ export let actions = () => ({
 	},
 
 	updateTranscriptionSearchWords: (state, { searchWords }) => {
-		let searchKeywords = transcriptionUtils.getKeywordsInParams(state.transcriptionPane.filter.selectedEvalParams);
+		let searchKeywords = transcriptionModel.getKeywordsInParams(state.transcriptionPane.filter.selectedEvalParams);
 		let allWords = searchWords.concat(searchKeywords);
 
 		let { searchedTranscripts, matchedTranscriptIndices } = 
-			transcriptionUtils.search(state.transcriptionPane.timestampedTranscripts, allWords);
+			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, allWords);
 
 		return {
 			...state,
@@ -571,10 +570,10 @@ export let actions = () => ({
 	},
 
 	updateTranscriptionFilters: (state, { selectedEvalParams }) => {
-		let allWords = transcriptionUtils.getKeywordsInParams(selectedEvalParams).concat(state.transcriptionPane.searchBar.searchWords);
+		let allWords = transcriptionModel.getKeywordsInParams(selectedEvalParams).concat(state.transcriptionPane.searchBar.searchWords);
 
 		let { searchedTranscripts, matchedTranscriptIndices } = 
-			transcriptionUtils.search(state.transcriptionPane.timestampedTranscripts, allWords);
+			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, allWords);
 
 		return {
 			...state,
