@@ -533,8 +533,24 @@ export let actions = () => ({
 		}
 	},
 
-	updateTranscriptionSearchWords: (state, { searchWords }) => {
-		let searchKeywords = transcriptionModel.getKeywordsInParams(state.transcriptionPane.filter.selectedEvalParams);
+	navigateToMatchNum:(state, { currentMatchNumber }) => {
+		return {
+			...state,
+			transcriptionPane: {
+				...state.transcriptionPane,
+				searchBar: {
+					...state.transcriptionPane.searchBar,
+					currentMatchNumber: currentMatchNumber,
+				}
+			}
+		}
+	},
+
+	updateTranscriptionSearchWords: (state, { searchWords, selectedEvalParams }) => {
+		searchWords = searchWords || state.transcriptionPane.searchBar.searchWords;
+		selectedEvalParams = selectedEvalParams || state.transcriptionPane.filter.selectedEvalParams;
+
+		let searchKeywords = transcriptionModel.getKeywordsInParams(selectedEvalParams);
 		let allWords = searchWords.concat(searchKeywords);
 
 		let { searchedTranscripts, matchedTranscriptIndices } = 
@@ -550,40 +566,6 @@ export let actions = () => ({
 					currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
 					numberOfMatches: matchedTranscriptIndices.length
 				},
-				searchedTranscripts: searchedTranscripts,
-				matchedTranscriptIndices: matchedTranscriptIndices
-			}
-		}
-	},
-
-	navigateToMatchNum:(state, { currentMatchNumber }) => {
-		return {
-			...state,
-			transcriptionPane: {
-				...state.transcriptionPane,
-				searchBar: {
-					...state.transcriptionPane.searchBar,
-					currentMatchNumber: currentMatchNumber,
-				}
-			}
-		}
-	},
-
-	updateTranscriptionFilters: (state, { selectedEvalParams }) => {
-		let allWords = transcriptionModel.getKeywordsInParams(selectedEvalParams).concat(state.transcriptionPane.searchBar.searchWords);
-
-		let { searchedTranscripts, matchedTranscriptIndices } = 
-			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, allWords);
-
-		return {
-			...state,
-			transcriptionPane: {
-				...state.transcriptionPane,
-				searchBar: {
-					...state.transcriptionPane.searchBar,
-					currentMatchNumber: (matchedTranscriptIndices.length == 0) ? 0 : 1,
-					numberOfMatches: matchedTranscriptIndices.length
-				},
 				filter: {
 					selectedEvalParams: selectedEvalParams,
 				},
@@ -591,5 +573,5 @@ export let actions = () => ({
 				matchedTranscriptIndices: matchedTranscriptIndices
 			}
 		}
-	}
+	},
 });

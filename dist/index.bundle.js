@@ -2492,31 +2492,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					});
 				},
 
-				updateTranscriptionSearchWords: function updateTranscriptionSearchWords(state, _ref6) {
-					var searchWords = _ref6.searchWords;
-
-					var searchKeywords = _transcriptionModel2.default.getKeywordsInParams(state.transcriptionPane.filter.selectedEvalParams);
-					var allWords = searchWords.concat(searchKeywords);
-
-					var _transcriptionModel$s = _transcriptionModel2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
-					    searchedTranscripts = _transcriptionModel$s.searchedTranscripts,
-					    matchedTranscriptIndices = _transcriptionModel$s.matchedTranscriptIndices;
-
-					return _extends({}, state, {
-						transcriptionPane: _extends({}, state.transcriptionPane, {
-							searchBar: _extends({}, state.transcriptionPane.searchBar, {
-								searchWords: searchWords,
-								currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
-								numberOfMatches: matchedTranscriptIndices.length
-							}),
-							searchedTranscripts: searchedTranscripts,
-							matchedTranscriptIndices: matchedTranscriptIndices
-						})
-					});
-				},
-
-				navigateToMatchNum: function navigateToMatchNum(state, _ref7) {
-					var currentMatchNumber = _ref7.currentMatchNumber;
+				navigateToMatchNum: function navigateToMatchNum(state, _ref6) {
+					var currentMatchNumber = _ref6.currentMatchNumber;
 
 					return _extends({}, state, {
 						transcriptionPane: _extends({}, state.transcriptionPane, {
@@ -2527,18 +2504,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					});
 				},
 
-				updateTranscriptionFilters: function updateTranscriptionFilters(state, _ref8) {
-					var selectedEvalParams = _ref8.selectedEvalParams;
+				updateTranscriptionSearchWords: function updateTranscriptionSearchWords(state, _ref7) {
+					var searchWords = _ref7.searchWords,
+					    selectedEvalParams = _ref7.selectedEvalParams;
 
-					var allWords = _transcriptionModel2.default.getKeywordsInParams(selectedEvalParams).concat(state.transcriptionPane.searchBar.searchWords);
+					searchWords = searchWords || state.transcriptionPane.searchBar.searchWords;
+					selectedEvalParams = selectedEvalParams || state.transcriptionPane.filter.selectedEvalParams;
 
-					var _transcriptionModel$s2 = _transcriptionModel2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
-					    searchedTranscripts = _transcriptionModel$s2.searchedTranscripts,
-					    matchedTranscriptIndices = _transcriptionModel$s2.matchedTranscriptIndices;
+					var searchKeywords = _transcriptionModel2.default.getKeywordsInParams(selectedEvalParams);
+					var allWords = searchWords.concat(searchKeywords);
+
+					var _transcriptionModel$s = _transcriptionModel2.default.search(state.transcriptionPane.timestampedTranscripts, allWords),
+					    searchedTranscripts = _transcriptionModel$s.searchedTranscripts,
+					    matchedTranscriptIndices = _transcriptionModel$s.matchedTranscriptIndices;
 
 					return _extends({}, state, {
 						transcriptionPane: _extends({}, state.transcriptionPane, {
 							searchBar: _extends({}, state.transcriptionPane.searchBar, {
+								searchWords: searchWords,
 								currentMatchNumber: matchedTranscriptIndices.length == 0 ? 0 : 1,
 								numberOfMatches: matchedTranscriptIndices.length
 							}),
@@ -6881,7 +6864,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					var selectedEvalParams = this.props.evalParams.filter(function (evalParam) {
 						return selectedEvalParamIds.includes(evalParam.evalParamId);
 					});
-					this.props.updateTranscriptionFilters({ selectedEvalParams: selectedEvalParams });
+					this.props.updateTranscriptionSearchWords({ selectedEvalParams: selectedEvalParams });
 				}
 			}, {
 				key: "getOptionsFromEvalParams",

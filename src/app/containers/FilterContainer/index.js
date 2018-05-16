@@ -20,7 +20,7 @@ class FilterContainer extends Component {
 	onOptionsChangedHandler({ selectedOptions }) {
 		let selectedEvalParamIds = selectedOptions.map(option => option.value);
 		let selectedEvalParams = this.props.evalParams.filter(evalParam => selectedEvalParamIds.includes(evalParam.evalParamId))
-		this.props.updateTranscriptionFilters({ selectedEvalParams });
+		this.props.updateTranscriptionSearchWords({ selectedEvalParams });
 	}
 
 	getOptionsFromEvalParams(evalParams) {
