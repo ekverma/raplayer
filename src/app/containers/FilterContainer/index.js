@@ -42,7 +42,7 @@ class FilterContainer extends Component {
 		let dropdownOptions = this.getOptionsFromEvalParams(this.props.evalParams);
 		let selectedOptions = this.getOptionsFromEvalParams(this.props.selectedEvalParams);
 		return (
-			<div className={style.selectFilter} onBlur={this.hideFilters}>
+			<div className={style.selectFilter} onBlur={this.hideFilters} tabIndex="0">
 				<div className={style.filterIconHolder} onClick={this.onFilterClickHandler}>
 					<img src={filterImage} style="height:15px;" />
 				</div>
