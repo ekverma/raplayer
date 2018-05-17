@@ -1,8 +1,5 @@
 import { h, Component } from "preact";
 import style from "./index.scss";
-import {
-	STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER
-} from "@config/constants";
 
 class SearchNavigationBar extends Component {
 	constructor(props) {
@@ -39,7 +36,7 @@ class SearchNavigationBar extends Component {
 			<div className={style.searchNavBar}>
 				<div className={style.resultRelatedText}>
 				[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")
-					<div className={[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")}>{STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES}</div>
+					<div className={[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")}>{this.props.noMatchFoundString}</div>
 					<div className={[this.props.numberOfMatches == 0 ? style.hide : null].join(" ")}>
 						{this.state.currentMatchNumber} of {this.props.numberOfMatches} matches
 					</div>

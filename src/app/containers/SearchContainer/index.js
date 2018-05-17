@@ -6,7 +6,8 @@ import SearchBar from "@components/SearchBar";
 import SearchNavigationBar from "@components/SearchNavigationBar";
 import style from "./index.scss";
 import {
-	STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER
+	STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER,
+	STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES
 } from "@config/constants";
 
 class SearchContainer extends Component {
@@ -37,6 +38,7 @@ class SearchContainer extends Component {
 						currentMatchNumber={this.props.currentMatchNumber}
 						numberOfMatches={this.props.numberOfMatches}
 						navigateToMatchHandler={this.navigateToMatchHandler}
+						noMatchFoundString={STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES}
 					/>
 				</div>
 			</div>
