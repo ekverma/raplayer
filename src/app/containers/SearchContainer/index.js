@@ -49,8 +49,7 @@ function mapStateToProps(state) {
 		searchWords: state.transcriptionPane.searchBar.searchWords,
 		numberOfMatches: state.transcriptionPane.searchBar.numberOfMatches,
 		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
-		selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams,
-		timestampedTranscripts: state.transcriptionPane.timestampedTranscripts
+		selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams
 	};
 }
 
