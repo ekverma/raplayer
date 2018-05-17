@@ -5,6 +5,9 @@ import transcriptionModel from "@models/transcriptionModel";
 import SearchBar from "@components/SearchBar";
 import SearchNavigationBar from "@components/SearchNavigationBar";
 import style from "./index.scss";
+import {
+	STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER
+} from "@config/constants";
 
 class SearchContainer extends Component {
 	constructor(props) {
@@ -25,6 +28,7 @@ class SearchContainer extends Component {
 		return (
 			<div>
 				<SearchBar
+					placeholder={STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER}
 					searchWordsChangedHandler={this.searchWordsChangedHandler}
 				/>
 				<div className={style.clear} />

@@ -21,12 +21,11 @@ class SearchBar extends Component {
 	}
 
 	addSearchWord(newWord) {
-		if (this.state.searchWords.includes(newWord)) {
-			this.setState( {inputValue: ""} );
+		let searchWords = [...this.state.searchWords];
+		if (this.state.searchWords.indexOf(newWord) == -1) {
+			searchWords = [...searchWords, newWord];
 		}
-		else {
-			this.setState( {searchWords: [...this.state.searchWords, newWord], inputValue: ""} );
-		}
+		this.setState( {searchWords: searchWords, inputValue: ""} );
 		this.props.searchWordsChangedHandler(this.state.searchWords);
 	}
 
@@ -52,7 +51,7 @@ class SearchBar extends Component {
 				))}
 
 				<input type="text" name="search" value={this.state.inputValue} onKeyPress={this.handleKeyPress}
-					placeholder="Search words in the transcription"  className={style.inputStyle} />
+					placeholder={this.props.placeholder}  className={style.inputStyle} />
 				<div className={style.clear} />
 			</div>
 		);
