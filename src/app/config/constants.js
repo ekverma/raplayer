@@ -8,4 +8,6 @@ export const STRING_ONBOARDING = "Make your review more contextual and insightfu
 export const MAX_CHAR_LIMIT_COMMENT = 1000;
 export const STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER = "Search words in the transcription";
 export const STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = "No match found";
+export const DEFAULT_COMMENT_DIV_ID_PREFIX = "commentCard_";
+export const TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX = "timestampedTranscriptCard_";
 

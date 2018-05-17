@@ -5,6 +5,9 @@ import SearchContainer from "@containers/SearchContainer";
 import FilterContainer from "@containers/FilterContainer";
 import CommentPane from "@components/CommentPane";
 import style from "./index.scss";
+import {
+	TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX
+} from "@config/constants";
 
 
 class TranscriptionContainer extends Component {
@@ -37,6 +40,7 @@ class TranscriptionContainer extends Component {
 				<CommentPane
 					comments={this.props.searchedTranscripts}
 					targetPlayerId={this.props.targetPlayerId}
+					commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
 				/>
 				
 			</div>

@@ -151,7 +151,7 @@ class CommentCard extends Component {
 				onClick={this.cardClickHandler}
 				onMouseOver={this.showControlsHandler}
 				onMouseOut={this.hideControlsHandler}
-				id={"commentCardId_" + cardObj.id}
+				id={this.props.divId}
 			>
 				<div className={style.timestampContainer}>
 					<span className={style.timestamp} style={timeStampColor}>
