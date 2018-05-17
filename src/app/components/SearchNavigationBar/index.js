@@ -34,12 +34,13 @@ class SearchNavigationBar extends Component {
 		return (
 			<div className={style.searchNavBar}>
 				<div className={style.resultRelatedText}>
-					<div style={this.props.numberOfMatches > 0 ? { display: 'none' } : null}>No match found</div>
-					<div style={this.props.numberOfMatches == 0 ? { display: 'none' } : null}>
+				[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")
+					<div className={[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")}>No match found</div>
+					<div className={[this.props.numberOfMatches == 0 ? style.hide : null].join(" ")}>
 						{this.state.currentMatchNumber} of {this.props.numberOfMatches} matches
 					</div>
 				</div>
-				<div className={style.sortingSearch} style={this.props.numberOfMatches == 0 ? { display: 'none' } : null}>
+				<div className={[style.sortingSearch, this.props.numberOfMatches == 0 ? style.hide : null].join(" ")}>
 					<div className={[style.arrow, style.up].join(" ")} onClick={this.onUpClicked} />
 					<div className={[style.arrow, style.down].join(" ")} onClick={this.onDownClicked} />
 					<div className={style.clear} />

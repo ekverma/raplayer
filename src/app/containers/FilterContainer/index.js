@@ -46,7 +46,7 @@ class FilterContainer extends Component {
 				<div className={style.filterIconHolder} onClick={this.onFilterClickHandler}>
 					<img src={filterImage} style="height:15px;" />
 				</div>
-				<div style={{ ...!this.state.showFilters ? { display: 'none' } : { display: 'block' }, width: '300px' }}>
+				<div className={[!this.state.showFilters ? style.hide : null]} style="width:300px;">
 					<MultiSelectDropdown
 						options={dropdownOptions}
 						selectedOptions={selectedOptions}

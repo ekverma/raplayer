@@ -32,7 +32,7 @@ class SearchContainer extends Component {
 					searchWordsChangedHandler={this.searchWordsChangedHandler}
 				/>
 				<div className={style.clear} />
-				<div style={this.props.searchWords.length == 0 && transcriptionModel.getKeywordsInParams(this.props.selectedEvalParams).length == 0 ? { display: 'none' } : null}>
+				<div className={[this.props.searchWords.length == 0 && transcriptionModel.getKeywordsInParams(this.props.selectedEvalParams).length == 0 ? style.hide : null].join(" ")}>
 					<SearchNavigationBar
 						currentMatchNumber={this.props.currentMatchNumber}
 						numberOfMatches={this.props.numberOfMatches}
