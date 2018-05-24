@@ -29,20 +29,29 @@ class TranscriptionContainer extends Component {
 	}
 
 	render() {
+		// const { isFetching } = this.props;
+		const { transcriptStatus } = this.props;
 		return (
-			<div className={style.rightContainor}>
-				<FilterContainer 
-					namespace={this.props.namespace}
-				/>
-				<SearchContainer 
-					namespace={this.props.namespace}
-				/>
-				<CommentPane
-					comments={this.props.searchedTranscripts}
-					targetPlayerId={this.props.targetPlayerId}
-					commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
-				/>
-				
+			<div>
+				<div className={[style.rightContainor, transcriptStatus == "success" ? style.show : style.hide].join(" ")} >
+					<FilterContainer 
+						namespace={this.props.namespace}
+					/>
+					<SearchContainer 
+						namespace={this.props.namespace}
+					/>
+					<CommentPane
+						comments={this.props.searchedTranscripts}
+						targetPlayerId={this.props.targetPlayerId}
+						commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
+					/>	
+				</div>
+				<div className={[transcriptStatus == "fetching" ? style.show : style.hide].join(" ")} >
+					fetching
+				</div>
+				<div className={[style.rightContainor, transcriptStatus == "failed" ? style.show : style.hide].join(" ")} >
+					failed
+				</div>
 			</div>
 		);
 	}
@@ -53,7 +62,8 @@ function mapStateToProps(state) {
 	return {
 		searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 		matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
-		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber
+		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
+		transcriptStatus: state.transcriptionPane.transcriptStatus
 	};
 }
 

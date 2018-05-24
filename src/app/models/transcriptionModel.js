@@ -33,6 +33,15 @@ var transcriptionModel = {
 
 	unhighlightText: (text) => {
 		return text.substr(3, text.length - 7);
+	},
+
+	sort: (timestampedTranscripts, key = "time") => {
+		return timestampedTranscripts.sort((a, b) => {
+			if (a[key] === b[key]) {
+				return a.createdTime - b.createdTime;
+			}
+			return a[key] - b[key];
+		});
 	}
 }
 
