@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -14041,3 +14042,5 @@ exports.locals = {
 /***/ })
 /******/ ]);
 });
+=======
+>>>>>>> 023004f5a8964d96d1888a34ce351fd0d9f48a1b
