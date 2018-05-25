@@ -35,7 +35,6 @@ class SearchNavigationBar extends Component {
 		return (
 			<div className={style.searchNavBar}>
 				<div className={style.resultRelatedText}>
-				[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")
 					<div className={[this.props.numberOfMatches > 0 ? style.hide : null].join(" ")}>{this.props.noMatchFoundString}</div>
 					<div className={[this.props.numberOfMatches == 0 ? style.hide : null].join(" ")}>
 						{this.state.currentMatchNumber} of {this.props.numberOfMatches} matches
