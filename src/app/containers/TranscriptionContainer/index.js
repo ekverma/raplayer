@@ -22,7 +22,7 @@ class TranscriptionContainer extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.currentMatchNumber != this.props.currentMatchNumber && nextProps.currentMatchNumber > 0) {
 			let transcriptIndex = nextProps.matchedTranscriptIndices[nextProps.currentMatchNumber - 1];
-			let elementId = "#commentCardId_" + this.props.searchedTranscripts[transcriptIndex].id;
+			let elementId = "#" + TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX + this.props.searchedTranscripts[transcriptIndex].id;
 			let elem = this.base.querySelector(elementId);
 			elem.scrollIntoViewIfNeeded();
 		}

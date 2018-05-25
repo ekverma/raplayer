@@ -2431,31 +2431,112 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					// 	"transcript_s3_path": "639719738272856071/user/3b1bf22a43eddbee/986188132469806518/1/video_1526978518955.out",
 					// 	"time_interval": 30
 					// };
-					var requestObj = {
-						"transcriptS3Path": state.app.mediaData.transcriptPath
-					};
-					return (0, _apiUtils.post)(_api2.default.getTimestampedTranscripts({ cname: state.app.companyName, mediaId: state.app.mediaData.id }), { body: requestObj }).then(function (response) {
-						// if (response.transcript_status) {}
-						var transcriptArray = [].concat(_toConsumableArray(response.timestamped_transcripts));
 
-						var sortedTranscriptArray = _transcriptionModel2.default.sort(transcriptArray);
+					var commentArray = [{
+						time: 1,
+						id: 1,
+						cname: 2,
+						author: {
+							id: 12,
+							name: "Afroz alam"
+						},
+						text: "kw clarity 2 TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
+					}, {
+						time: 12,
+						id: 13,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kana"
+						},
+						text: "TI feel like "
+					}, {
+						time: 13,
+						id: 12,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kana"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+					}, {
+						time: 25,
+						id: 3,
+						cname: 2,
+						author: {
+							id: 12,
+							name: "Afroz"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw knowledge 2"
+					}, {
+						time: 35,
+						id: 4,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kaana"
+						},
+						text: "test keywords kw knowledge 1"
+					}, {
+						time: 40,
+						id: 41111,
+						cname: 2,
+						author: {
+							id: 12,
+							name: "Afroz"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+					}, {
+						time: 60,
+						id: 12564,
+						cname: 2,
+						author: {
+							id: 123,
+							name: "Afroz kaana"
+						},
+						text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw clarity 1"
+					}];
 
-						return _extends({}, state, {
-							transcriptionPane: _extends({}, state.transcriptionPane, {
-								timestampedTranscripts: sortedTranscriptArray,
-								searchedTranscripts: sortedTranscriptArray,
-								transcriptStatus: "success"
-							})
-						});
-					}, function () {
-						return _extends({}, state, {
-							transcriptionPane: _extends({}, state.transcriptionPane, {
-								timestampedTranscripts: [],
-								searchedTranscripts: [],
-								transcriptStatus: "failed"
-							})
-						});
+					return _extends({}, state, {
+						transcriptionPane: _extends({}, state.transcriptionPane, {
+							timestampedTranscripts: commentArray,
+							searchedTranscripts: commentArray,
+							transcriptStatus: "success"
+						})
 					});
+
+					// let requestObj = {
+					// 	"transcriptS3Path": state.app.mediaData.transcriptPath
+					// };
+					// return post(apiConfig.getTimestampedTranscripts({ cname: state.app.companyName, mediaId: state.app.mediaData.id }), {body: requestObj}).then(
+					// 	response => {
+					// 		// if (response.transcript_status) {}
+					// 		let transcriptArray = [...response.timestamped_transcripts];
+
+					// 		let sortedTranscriptArray = transcriptionModel.sort(transcriptArray);
+
+					// 		return {
+					// 			...state,
+					// 			transcriptionPane: {
+					// 				...state.transcriptionPane,
+					// 				timestampedTranscripts: sortedTranscriptArray,
+					// 				searchedTranscripts: sortedTranscriptArray,
+					// 				transcriptStatus: "success"
+					// 			}
+					// 		};
+					// 	},
+					// 	() => {
+					// 		return {
+					// 			...state,
+					// 			transcriptionPane: {
+					// 				...state.transcriptionPane,
+					// 				timestampedTranscripts: [],
+					// 				searchedTranscripts: [],
+					// 				transcriptStatus: "failed"
+					// 			}
+					// 		};
+					// 	}
+					// );
 				},
 
 				navigateToMatchNum: function navigateToMatchNum(state, _ref6) {
@@ -5887,7 +5968,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				value: function componentWillReceiveProps(nextProps) {
 					if (nextProps.currentMatchNumber != this.props.currentMatchNumber && nextProps.currentMatchNumber > 0) {
 						var transcriptIndex = nextProps.matchedTranscriptIndices[nextProps.currentMatchNumber - 1];
-						var elementId = "#commentCardId_" + this.props.searchedTranscripts[transcriptIndex].id;
+						var elementId = "#" + _constants.TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX + this.props.searchedTranscripts[transcriptIndex].id;
 						var elem = this.base.querySelector(elementId);
 						elem.scrollIntoViewIfNeeded();
 					}
@@ -7646,7 +7727,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}, {
 				key: "render",
 				value: function render() {
-					return (0, _preact.h)("div", { className: _index2.default.searchNavBar }, (0, _preact.h)("div", { className: _index2.default.resultRelatedText }, "[this.props.numberOfMatches > 0 ? style.hide : null].join(\" \")", (0, _preact.h)("div", { className: [this.props.numberOfMatches > 0 ? _index2.default.hide : null].join(" ") }, this.props.noMatchFoundString), (0, _preact.h)("div", { className: [this.props.numberOfMatches == 0 ? _index2.default.hide : null].join(" ") }, this.state.currentMatchNumber, " of ", this.props.numberOfMatches, " matches")), (0, _preact.h)("div", { className: [_index2.default.sortingSearch, this.props.numberOfMatches == 0 ? _index2.default.hide : null].join(" ") }, (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.up].join(" "), onClick: this.onUpClicked }), (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.down].join(" "), onClick: this.onDownClicked }), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("div", { className: _index2.default.clear }));
+					return (0, _preact.h)("div", { className: _index2.default.searchNavBar }, (0, _preact.h)("div", { className: _index2.default.resultRelatedText }, (0, _preact.h)("div", { className: [this.props.numberOfMatches > 0 ? _index2.default.hide : null].join(" ") }, this.props.noMatchFoundString), (0, _preact.h)("div", { className: [this.props.numberOfMatches == 0 ? _index2.default.hide : null].join(" ") }, this.state.currentMatchNumber, " of ", this.props.numberOfMatches, " matches")), (0, _preact.h)("div", { className: [_index2.default.sortingSearch, this.props.numberOfMatches == 0 ? _index2.default.hide : null].join(" ") }, (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.up].join(" "), onClick: this.onUpClicked }), (0, _preact.h)("div", { className: [_index2.default.arrow, _index2.default.down].join(" "), onClick: this.onDownClicked }), (0, _preact.h)("div", { className: _index2.default.clear })), (0, _preact.h)("div", { className: _index2.default.clear }));
 				}
 			}]);
 
