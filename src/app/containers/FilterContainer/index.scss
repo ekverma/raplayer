@@ -1,0 +1,13 @@
+@import '~styles/index.scss';
+.selectFilter{
+    float:right;
+    position:relative;
+
+    .filterIconHolder{
+        border: 1px solid #ddd;
+        padding: 5px;
+        height: 16px;
+        cursor: pointer;
+        width: 16px;
+    }
+}

@@ -5,12 +5,14 @@
 <body>
 		<div id='targetContainer' style='width:672px;height:378px;float:left'></div>
 		<div id='targetCommentContainer' style='width:672px;float:right;position:relative'></div>
+		<div id='targetTranscriptionContainer' style='width:672px;height:300px;float:right;position:relative;overflow: scroll;'></div>
 </body>
 <script>
 
 var obj = {
 	targetVideoContainer: 'targetContainer',
 	targetCommentContainer: 'targetCommentContainer',
+	targetTranscriptionContainer: 'targetTranscriptionContainer',
 	primaryTracks: [
 	{
 		src: '360p.mp4',
@@ -23,16 +25,32 @@ var obj = {
 	app: {
 		subjectId: 123,
 		companyName: 423,
-		socialId: 111,
+		// socialId: 111,
 		author:{id: '1222222',name: "123"},
 		trackData: {
 			contentId: 1234,
 			contentName: "AFroz Alam"
+		},
+		evaluationParameters: [
+			{
+				'name' : 'Knowledge',
+				'evalParamId' : 1,
+				'keywords' : ['kw knowledge 1', 'kw knowledge 2']
+			},
+			{
+				'name' : 'Clarity',
+				'evalParamId' : 2,
+				'keywords' : ['kw clarity 1', 'kw clarity 2']
+			}
+		],
+		mediaData: {
+			id: '998846429095576859',
+			transcriptPath: '639719738272856071/user/3b1bf22a43eddbee/986188132469806518/1/video_1526978518955.out'
 		}
 	},
 	showControlsOnly: false,
 	edit: true,
-	showOnboarding: true,
+	showOnboarding: false,
 	onRenderComplete: function(){
 		console.info("dne...");
 	},
