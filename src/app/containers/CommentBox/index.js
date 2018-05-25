@@ -152,6 +152,23 @@ class CommentBox extends Component {
 		this.autosize();
 	}
 
+	shouldComponentUpdate(nextProps){
+		let { xPos, time, commentText, readOnly, downArrowXPos, edit, showError, author ,fullScreen} = this.props;
+		if(xPos !== nextProps.xPos || 
+			time !== nextProps.time ||
+			commentText !== nextProps.commentText ||
+			readOnly !== nextProps.readOnly ||
+			downArrowXPos !== nextProps.downArrowXPos ||
+			edit !== nextProps.edit ||
+			showError !== nextProps.showError ||
+			author !== nextProps.author ||
+			fullScreen !== nextProps.fullScreen){
+			return true;
+		}
+
+		return false;
+	}
+
 	render({ xPos, time, commentText, readOnly, downArrowXPos, edit, showError, author ,fullScreen}, { disableSaveButton }) {
 		let divStyle = {
 				left: xPos
