@@ -37,11 +37,11 @@ class MultiSelectDropdown extends Component {
 		let options = this.props.options && Array.isArray(this.props.options) ? this.props.options : [];
 		return (
 		<div className={style.dropdownMenu}>
-			<ul style={{maxHeight: '150px'}}>
+			<ul>
 				<li>
 					<div className={style.menuItemHeading}>Evaluation parameters</div>
 				</li>
-				
+
 				{options.map(option => (
 					<li onClick={() => this.onOptionClick(option)}>
 						<div className={[style.checkbox, this.isOptionSelected(option) ? style.checkedbox : null].join(" ")} />
@@ -55,4 +55,3 @@ class MultiSelectDropdown extends Component {
 	}
 }
 export default MultiSelectDropdown;
-

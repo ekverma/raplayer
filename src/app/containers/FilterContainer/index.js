@@ -24,8 +24,8 @@ class FilterContainer extends Component {
 	}
 
 	getOptionsFromEvalParams(evalParams) {
-		let options = evalParams.map((evalParam) => { 
-			return { label: evalParam.name, value: evalParam.evalParamId } 
+		let options = evalParams.map((evalParam) => {
+			return { label: evalParam.name, value: evalParam.evalParamId }
 		});
 		return options;
 	}
@@ -43,8 +43,9 @@ class FilterContainer extends Component {
 		let selectedOptions = this.getOptionsFromEvalParams(this.props.selectedEvalParams);
 		return (
 			<div className={style.selectFilter} onBlur={this.hideFilters} tabIndex="0">
+				<div className={style.counter}>6</div>
 				<div className={style.filterIconHolder} onClick={this.onFilterClickHandler}>
-					<img src={filterImage} style="height:15px;" />
+					<img src={filterImage} style="height:18px;" />
 				</div>
 				<div className={[!this.state.showFilters ? style.hide : null].join(" ")} style="width:300px;">
 					<MultiSelectDropdown
