@@ -8,7 +8,7 @@
     "build:dev": "ENV=dev webpack --watch",
     "clean": "rm -rf dist",
     "build:prod-react": "ENV=prod BUILD_TYPE=react-build webpack",
-    "preversion": "git checkout master && git pull",
+    "preversion": "git checkout feature/qa/milestone/135 && git pull",
     "build": "ENV=prod webpack",
     "version": "npm run build && git add -A dist",
     "postversion": "sh ./build.sh"
