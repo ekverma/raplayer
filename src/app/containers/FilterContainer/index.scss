@@ -1,13 +1,26 @@
 @import '~styles/index.scss';
 .selectFilter{
-    float:right;
-    position:relative;
+      float: right;
+      position: relative;
+      width: 27px;
+      z-index: 9;
+      outline: none;
+      .counter{
+        background: #0072BC;
+        padding: 3px 6px;
+        color: white;
+        position: absolute;
+        top: -7px;
+        right: -13px;
+        border-radius: 10px;
+        font-size: 11px;
+      }
 
     .filterIconHolder{
-        border: 1px solid #ddd;
-        padding: 5px;
-        height: 16px;
-        cursor: pointer;
-        width: 16px;
+      border: 1px solid #ddd;
+      padding:4px;
+      height: 18px;
+      cursor: pointer;
+      width: 18px;
     }
 }

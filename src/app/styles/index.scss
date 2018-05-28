@@ -1,4 +1,7 @@
 @import "./colors.scss";
+body{
+	font-family: "Open Sans", Arial, sans-serif;
+}
 :global {
 	.ra-full-window {
 		width: 100% !important;
@@ -64,32 +67,45 @@ text-overflow: ellipsis;}
 .marginT8 {
 	margin-top: 8px;
 }
-
-.marginR12 {
-	margin-right: 12px;
-}
 .marginT14 {
 	margin-top: 14px;
-}
-
-.marginR15 {
-	margin-right: 15px;
 }
 .marginT9 {
 	margin-top: 9px;
 }
-
 .marginT6 {
 	margin-top: 6px;
 }
-
 .marginT10 {
 	margin-top: 10px;
 }
 
+.marginB5 {
+	margin-bottom: 5px;
+}
+.marginB10 {
+	margin-bottom: 10px;
+}
+.marginB15 {
+	margin-bottom: 15px;
+}
+.marginB20 {
+	margin-bottom: 20px;
+}
+.marginB25 {
+	margin-bottom: 25px;
+}
+
+.marginR12 {
+	margin-right: 12px;
+}
+.marginR15 {
+	margin-right: 15px;
+}
 .marginR20 {
 	margin-right: 20px;
 }
+
 .paddingT5 {
 	padding-top: 5px;
 }

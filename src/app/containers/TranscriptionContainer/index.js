@@ -34,17 +34,20 @@ class TranscriptionContainer extends Component {
 		return (
 			<div>
 				<div className={[style.rightContainor, transcriptStatus == "success" ? style.show : style.hide].join(" ")} >
-					<FilterContainer 
-						namespace={this.props.namespace}
-					/>
-					<SearchContainer 
-						namespace={this.props.namespace}
-					/>
+					<div className={style.marginB15}>
+						<SearchContainer
+							namespace={this.props.namespace}
+						/>
+						<FilterContainer
+							namespace={this.props.namespace}
+						/>
+						<div className={style.clear} />
+					</div>
 					<CommentPane
 						comments={this.props.searchedTranscripts}
 						targetPlayerId={this.props.targetPlayerId}
 						commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
-					/>	
+					/>
 				</div>
 				<div className={[transcriptStatus == "fetching" ? style.show : style.hide].join(" ")} >
 					fetching

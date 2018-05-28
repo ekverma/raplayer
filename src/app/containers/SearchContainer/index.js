@@ -32,7 +32,7 @@ class SearchContainer extends Component {
 					placeholder={STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER}
 					searchWordsChangedHandler={this.searchWordsChangedHandler}
 				/>
-				<div className={style.clear} />
+
 				<div className={[this.props.searchWords.length == 0 && transcriptionModel.getKeywordsInParams(this.props.selectedEvalParams).length == 0 ? style.hide : null].join(" ")}>
 					<SearchNavigationBar
 						currentMatchNumber={this.props.currentMatchNumber}

@@ -10,25 +10,25 @@
     position: relative;
 
     .searchIcon{
-        background-image: url(images/search.svg);    
+        background-image: url(images/search.svg);
         width: 16px;
-        height: 16px;
+        height: 14px;
         background-color: transparent;
         margin-right: 12px;
         float: left;
-        margin: 7px;
+        margin:6px 7px;
         background-repeat: no-repeat;
-        cursor:pointer;  
+        cursor:pointer;
         position: absolute;
         left: 0px;
     }
     .inputStyle{
         border:0px;
-        height: 30px;
+        height: 26px;
         outline: none;
         float: left;
         font-size: 13px;
-        width:63%;
+        width:100%;
         color: #888;
         ::placeholder{
             color: #969696
@@ -61,4 +61,3 @@
         cursor: pointer;
     }
 }
-
