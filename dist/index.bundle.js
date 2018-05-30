@@ -7086,7 +7086,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				value: function render() {
 					var dropdownOptions = this.getOptionsFromEvalParams(this.props.evalParams);
 					var selectedOptions = this.getOptionsFromEvalParams(this.props.selectedEvalParams);
-					return (0, _preact.h)("div", { className: _index2.default.selectFilter, onBlur: this.hideFilters, tabIndex: "0" }, (0, _preact.h)("div", { className: [selectedOptions.length > 1 ? _index2.default.counter : _index2.default.hide].join(" ") }, selectedOptions.length), (0, _preact.h)("div", { className: _index2.default.filterIconHolder, onClick: this.onFilterClickHandler }, (0, _preact.h)("img", { src: _filter2.default, style: "height:18px;" })), (0, _preact.h)("div", { className: [!this.state.showFilters ? _index2.default.hide : null].join(" "), style: "width:300px;" }, (0, _preact.h)(_MultiSelectDropdown2.default, {
+					return (0, _preact.h)("div", { className: _index2.default.selectFilter, onBlur: this.hideFilters, tabIndex: "0" }, (0, _preact.h)("div", { className: [selectedOptions.length > 0 ? _index2.default.counter : _index2.default.hide].join(" ") }, selectedOptions.length), (0, _preact.h)("div", { className: _index2.default.filterIconHolder, onClick: this.onFilterClickHandler }, (0, _preact.h)("img", { src: _filter2.default, style: "height:18px;" })), (0, _preact.h)("div", { className: [!this.state.showFilters ? _index2.default.hide : null].join(" "), style: "width:300px;" }, (0, _preact.h)(_MultiSelectDropdown2.default, {
 						options: dropdownOptions,
 						selectedOptions: selectedOptions,
 						onOptionsChangedHandler: this.onOptionsChangedHandler
