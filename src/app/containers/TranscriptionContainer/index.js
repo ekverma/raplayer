@@ -30,37 +30,46 @@ class TranscriptionContainer extends Component {
 
 	render() {
 		// const { isFetching } = this.props;
-		const { transcriptStatus } = this.props;
+		const { transcriptionApiStatus, transcriptionStatus} = this.props;
 		return (
 			<div className={style.heightCalcTranscription}>
-				<div className={style.transcriptionOnItsWay}>
-					<div className={[style.transcription_truck, style.marginT120, style.display_IB].join(" ")} />
-					<div className="F18 color66 marginT30 marginB30">Transcription is on its way!</div>
-        </div>
-				<div className={[style.rightContainor, transcriptStatus == "success" ? style.show : style.hide].join(" ")} >
-					<div className={style.transcriptionSearch}>
-						<SearchContainer
-							namespace={this.props.namespace}
-						/>
-						<FilterContainer
-							namespace={this.props.namespace}
-						/>
-						<div className={style.clear} />
+				<div className={[style.rightContainor, transcriptionApiStatus == "SUCCESS" ? style.show : style.hide].join(" ")} >
+					<div className={[transcriptionStatus == "SUCCESS" ? style.show : style.hide].join(" ")}>
+						<div className={style.marginB15}>
+							<SearchContainer
+								namespace={this.props.namespace}
+							/>
+							<FilterContainer
+								namespace={this.props.namespace}
+							/>
+							<div className={style.clear} />
+						</div>
+            <div className={[this.props.searchWords.length == 0 ? style.heightCalcComment : style.heightCalcTagAdded].join(" ")}>
+              <CommentPane
+                comments={this.props.searchedTranscripts}
+                targetPlayerId={this.props.targetPlayerId}
+                commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
+              />
+            </div>
 					</div>
-
-					<div className={[this.props.searchWords.length == 0 ? style.heightCalcComment : style.heightCalcTagAdded].join(" ")}>
-						<CommentPane
-							comments={this.props.searchedTranscripts}
-							targetPlayerId={this.props.targetPlayerId}
-							commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
-						/>
+					<div className={[transcriptionStatus == "NOT_ENABLED" ? style.show : style.hide].join(" ")} >
+						Transcription and Keywords analysis not enabled for this Submission.
+					</div>
+					<div className={[transcriptionStatus == "FAILED" ? style.show : style.hide].join(" ")} >
+						Transcription and Keywords analysis not available for this Submission.
+					</div>
+					<div className={[transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? style.show : style.hide].join(" ")} >
+						<div className={style.transcriptionOnItsWay}>
+					    <div className={[style.transcription_truck, style.marginT120, style.display_IB].join(" ")} />
+					    <div className="F18 color66 marginT30 marginB30">Transcription is on its way!</div>
+            </div>
 					</div>
 				</div>
-				<div className={[transcriptStatus == "fetching" ? style.show : style.hide].join(" ")} >
-					fetching
+				<div className={[transcriptionApiStatus == "FETCHING" ? style.show : style.hide].join(" ")} >
+					Fetching
 				</div>
-				<div className={[style.rightContainor, transcriptStatus == "failed" ? style.show : style.hide].join(" ")} >
-					failed
+				<div className={[style.rightContainor, transcriptionApiStatus == "FAILED" ? style.show : style.hide].join(" ")} >
+					Error getting data
 				</div>
 			</div>
 		);
@@ -73,8 +82,9 @@ function mapStateToProps(state) {
 		searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 		matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
 		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
-		transcriptStatus: state.transcriptionPane.transcriptStatus,
-		searchWords: state.transcriptionPane.searchBar.searchWords
+		searchWords: state.transcriptionPane.searchBar.searchWords,
+		transcriptionStatus: state.transcriptionPane.transcriptionStatus,
+		transcriptionApiStatus: state.transcriptionPane.transcriptionApiStatus
 	};
 }
 

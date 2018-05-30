@@ -35,7 +35,9 @@ const initialState = {
 		},
 		timestampedTranscripts: [],
 		searchedTranscripts: [],
-		matchedTranscriptIndices: []
+		matchedTranscriptIndices: [],
+		transcriptionApiStatus: "FETCHING",
+		transcriptionStatus: "NOT_ENABLED"
 	}
 };
 
