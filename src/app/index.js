@@ -39,17 +39,18 @@ class App extends Component {
 			targetCommentContainerRef.lastChild
 		);
 
-		this.transcriptionContainerRoot = render(
-			<Provider store={this.context.store}>
-				<TranscriptionContainer
-					namespace={this.props.namespace}
-					targetPlayerId={this.props.id}
-				/>
-			</Provider>,
-			targetTranscriptionContainerRef,
-			targetTranscriptionContainerRef.lastChild
-		);
-
+		if(targetTranscriptionContainerRef){
+			this.transcriptionContainerRoot = render(
+				<Provider store={this.context.store}>
+					<TranscriptionContainer
+						namespace={this.props.namespace}
+						targetPlayerId={this.props.id}
+					/>
+				</Provider>,
+				targetTranscriptionContainerRef,
+				targetTranscriptionContainerRef.lastChild
+			);
+		}
 
 
 		if (showOnboarding && edit) {

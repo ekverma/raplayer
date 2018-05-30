@@ -2818,6 +2818,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = exports.STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = "No match found";
     var DEFAULT_COMMENT_DIV_ID_PREFIX = exports.DEFAULT_COMMENT_DIV_ID_PREFIX = "commentCard_";
     var TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX = exports.TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX = "timestampedTranscriptCard_";
+    var STRING_TRANSCRIPTION_NOT_ENABLED = exports.STRING_TRANSCRIPTION_NOT_ENABLED = "Transcription and Keywords analysis not enabled for this Submission.";
+    var STRING_TRANSCRIPTION_FAILED = exports.STRING_TRANSCRIPTION_FAILED = "Transcription and Keywords analysis not available for this Submission.";
+    var STRING_TRANSCRIPTION_IN_PROGRESS = exports.STRING_TRANSCRIPTION_IN_PROGRESS = "Transcription is on its way!";
+    var STRING_FETCHING_TRANSCRIPTION_DATA = exports.STRING_FETCHING_TRANSCRIPTION_DATA = "Loading...";
+    var STRING_FETCHING_TRANSCRIPTION_DATA_FAILED = exports.STRING_FETCHING_TRANSCRIPTION_DATA_FAILED = "Error while getting data.";
   });
 });
 
@@ -3082,46 +3087,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   "use strict";
 
   function n(t, n) {
+    "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
+      r[e] = n.action(t[e]);
+    }return r;
+  }function r(t) {
+    return "string" == typeof t && (t = t.split(/\s*,\s*/)), function (n) {
+      for (var r = {}, e = 0; e < t.length; e++) {
+        r[t[e]] = n[t[e]];
+      }return r;
+    };
+  }function e(t, n) {
     for (var r in n) {
       t[r] = n[r];
     }return t;
-  }function r(t) {
+  }function o(o, i) {
+    return "function" != typeof o && (o = r(o || [])), function (r) {
+      function u(u, c) {
+        var f = this,
+            s = c.store,
+            p = o(s ? s.getState() : {}, u),
+            a = i ? n(i, s) : { store: s },
+            l = function l() {
+          var t = o(s ? s.getState() : {}, f.props);for (var n in t) {
+            if (t[n] !== p[n]) return p = t, f.setState(null);
+          }for (var r in p) {
+            if (!(r in t)) return p = t, f.setState(null);
+          }
+        };this.componentDidMount = function () {
+          l(), s.subscribe(l);
+        }, this.componentWillUnmount = function () {
+          s.unsubscribe(l);
+        }, this.render = function (n) {
+          return t.h(r, e(e(e({}, a), n), p));
+        };
+      }return (u.prototype = new t.Component()).constructor = u;
+    };
+  }function i(t) {
     this.getChildContext = function () {
       return { store: t.store };
     };
-  }r.prototype.render = function (t) {
+  }i.prototype.render = function (t) {
     return t.children[0];
-  }, exports.connect = function (r, e) {
-    var o;return "function" != typeof r && ("string" == typeof (o = r || []) && (o = o.split(/\s*,\s*/)), r = function r(t) {
-      for (var n = {}, r = 0; r < o.length; r++) {
-        n[o[r]] = t[o[r]];
-      }return n;
-    }), function (o) {
-      function i(i, u) {
-        var c = this,
-            f = u.store,
-            s = r(f ? f.getState() : {}, i),
-            a = e ? function (t, n) {
-          "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
-            r[e] = n.action(t[e]);
-          }return r;
-        }(e, f) : { store: f },
-            p = function p() {
-          var t = r(f ? f.getState() : {}, c.props);for (var n in t) {
-            if (t[n] !== s[n]) return s = t, c.setState(null);
-          }for (var e in s) {
-            if (!(e in t)) return s = t, c.setState(null);
-          }
-        };this.componentDidMount = function () {
-          p(), f.subscribe(p);
-        }, this.componentWillUnmount = function () {
-          f.unsubscribe(p);
-        }, this.render = function (r) {
-          return t.h(o, n(n(n({}, a), r), s));
-        };
-      }return (i.prototype = new t.Component()).constructor = i;
-    };
-  }, exports.Provider = r;
+  }, exports.connect = o, exports.Provider = i;
   //# sourceMappingURL=preact.js.map
 });
 
@@ -5027,8 +5034,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-  exports.default = function (t) {
+  function n(n, t) {
+    for (var u in t) {
+      n[u] = t[u];
+    }return n;
+  }function t(t) {
     var u = [];function r(n) {
       for (var t = [], r = 0; r < u.length; r++) {
         u[r] === n ? n = null : t.push(u[r]);
@@ -5052,15 +5062,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }, unsubscribe: r, getState: function getState() {
         return t;
       } };
-  };
-
-  function n(n, t) {
-    for (var u in t) {
-      n[u] = t[u];
-    }return n;
-  };
-  //# sourceMappingURL=unistore.es.js.map
-
+  }exports.default = t;
   module.exports = exports["default"];
 });
 
@@ -5218,10 +5220,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						onCommentPaneRender: onCommentPaneRender
 					})), targetCommentContainerRef, targetCommentContainerRef.lastChild);
 
-					this.transcriptionContainerRoot = (0, _preact.render)((0, _preact.h)(_preact2.Provider, { store: this.context.store }, (0, _preact.h)(_TranscriptionContainer2.default, {
-						namespace: this.props.namespace,
-						targetPlayerId: this.props.id
-					})), targetTranscriptionContainerRef, targetTranscriptionContainerRef.lastChild);
+					if (targetTranscriptionContainerRef) {
+						this.transcriptionContainerRoot = (0, _preact.render)((0, _preact.h)(_preact2.Provider, { store: this.context.store }, (0, _preact.h)(_TranscriptionContainer2.default, {
+							namespace: this.props.namespace,
+							targetPlayerId: this.props.id
+						})), targetTranscriptionContainerRef, targetTranscriptionContainerRef.lastChild);
+					}
 
 					if (showOnboarding && edit) {
 						this.onBoardingContainerRoot = (0, _preact.render)((0, _preact.h)("div", { className: _index2.default.onBoardingContainer }, (0, _preact.h)(_OnBoardingBox2.default, { text: _constants.STRING_ONBOARDING, image: _onboarding2.default })), document.getElementById(targetCommentContainer));
@@ -6024,7 +6028,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						comments: this.props.searchedTranscripts,
 						targetPlayerId: this.props.targetPlayerId,
 						commentDivIdPrefix: _constants.TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX
-					}))), (0, _preact.h)("div", { className: [transcriptionStatus == "NOT_ENABLED" ? _index2.default.show : _index2.default.hide].join(" ") }, "Transcription and Keywords analysis not enabled for this Submission."), (0, _preact.h)("div", { className: [transcriptionStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, "Transcription and Keywords analysis not available for this Submission."), (0, _preact.h)("div", { className: [transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionOnItsWay }, (0, _preact.h)("div", { className: [_index2.default.transcription_truck, _index2.default.marginT120, _index2.default.display_IB].join(" ") }), (0, _preact.h)("div", { className: "F18 color66 marginT30 marginB30" }, "Transcription is on its way!")))), (0, _preact.h)("div", { className: [transcriptionApiStatus == "FETCHING" ? _index2.default.show : _index2.default.hide].join(" ") }, "Fetching"), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, "Error getting data"));
+					}))), (0, _preact.h)("div", { className: [transcriptionStatus == "NOT_ENABLED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_TRANSCRIPTION_NOT_ENABLED), (0, _preact.h)("div", { className: [transcriptionStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_TRANSCRIPTION_FAILED), (0, _preact.h)("div", { className: [transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionOnItsWay }, (0, _preact.h)("div", { className: [_index2.default.transcription_truck, _index2.default.marginT120, _index2.default.display_IB].join(" ") }), (0, _preact.h)("div", { className: "F18 color66 marginT30 marginB30" }, _constants.STRING_TRANSCRIPTION_IN_PROGRESS)))), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "FETCHING" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_FETCHING_TRANSCRIPTION_DATA), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_FETCHING_TRANSCRIPTION_DATA_FAILED));
 				}
 			}]);
 
