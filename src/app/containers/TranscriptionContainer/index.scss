@@ -18,3 +18,15 @@
 	overflow-x: auto;
 	height: calc(100vh - 317px);
 }
+.transcriptionOnItsWay{
+  text-align: center;
+  padding-top: 120px;
+  padding-bottom: 20px;
+
+  .transcription_truck{
+       height: 57px;
+       width: 101px;
+       background-image: url(images/transcription_truck.svg);
+       background-repeat: no-repeat;
+  }
+}

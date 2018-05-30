@@ -33,6 +33,10 @@ class TranscriptionContainer extends Component {
 		const { transcriptStatus } = this.props;
 		return (
 			<div className={style.heightCalcTranscription}>
+				<div className={style.transcriptionOnItsWay}>
+					<div className={[style.transcription_truck, style.marginT120, style.display_IB].join(" ")} />
+					<div className="F18 color66 marginT30 marginB30">Transcription is on its way!</div>
+        </div>
 				<div className={[style.rightContainor, transcriptStatus == "success" ? style.show : style.hide].join(" ")} >
 					<div className={style.transcriptionSearch}>
 						<SearchContainer
