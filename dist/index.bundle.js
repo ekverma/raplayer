@@ -3082,48 +3082,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   "use strict";
 
   function n(t, n) {
-    "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
-      r[e] = n.action(t[e]);
-    }return r;
-  }function r(t) {
-    return "string" == typeof t && (t = t.split(/\s*,\s*/)), function (n) {
-      for (var r = {}, e = 0; e < t.length; e++) {
-        r[t[e]] = n[t[e]];
-      }return r;
-    };
-  }function e(t, n) {
     for (var r in n) {
       t[r] = n[r];
     }return t;
-  }function o(o, i) {
-    return "function" != typeof o && (o = r(o || [])), function (r) {
-      function u(u, c) {
-        var f = this,
-            s = c.store,
-            p = o(s ? s.getState() : {}, u),
-            a = i ? n(i, s) : { store: s },
-            l = function l() {
-          var t = o(s ? s.getState() : {}, f.props);for (var n in t) {
-            if (t[n] !== p[n]) return p = t, f.setState(null);
-          }for (var r in p) {
-            if (!(r in t)) return p = t, f.setState(null);
-          }
-        };this.componentDidMount = function () {
-          l(), s.subscribe(l);
-        }, this.componentWillUnmount = function () {
-          s.unsubscribe(l);
-        }, this.render = function (n) {
-          return t.h(r, e(e(e({}, a), n), p));
-        };
-      }return (u.prototype = new t.Component()).constructor = u;
-    };
-  }function i(t) {
+  }function r(t) {
     this.getChildContext = function () {
       return { store: t.store };
     };
-  }i.prototype.render = function (t) {
+  }r.prototype.render = function (t) {
     return t.children[0];
-  }, exports.connect = o, exports.Provider = i;
+  }, exports.connect = function (r, e) {
+    var o;return "function" != typeof r && ("string" == typeof (o = r || []) && (o = o.split(/\s*,\s*/)), r = function r(t) {
+      for (var n = {}, r = 0; r < o.length; r++) {
+        n[o[r]] = t[o[r]];
+      }return n;
+    }), function (o) {
+      function i(i, u) {
+        var c = this,
+            f = u.store,
+            s = r(f ? f.getState() : {}, i),
+            a = e ? function (t, n) {
+          "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
+            r[e] = n.action(t[e]);
+          }return r;
+        }(e, f) : { store: f },
+            p = function p() {
+          var t = r(f ? f.getState() : {}, c.props);for (var n in t) {
+            if (t[n] !== s[n]) return s = t, c.setState(null);
+          }for (var e in s) {
+            if (!(e in t)) return s = t, c.setState(null);
+          }
+        };this.componentDidMount = function () {
+          p(), f.subscribe(p);
+        }, this.componentWillUnmount = function () {
+          f.unsubscribe(p);
+        }, this.render = function (r) {
+          return t.h(o, n(n(n({}, a), r), s));
+        };
+      }return (i.prototype = new t.Component()).constructor = i;
+    };
+  }, exports.Provider = r;
   //# sourceMappingURL=preact.js.map
 });
 
@@ -5029,11 +5027,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  function n(n, t) {
-    for (var u in t) {
-      n[u] = t[u];
-    }return n;
-  }function t(t) {
+
+  exports.default = function (t) {
     var u = [];function r(n) {
       for (var t = [], r = 0; r < u.length; r++) {
         u[r] === n ? n = null : t.push(u[r]);
@@ -5057,7 +5052,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }, unsubscribe: r, getState: function getState() {
         return t;
       } };
-  }exports.default = t;
+  };
+
+  function n(n, t) {
+    for (var u in t) {
+      n[u] = t[u];
+    }return n;
+  };
+  //# sourceMappingURL=unistore.es.js.map
+
   module.exports = exports["default"];
 });
 
@@ -6013,7 +6016,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					    transcriptionApiStatus = _props.transcriptionApiStatus,
 					    transcriptionStatus = _props.transcriptionStatus;
 
-					return (0, _preact.h)("div", { className: _index2.default.heightCalcTranscription }, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.marginB15 }, (0, _preact.h)(_SearchContainer2.default, {
+					return (0, _preact.h)("div", { className: _index2.default.heightCalcTranscription }, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionSearch }, (0, _preact.h)(_SearchContainer2.default, {
 						namespace: this.props.namespace
 					}), (0, _preact.h)(_FilterContainer2.default, {
 						namespace: this.props.namespace
@@ -7997,7 +8000,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					return (0, _preact.h)("div", { className: _index2.default.searchBar }, (0, _preact.h)("div", { className: _index2.default.searchIcon }), this.state.searchWords.map(function (searchWord) {
 						return (0, _preact.h)("div", { className: _index2.default.tagItemTag }, (0, _preact.h)("div", { className: _index2.default.tagItemTagname }, searchWord), (0, _preact.h)("div", { className: _index2.default.icon, onClick: function onClick() {
 								return _this2.removeSearchWord(searchWord);
-							} }, (0, _preact.h)("img", { src: _close_w2.default, style: "height:8px;" })), (0, _preact.h)("div", { className: _index2.default.clear }));
+							} }, (0, _preact.h)("img", { src: _close_w2.default, style: { height: '8px', verticalAlign: 'top' } })), (0, _preact.h)("div", { className: _index2.default.clear }));
 					}), (0, _preact.h)("input", { type: "text", name: "search", value: this.state.inputValue, onKeyPress: this.handleKeyPress,
 						placeholder: this.props.placeholder, className: _index2.default.inputStyle }), (0, _preact.h)("div", { className: _index2.default.clear }));
 				}
@@ -13728,7 +13731,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "body {\n  font-family: \"Open Sans\", Arial, sans-serif; }\n\n {\n  button-outline: none; }\n  .ra-full-window {\n    width: 100% !important;\n    height: 100% !important; }\n  .fullScreen {\n    width: 100% !important;\n    height: 100% !important; }\n  .showScroll::-webkit-scrollbar {\n    -webkit-appearance: none;\n    width: 7px; }\n  .showScroll::-webkit-scrollbar-thumb {\n    border-radius: 4px;\n    background-color: rgba(0, 0, 0, 0.5);\n    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }\n\n.SearchBar__ellipsis___3e7lD {\n  overflow: hidden;\n  white-space: nowrap;\n  font-size: 13px;\n  text-overflow: ellipsis; }\n\n.SearchBar__pos_rel___1o7Nf {\n  position: relative; }\n\n.SearchBar__hide___MNDeV {\n  display: none; }\n\n.SearchBar__display_IB___1zQ2b {\n  display: inline-block; }\n\n.SearchBar__show___3ncTN {\n  display: block; }\n\n.SearchBar__visible___dZB6I {\n  visibility: visible; }\n\n.SearchBar__invisible___udpct {\n  visibility: hidden; }\n\n.SearchBar__textalignC___BXCM_ {\n  text-align: center; }\n\n.SearchBar__floatL___3LxPP {\n  float: left; }\n\n.SearchBar__floatR___1sXBX {\n  float: right; }\n\n.SearchBar__marginR7___1rOnQ {\n  margin-right: 7px; }\n\n.SearchBar__marginT8___3Eb_0 {\n  margin-top: 8px; }\n\n.SearchBar__marginT14___1NeQC {\n  margin-top: 14px; }\n\n.SearchBar__marginT9___1sZ1n {\n  margin-top: 9px; }\n\n.SearchBar__marginT6___1aPct {\n  margin-top: 6px; }\n\n.SearchBar__marginT10___3fMIs {\n  margin-top: 10px; }\n\n.SearchBar__marginB5___1YLZP {\n  margin-bottom: 5px; }\n\n.SearchBar__marginB10___1qz73 {\n  margin-bottom: 10px; }\n\n.SearchBar__marginB15___3djAt {\n  margin-bottom: 15px; }\n\n.SearchBar__marginB20___1TvCP {\n  margin-bottom: 20px; }\n\n.SearchBar__marginB25___13Rzl {\n  margin-bottom: 25px; }\n\n.SearchBar__marginR12___3qNhj {\n  margin-right: 12px; }\n\n.SearchBar__marginR15___71Qqk {\n  margin-right: 15px; }\n\n.SearchBar__marginR20___KDOdJ {\n  margin-right: 20px; }\n\n.SearchBar__paddingT5___3rz0R {\n  padding-top: 5px; }\n\n.SearchBar__clear___2O_oW {\n  clear: both; }\n\n.SearchBar__marginT14___1NeQC {\n  margin-top: 14px; }\n\n.SearchBar__lineHeight30___Q1tNm {\n  line-height: 30px; }\n\n.SearchBar__lineHeight20___8Bgc7 {\n  line-height: 20px; }\n\n.SearchBar__lineHeight18___2y37P {\n  line-height: 18px; }\n\n.SearchBar__F12___1P4CD {\n  font-size: 12px; }\n\n.SearchBar__orangeColor___3ICq0 {\n  color: #ff8a16; }\n\n.SearchBar__onBoardingContainer___33Vdl {\n  position: absolute;\n  left: 50%;\n  top: 20px;\n  margin-left: -160px; }\n\n.SearchBar__error___2jpyV {\n  color: red;\n  font-size: 10px; }\n\n.SearchBar__searchHighlightStyle___3tJHE {\n  background: #fff6ce;\n  font-weight: normal;\n  border-radius: 4px;\n  padding: 0 2px;\n  display: inline-block; }\n\n.SearchBar__searchBar___1QVJm {\n  border: 1px solid #ddd;\n  background: #fff;\n  width: 325px;\n  max-height: 60px;\n  float: left;\n  overflow-y: auto;\n  padding-left: 30px;\n  position: relative; }\n  .SearchBar__searchBar___1QVJm .SearchBar__searchIcon___3NGPT {\n    background-image: url(" + escape(__webpack_require__(113)) + ");\n    width: 16px;\n    height: 14px;\n    background-color: transparent;\n    margin-right: 12px;\n    float: left;\n    margin: 6px 7px;\n    background-repeat: no-repeat;\n    cursor: pointer;\n    position: absolute;\n    left: 0px; }\n  .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG {\n    border: 0px;\n    height: 26px;\n    outline: none;\n    float: left;\n    font-size: 12px;\n    width: 100%;\n    color: #888; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG ::-webkit-input-placeholder {\n      color: #969696; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG :-ms-input-placeholder {\n      color: #969696; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG ::-ms-input-placeholder {\n      color: #969696; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG ::placeholder {\n      color: #969696; }\n\n.SearchBar__tagItemTag___3TQeH {\n  float: left;\n  background: #999;\n  color: #fff;\n  padding: 2px 7px;\n  margin: 4px 10px 4px 0;\n  border: 1px solid #999;\n  border-radius: 2px;\n  max-width: 280px;\n  line-height: 16px; }\n  .SearchBar__tagItemTag___3TQeH .SearchBar__tagItemTagname___3PaJc {\n    font-size: 12px;\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    float: left;\n    max-width: 250px;\n    margin-right: 10px; }\n  .SearchBar__tagItemTag___3TQeH .SearchBar__icon___18GSY {\n    font-size: 8px;\n    padding: 0px;\n    float: left;\n    cursor: pointer; }\n", ""]);
+exports.push([module.i, "body {\n  font-family: \"Open Sans\", Arial, sans-serif; }\n\n {\n  button-outline: none; }\n  .ra-full-window {\n    width: 100% !important;\n    height: 100% !important; }\n  .fullScreen {\n    width: 100% !important;\n    height: 100% !important; }\n  .showScroll::-webkit-scrollbar {\n    -webkit-appearance: none;\n    width: 7px; }\n  .showScroll::-webkit-scrollbar-thumb {\n    border-radius: 4px;\n    background-color: rgba(0, 0, 0, 0.5);\n    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }\n\n.SearchBar__ellipsis___3e7lD {\n  overflow: hidden;\n  white-space: nowrap;\n  font-size: 13px;\n  text-overflow: ellipsis; }\n\n.SearchBar__pos_rel___1o7Nf {\n  position: relative; }\n\n.SearchBar__hide___MNDeV {\n  display: none; }\n\n.SearchBar__display_IB___1zQ2b {\n  display: inline-block; }\n\n.SearchBar__show___3ncTN {\n  display: block; }\n\n.SearchBar__visible___dZB6I {\n  visibility: visible; }\n\n.SearchBar__invisible___udpct {\n  visibility: hidden; }\n\n.SearchBar__textalignC___BXCM_ {\n  text-align: center; }\n\n.SearchBar__floatL___3LxPP {\n  float: left; }\n\n.SearchBar__floatR___1sXBX {\n  float: right; }\n\n.SearchBar__marginR7___1rOnQ {\n  margin-right: 7px; }\n\n.SearchBar__marginT8___3Eb_0 {\n  margin-top: 8px; }\n\n.SearchBar__marginT14___1NeQC {\n  margin-top: 14px; }\n\n.SearchBar__marginT9___1sZ1n {\n  margin-top: 9px; }\n\n.SearchBar__marginT6___1aPct {\n  margin-top: 6px; }\n\n.SearchBar__marginT10___3fMIs {\n  margin-top: 10px; }\n\n.SearchBar__marginB5___1YLZP {\n  margin-bottom: 5px; }\n\n.SearchBar__marginB10___1qz73 {\n  margin-bottom: 10px; }\n\n.SearchBar__marginB15___3djAt {\n  margin-bottom: 15px; }\n\n.SearchBar__marginB20___1TvCP {\n  margin-bottom: 20px; }\n\n.SearchBar__marginB25___13Rzl {\n  margin-bottom: 25px; }\n\n.SearchBar__marginR12___3qNhj {\n  margin-right: 12px; }\n\n.SearchBar__marginR15___71Qqk {\n  margin-right: 15px; }\n\n.SearchBar__marginR20___KDOdJ {\n  margin-right: 20px; }\n\n.SearchBar__paddingT5___3rz0R {\n  padding-top: 5px; }\n\n.SearchBar__clear___2O_oW {\n  clear: both; }\n\n.SearchBar__marginT14___1NeQC {\n  margin-top: 14px; }\n\n.SearchBar__lineHeight30___Q1tNm {\n  line-height: 30px; }\n\n.SearchBar__lineHeight20___8Bgc7 {\n  line-height: 20px; }\n\n.SearchBar__lineHeight18___2y37P {\n  line-height: 18px; }\n\n.SearchBar__F12___1P4CD {\n  font-size: 12px; }\n\n.SearchBar__orangeColor___3ICq0 {\n  color: #ff8a16; }\n\n.SearchBar__onBoardingContainer___33Vdl {\n  position: absolute;\n  left: 50%;\n  top: 20px;\n  margin-left: -160px; }\n\n.SearchBar__error___2jpyV {\n  color: red;\n  font-size: 10px; }\n\n.SearchBar__searchHighlightStyle___3tJHE {\n  background: #fff6ce;\n  font-weight: normal;\n  border-radius: 4px;\n  padding: 0 2px;\n  display: inline-block; }\n\n.SearchBar__searchBar___1QVJm {\n  border: 1px solid #ddd;\n  background: #fff;\n  width: 325px;\n  max-height: 60px;\n  float: left;\n  overflow-y: auto;\n  padding-left: 30px;\n  position: relative; }\n  .SearchBar__searchBar___1QVJm .SearchBar__searchIcon___3NGPT {\n    background-image: url(" + escape(__webpack_require__(113)) + ");\n    width: 16px;\n    height: 14px;\n    background-color: transparent;\n    margin-right: 12px;\n    float: left;\n    margin: 6px 7px;\n    background-repeat: no-repeat;\n    cursor: pointer;\n    position: absolute;\n    left: 0px; }\n  .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG {\n    border: 0px;\n    height: 26px;\n    outline: none;\n    float: left;\n    font-size: 12px;\n    width: 100%;\n    color: #888; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG ::-webkit-input-placeholder {\n      color: #969696; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG :-ms-input-placeholder {\n      color: #969696; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG ::-ms-input-placeholder {\n      color: #969696; }\n    .SearchBar__searchBar___1QVJm .SearchBar__inputStyle___1fqRG ::placeholder {\n      color: #969696; }\n\n.SearchBar__tagItemTag___3TQeH {\n  float: left;\n  background: #999;\n  color: #fff;\n  padding: 2px 7px;\n  margin: 4px 10px 4px 0;\n  border: 1px solid #999;\n  border-radius: 2px;\n  max-width: 280px;\n  line-height: 16px; }\n  .SearchBar__tagItemTag___3TQeH .SearchBar__tagItemTagname___3PaJc {\n    font-size: 12px;\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    float: left;\n    max-width: 250px;\n    margin-right: 10px; }\n  .SearchBar__tagItemTag___3TQeH .SearchBar__icon___18GSY {\n    font-size: 8px;\n    padding: 0px;\n    float: left;\n    cursor: pointer;\n    width: 8px;\n    height: 8px;\n    margin-top: 4px; }\n", ""]);
 
 // exports
 exports.locals = {

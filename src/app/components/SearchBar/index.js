@@ -33,7 +33,7 @@ class SearchBar extends Component {
 		this.setState( {searchWords: this.state.searchWords.filter(searchWord => searchWord != word)} );
 		this.props.searchWordsChangedHandler(this.state.searchWords);
 	}
-	
+
 	render() {
 		return (
 			<div className={style.searchBar}>
@@ -44,7 +44,7 @@ class SearchBar extends Component {
 							{searchWord}
 						</div>
 						<div className={style.icon} onClick={() => this.removeSearchWord(searchWord)}>
-							<img src={closeImage} style="height:8px;" />
+							<img src={closeImage} style={{height:'8px', verticalAlign: 'top'}} />
 						</div>
 						<div className={style.clear} />
 					</div>
