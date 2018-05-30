@@ -30,6 +30,7 @@ const initialState = {
 			numberOfMatches: 0
 		},
 		filter: {
+			evaluationParameters: [],
 			selectedEvalParams: []
 		},
 		timestampedTranscripts: [],

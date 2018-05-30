@@ -168,84 +168,84 @@ export let actions = () => ({
 			commentPane: defaultObj
 		});
 		let { filter } = payload;
-		var commentArray = [
-			{
-				time: 1,
-				id: 1,
-				cname: 2,
-				author: {
-					id: 12,
-					name: "Afroz alam"
-				},
-				text: "kw clarity 2 TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
-			},
-			{
-				time: 12,
-				id: 13,
-				cname: 2,
-				author: {
-					id: 123,
-					name: "Afroz kana"
-				},
-				text: "TI feel like "
-			},
-			{
-				time: 13,
-				id: 12,
-				cname: 2,
-				author: {
-					id: 123,
-					name: "Afroz kana"
-				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
-			},
-			{
-				time: 25,
-				id: 3,
-				cname: 2,
-				author: {
-					id: 12,
-					name: "Afroz"
-				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw knowledge 2"
-			},
-			{
-				time: 35,
-				id: 4,
-				cname: 2,
-				author: {
-					id: 123,
-					name: "Afroz kaana"
-				},
-				text: "test keywords kw knowledge 1"
-			},
-			{
-				time: 40,
-				id: 41111,
-				cname: 2,
-				author: {
-					id: 12,
-					name: "Afroz"
-				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
-			},
-			{
-				time: 60,
-				id: 12564,
-				cname: 2,
-				author: {
-					id: 123,
-					name: "Afroz kaana"
-				},
-				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw clarity 1"
-			}
-		];
+		// var commentArray = [
+		// 	{
+		// 		time: 1,
+		// 		id: 1,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 12,
+		// 			name: "Afroz alam"
+		// 		},
+		// 		text: "kw clarity 2 TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
+		// 	},
+		// 	{
+		// 		time: 12,
+		// 		id: 13,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 123,
+		// 			name: "Afroz kana"
+		// 		},
+		// 		text: "TI feel like "
+		// 	},
+		// 	{
+		// 		time: 13,
+		// 		id: 12,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 123,
+		// 			name: "Afroz kana"
+		// 		},
+		// 		text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+		// 	},
+		// 	{
+		// 		time: 25,
+		// 		id: 3,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 12,
+		// 			name: "Afroz"
+		// 		},
+		// 		text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw knowledge 2"
+		// 	},
+		// 	{
+		// 		time: 35,
+		// 		id: 4,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 123,
+		// 			name: "Afroz kaana"
+		// 		},
+		// 		text: "test keywords kw knowledge 1"
+		// 	},
+		// 	{
+		// 		time: 40,
+		// 		id: 41111,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 12,
+		// 			name: "Afroz"
+		// 		},
+		// 		text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
+		// 	},
+		// 	{
+		// 		time: 60,
+		// 		id: 12564,
+		// 		cname: 2,
+		// 		author: {
+		// 			id: 123,
+		// 			name: "Afroz kaana"
+		// 		},
+		// 		text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw clarity 1"
+		// 	}
+		// ];
 
-		defaultObj = {
-			allComments: commentArray,
-			activeComments: commentArray,
-			isFetching: false
-		};
+		// defaultObj = {
+		// 	allComments: commentArray,
+		// 	activeComments: commentArray,
+		// 	isFetching: false
+		// };
 		/*eslint-disable */
 
 		if (!state.app.socialId) {
@@ -448,7 +448,7 @@ export let actions = () => ({
 	},
 
 	// Transcription actions
-	getTimestampedTranscripts: (state, payload, setState) => {
+	getTranscriptionData: (state, payload, setState) => {
 		setState({
 			...state,
 			transcriptionPane: {
@@ -538,48 +538,78 @@ export let actions = () => ({
 			}
 		];
 
-		return {
-			...state,
-			transcriptionPane: {
-				...state.transcriptionPane,
-				timestampedTranscripts: commentArray,
-				searchedTranscripts: commentArray,
-				transcriptStatus: "success"
-			}
-		};
+		// return {
+		// 	...state,
+		// 	transcriptionPane: {
+		// 		...state.transcriptionPane,
+		// 		filter: {
+		// 			...state.transcriptionPane.filter,
+		// 			evaluationParameters: [
+		// 				{
+		// 					'name' : 'Knowledge',
+		// 					'evalParamId' : 1,
+		// 					'keywords' : ['kw knowledge 1', 'kw knowledge 2']
+		// 				},
+		// 				{
+		// 					'name' : 'Clarity',
+		// 					'evalParamId' : 2,
+		// 					'keywords' : ['kw clarity 1', 'kw clarity 2']
+		// 				}
+		// 			]
+		// 		},
+		// 		timestampedTranscripts: commentArray,
+		// 		searchedTranscripts: commentArray,
+		// 		transcriptStatus: "success"
+		// 	}
+		// };
 
 		// let requestObj = {
 		// 	"transcriptS3Path": state.app.mediaData.transcriptPath
 		// };
-		// return post(apiConfig.getTimestampedTranscripts({ cname: state.app.companyName, mediaId: state.app.mediaData.id }), {body: requestObj}).then(
-		// 	response => {
-		// 		// if (response.transcript_status) {}
-		// 		let transcriptArray = [...response.timestamped_transcripts];
+		let requestObj = {
+			userId: state.app.learnerId,
+			entityId: state.app.entityId,
+			loId: state.app.playableObjectId,
+			submissionId: state.app.subjectId
+		}
+		return post(apiConfig.getTranscriptionData(state.app), { body: requestObj }).then(
+			response => {
+				// if (response.transcript_status) {}
+				let transcriptArray = [...response.timestampedTranscripts];
+				let sortedTranscriptArray = transcriptionModel.sort(transcriptArray);
 
-		// 		let sortedTranscriptArray = transcriptionModel.sort(transcriptArray);
+				let evalParams = [...response.evaluationParameters];
 
-		// 		return {
-		// 			...state,
-		// 			transcriptionPane: {
-		// 				...state.transcriptionPane,
-		// 				timestampedTranscripts: sortedTranscriptArray,
-		// 				searchedTranscripts: sortedTranscriptArray,
-		// 				transcriptStatus: "success"
-		// 			}
-		// 		};
-		// 	},
-		// 	() => {
-		// 		return {
-		// 			...state,
-		// 			transcriptionPane: {
-		// 				...state.transcriptionPane,
-		// 				timestampedTranscripts: [],
-		// 				searchedTranscripts: [],
-		// 				transcriptStatus: "failed"
-		// 			}
-		// 		};
-		// 	}
-		// );
+				return {
+					...state,
+					transcriptionPane: {
+						...state.transcriptionPane,
+						filter: {
+							...state.transcriptionPane.filter,
+							evaluationParameters: evalParams
+						},
+						timestampedTranscripts: sortedTranscriptArray,
+						searchedTranscripts: sortedTranscriptArray,
+						transcriptStatus: "success"
+					}
+				};
+			},
+			() => {
+				return {
+					...state,
+					transcriptionPane: {
+						...state.transcriptionPane,
+						filter: {
+							...state.transcriptionPane.filter,
+							evaluationParameters: []
+						},
+						timestampedTranscripts: [],
+						searchedTranscripts: [],
+						transcriptStatus: "failed"
+					}
+				};
+			}
+		);
 	},
 
 	navigateToMatchNum:(state, { currentMatchNumber }) => {
@@ -616,6 +646,7 @@ export let actions = () => ({
 					numberOfMatches: matchedTranscriptIndices.length
 				},
 				filter: {
+					...state.transcriptionPane.filter,
 					selectedEvalParams: selectedEvalParams,
 				},
 				searchedTranscripts: searchedTranscripts,
