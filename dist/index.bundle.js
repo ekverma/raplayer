@@ -3082,48 +3082,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   "use strict";
 
   function n(t, n) {
-    "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
-      r[e] = n.action(t[e]);
-    }return r;
-  }function r(t) {
-    return "string" == typeof t && (t = t.split(/\s*,\s*/)), function (n) {
-      for (var r = {}, e = 0; e < t.length; e++) {
-        r[t[e]] = n[t[e]];
-      }return r;
-    };
-  }function e(t, n) {
     for (var r in n) {
       t[r] = n[r];
     }return t;
-  }function o(o, i) {
-    return "function" != typeof o && (o = r(o || [])), function (r) {
-      function u(u, c) {
-        var f = this,
-            s = c.store,
-            p = o(s ? s.getState() : {}, u),
-            a = i ? n(i, s) : { store: s },
-            l = function l() {
-          var t = o(s ? s.getState() : {}, f.props);for (var n in t) {
-            if (t[n] !== p[n]) return p = t, f.setState(null);
-          }for (var r in p) {
-            if (!(r in t)) return p = t, f.setState(null);
-          }
-        };this.componentDidMount = function () {
-          l(), s.subscribe(l);
-        }, this.componentWillUnmount = function () {
-          s.unsubscribe(l);
-        }, this.render = function (n) {
-          return t.h(r, e(e(e({}, a), n), p));
-        };
-      }return (u.prototype = new t.Component()).constructor = u;
-    };
-  }function i(t) {
+  }function r(t) {
     this.getChildContext = function () {
       return { store: t.store };
     };
-  }i.prototype.render = function (t) {
+  }r.prototype.render = function (t) {
     return t.children[0];
-  }, exports.connect = o, exports.Provider = i;
+  }, exports.connect = function (r, e) {
+    var o;return "function" != typeof r && ("string" == typeof (o = r || []) && (o = o.split(/\s*,\s*/)), r = function r(t) {
+      for (var n = {}, r = 0; r < o.length; r++) {
+        n[o[r]] = t[o[r]];
+      }return n;
+    }), function (o) {
+      function i(i, u) {
+        var c = this,
+            f = u.store,
+            s = r(f ? f.getState() : {}, i),
+            a = e ? function (t, n) {
+          "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
+            r[e] = n.action(t[e]);
+          }return r;
+        }(e, f) : { store: f },
+            p = function p() {
+          var t = r(f ? f.getState() : {}, c.props);for (var n in t) {
+            if (t[n] !== s[n]) return s = t, c.setState(null);
+          }for (var e in s) {
+            if (!(e in t)) return s = t, c.setState(null);
+          }
+        };this.componentDidMount = function () {
+          p(), f.subscribe(p);
+        }, this.componentWillUnmount = function () {
+          f.unsubscribe(p);
+        }, this.render = function (r) {
+          return t.h(o, n(n(n({}, a), r), s));
+        };
+      }return (i.prototype = new t.Component()).constructor = i;
+    };
+  }, exports.Provider = r;
   //# sourceMappingURL=preact.js.map
 });
 
@@ -5029,11 +5027,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  function n(n, t) {
-    for (var u in t) {
-      n[u] = t[u];
-    }return n;
-  }function t(t) {
+
+  exports.default = function (t) {
     var u = [];function r(n) {
       for (var t = [], r = 0; r < u.length; r++) {
         u[r] === n ? n = null : t.push(u[r]);
@@ -5057,7 +5052,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }, unsubscribe: r, getState: function getState() {
         return t;
       } };
-  }exports.default = t;
+  };
+
+  function n(n, t) {
+    for (var u in t) {
+      n[u] = t[u];
+    }return n;
+  };
+  //# sourceMappingURL=unistore.es.js.map
+
   module.exports = exports["default"];
 });
 
@@ -6013,7 +6016,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					    transcriptionApiStatus = _props.transcriptionApiStatus,
 					    transcriptionStatus = _props.transcriptionStatus;
 
-					return (0, _preact.h)("div", { className: _index2.default.heightCalcTranscription }, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.marginB15 }, (0, _preact.h)(_SearchContainer2.default, {
+					return (0, _preact.h)("div", { className: _index2.default.heightCalcTranscription }, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionSearch }, (0, _preact.h)(_SearchContainer2.default, {
 						namespace: this.props.namespace
 					}), (0, _preact.h)(_FilterContainer2.default, {
 						namespace: this.props.namespace

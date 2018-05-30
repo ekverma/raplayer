@@ -35,7 +35,7 @@ class TranscriptionContainer extends Component {
 			<div className={style.heightCalcTranscription}>
 				<div className={[style.rightContainor, transcriptionApiStatus == "SUCCESS" ? style.show : style.hide].join(" ")} >
 					<div className={[transcriptionStatus == "SUCCESS" ? style.show : style.hide].join(" ")}>
-						<div className={style.marginB15}>
+						<div className={style.transcriptionSearch}>
 							<SearchContainer
 								namespace={this.props.namespace}
 							/>
