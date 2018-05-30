@@ -25,7 +25,7 @@ class FilterContainer extends Component {
 
 	getOptionsFromEvalParams(evalParams) {
 		let options = evalParams.map((evalParam) => {
-			return { label: evalParam.name, value: evalParam.evalParamId }
+			return { label: evalParam.evalParam.name, value: evalParam.evalParamId }
 		});
 		return options;
 	}
@@ -62,7 +62,7 @@ class FilterContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		evalParams: state.app.evaluationParameters,
+		evalParams: state.transcriptionPane.filter.evaluationParameters,
 		selectedEvalParams: state.transcriptionPane.filter.selectedEvalParams
 	};
 }
