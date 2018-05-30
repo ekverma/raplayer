@@ -455,7 +455,8 @@ export let actions = () => ({
 				...state.transcriptionPane,
 				timestampedTranscripts: [],
 				searchedTranscripts: [],
-				transcriptStatus: "fetching"
+				transcriptionStatus: "NOT_ENABLED",
+				transcriptionApiStatus: "FETCHING"
 			}
 		});
 
@@ -579,6 +580,7 @@ export let actions = () => ({
 				let sortedTranscriptArray = transcriptionModel.sort(transcriptArray);
 
 				let evalParams = [...response.evaluationParameters];
+				let transcriptionStatus = response.transcriptionStatus;
 
 				return {
 					...state,
@@ -590,7 +592,8 @@ export let actions = () => ({
 						},
 						timestampedTranscripts: sortedTranscriptArray,
 						searchedTranscripts: sortedTranscriptArray,
-						transcriptStatus: "success"
+						transcriptionStatus: transcriptionStatus,
+						transcriptionApiStatus: "SUCCESS"
 					}
 				};
 			},
@@ -605,7 +608,7 @@ export let actions = () => ({
 						},
 						timestampedTranscripts: [],
 						searchedTranscripts: [],
-						transcriptStatus: "failed"
+						transcriptionApiStatus: "FAILED"
 					}
 				};
 			}

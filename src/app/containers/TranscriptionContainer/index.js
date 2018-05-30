@@ -30,30 +30,41 @@ class TranscriptionContainer extends Component {
 
 	render() {
 		// const { isFetching } = this.props;
-		const { transcriptStatus } = this.props;
+		const { transcriptionApiStatus, transcriptionStatus} = this.props;
 		return (
 			<div>
-				<div className={[style.rightContainor, transcriptStatus == "success" ? style.show : style.hide].join(" ")} >
-					<div className={style.marginB15}>
-						<SearchContainer
-							namespace={this.props.namespace}
+				<div className={[style.rightContainor, transcriptionApiStatus == "SUCCESS" ? style.show : style.hide].join(" ")} >
+					<div className={[transcriptionStatus == "SUCCESS" ? style.show : style.hide].join(" ")}>
+						<div className={style.marginB15}>
+							<SearchContainer
+								namespace={this.props.namespace}
+							/>
+							<FilterContainer
+								namespace={this.props.namespace}
+							/>
+							<div className={style.clear} />
+						</div>
+						<CommentPane
+							comments={this.props.searchedTranscripts}
+							targetPlayerId={this.props.targetPlayerId}
+							commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
 						/>
-						<FilterContainer
-							namespace={this.props.namespace}
-						/>
-						<div className={style.clear} />
 					</div>
-					<CommentPane
-						comments={this.props.searchedTranscripts}
-						targetPlayerId={this.props.targetPlayerId}
-						commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
-					/>
+					<div className={[transcriptionStatus == "NOT_ENABLED" ? style.show : style.hide].join(" ")} >
+						Transcription and Keywords analysis not enabled for this Submission.
+					</div>
+					<div className={[transcriptionStatus == "FAILED" ? style.show : style.hide].join(" ")} >
+						Transcription and Keywords analysis not available for this Submission.
+					</div>
+					<div className={[transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? style.show : style.hide].join(" ")} >
+						On the way
+					</div>
 				</div>
-				<div className={[transcriptStatus == "fetching" ? style.show : style.hide].join(" ")} >
-					fetching
+				<div className={[transcriptionApiStatus == "FETCHING" ? style.show : style.hide].join(" ")} >
+					Fetching
 				</div>
-				<div className={[style.rightContainor, transcriptStatus == "failed" ? style.show : style.hide].join(" ")} >
-					failed
+				<div className={[style.rightContainor, transcriptionApiStatus == "FAILED" ? style.show : style.hide].join(" ")} >
+					Error getting data
 				</div>
 			</div>
 		);
@@ -66,7 +77,8 @@ function mapStateToProps(state) {
 		searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 		matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
 		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
-		transcriptStatus: state.transcriptionPane.transcriptStatus
+		transcriptionStatus: state.transcriptionPane.transcriptionStatus,
+		transcriptionApiStatus: state.transcriptionPane.transcriptionApiStatus
 	};
 }
 

@@ -2429,7 +2429,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						transcriptionPane: _extends({}, state.transcriptionPane, {
 							timestampedTranscripts: [],
 							searchedTranscripts: [],
-							transcriptStatus: "fetching"
+							transcriptionStatus: "NOT_ENABLED",
+							transcriptionApiStatus: "FETCHING"
 						})
 					}));
 
@@ -2544,6 +2545,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						var sortedTranscriptArray = _transcriptionModel2.default.sort(transcriptArray);
 
 						var evalParams = [].concat(_toConsumableArray(response.evaluationParameters));
+						var transcriptionStatus = response.transcriptionStatus;
 
 						return _extends({}, state, {
 							transcriptionPane: _extends({}, state.transcriptionPane, {
@@ -2552,7 +2554,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 								}),
 								timestampedTranscripts: sortedTranscriptArray,
 								searchedTranscripts: sortedTranscriptArray,
-								transcriptStatus: "success"
+								transcriptionStatus: transcriptionStatus,
+								transcriptionApiStatus: "SUCCESS"
 							})
 						});
 					}, function () {
@@ -2563,7 +2566,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 								}),
 								timestampedTranscripts: [],
 								searchedTranscripts: [],
-								transcriptStatus: "failed"
+								transcriptionApiStatus: "FAILED"
 							})
 						});
 					});
@@ -3525,7 +3528,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				},
 				timestampedTranscripts: [],
 				searchedTranscripts: [],
-				matchedTranscriptIndices: []
+				matchedTranscriptIndices: [],
+				transcriptionApiStatus: "FETCHING",
+				transcriptionStatus: "NOT_ENABLED"
 			}
 		};
 
@@ -6004,9 +6009,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}, {
 				key: "render",
 				value: function render() {
-					var transcriptStatus = this.props.transcriptStatus;
+					var _props = this.props,
+					    transcriptionApiStatus = _props.transcriptionApiStatus,
+					    transcriptionStatus = _props.transcriptionStatus;
 
-					return (0, _preact.h)("div", null, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptStatus == "success" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.marginB15 }, (0, _preact.h)(_SearchContainer2.default, {
+					return (0, _preact.h)("div", null, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.marginB15 }, (0, _preact.h)(_SearchContainer2.default, {
 						namespace: this.props.namespace
 					}), (0, _preact.h)(_FilterContainer2.default, {
 						namespace: this.props.namespace
@@ -6014,7 +6021,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						comments: this.props.searchedTranscripts,
 						targetPlayerId: this.props.targetPlayerId,
 						commentDivIdPrefix: _constants.TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX
-					})), (0, _preact.h)("div", { className: [transcriptStatus == "fetching" ? _index2.default.show : _index2.default.hide].join(" ") }, "fetching"), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptStatus == "failed" ? _index2.default.show : _index2.default.hide].join(" ") }, "failed"));
+					})), (0, _preact.h)("div", { className: [transcriptionStatus == "NOT_ENABLED" ? _index2.default.show : _index2.default.hide].join(" ") }, "Transcription and Keywords analysis not enabled for this Submission."), (0, _preact.h)("div", { className: [transcriptionStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, "Transcription and Keywords analysis not available for this Submission."), (0, _preact.h)("div", { className: [transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? _index2.default.show : _index2.default.hide].join(" ") }, "On the way")), (0, _preact.h)("div", { className: [transcriptionApiStatus == "FETCHING" ? _index2.default.show : _index2.default.hide].join(" ") }, "Fetching"), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, "Error getting data"));
 				}
 			}]);
 
@@ -6026,7 +6033,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 				matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
 				currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
-				transcriptStatus: state.transcriptionPane.transcriptStatus
+				transcriptionStatus: state.transcriptionPane.transcriptionStatus,
+				transcriptionApiStatus: state.transcriptionPane.transcriptionApiStatus
 			};
 		}
 
