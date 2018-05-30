@@ -16,7 +16,7 @@ class TranscriptionContainer extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getTimestampedTranscripts();
+		this.props.getTranscriptionData();
 	}
 
 	componentWillReceiveProps(nextProps) {

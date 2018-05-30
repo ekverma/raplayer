@@ -21,9 +21,8 @@ let apiUrls = {
 	deleteComment({ socialId, cname }) {
 		return { url: `/${cname}/social/${socialId}` };
 	},
-	getTimestampedTranscripts({ cname, mediaId }) {
-		return { url: `/${cname}/media/${mediaId}/timestamped_transcript` }
-		// return { url: `/get_transcription` }
+	getTranscriptionData({ cname }) {
+		return { url: `/${cname}/review/transcription_data` }
 	}
 };
 
