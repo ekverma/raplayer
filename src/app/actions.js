@@ -473,7 +473,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 12,
-					name: "Afroz alam"
+					name: ""
 				},
 				text: "kw clarity 2 TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle.TI feel like we saw this shot twice. Maybe we could try cutting to a different angle."
 			},
@@ -483,7 +483,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 123,
-					name: "Afroz kana"
+					name: ""
 				},
 				text: "TI feel like "
 			},
@@ -493,7 +493,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 123,
-					name: "Afroz kana"
+					name: ""
 				},
 				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
 			},
@@ -503,7 +503,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 12,
-					name: "Afroz"
+					name: ""
 				},
 				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw knowledge 2"
 			},
@@ -513,7 +513,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 123,
-					name: "Afroz kaana"
+					name: ""
 				},
 				text: "test keywords kw knowledge 1"
 			},
@@ -523,7 +523,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 12,
-					name: "Afroz"
+					name: ""
 				},
 				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle"
 			},
@@ -533,7 +533,7 @@ export let actions = () => ({
 				cname: 2,
 				author: {
 					id: 123,
-					name: "Afroz kaana"
+					name: ""
 				},
 				text: "TI feel like we saw this shot twice. Maybe we could try cutting to a different angle kw clarity 1"
 			}
@@ -635,7 +635,7 @@ export let actions = () => ({
 		let searchKeywords = transcriptionModel.getKeywordsInParams(selectedEvalParams);
 		let allWords = searchWords.concat(searchKeywords);
 
-		let { searchedTranscripts, matchedTranscriptIndices } = 
+		let { searchedTranscripts, matchedTranscriptIndices } =
 			transcriptionModel.search(state.transcriptionPane.timestampedTranscripts, allWords);
 
 		return {

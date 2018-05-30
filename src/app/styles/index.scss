@@ -38,6 +38,9 @@ text-overflow: ellipsis;}
 .hide {
 	display: none;
 }
+.display_IB{
+	display:inline-block;
+}
 .show {
 	display: block;
 }
@@ -147,4 +150,11 @@ text-overflow: ellipsis;}
 .error {
 	color: red;
 	font-size: 10px;
+}
+.searchHighlightStyle{
+	background: #fff6ce;
+	font-weight: normal;
+	border-radius: 4px;
+	padding:0 2px;
+	display: inline-block;
 }
