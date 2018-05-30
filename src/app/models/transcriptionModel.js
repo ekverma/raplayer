@@ -28,7 +28,7 @@ var transcriptionModel = {
 	},
 
 	highlightText: (text) => {
-		return text.bold();
+		return "<span class='searchHighlightStyle'>" + text + "</span>";
 	},
 
 	unhighlightText: (text) => {
@@ -46,4 +46,3 @@ var transcriptionModel = {
 }
 
 export default transcriptionModel;
-

@@ -23,7 +23,7 @@ class CommentPane extends Component {
 			this.commentPaneComponents[key].discard();
 		}
 	};
-	
+
 	render() {
 		const {
 			comments,

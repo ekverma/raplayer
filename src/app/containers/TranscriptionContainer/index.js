@@ -32,9 +32,9 @@ class TranscriptionContainer extends Component {
 		// const { isFetching } = this.props;
 		const { transcriptStatus } = this.props;
 		return (
-			<div>
+			<div className={style.heightCalcTranscription}>
 				<div className={[style.rightContainor, transcriptStatus == "success" ? style.show : style.hide].join(" ")} >
-					<div className={style.marginB15}>
+					<div className={style.transcriptionSearch}>
 						<SearchContainer
 							namespace={this.props.namespace}
 						/>
@@ -43,11 +43,14 @@ class TranscriptionContainer extends Component {
 						/>
 						<div className={style.clear} />
 					</div>
-					<CommentPane
-						comments={this.props.searchedTranscripts}
-						targetPlayerId={this.props.targetPlayerId}
-						commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
-					/>
+
+					<div className={[this.props.searchWords.length == 0 ? style.heightCalcComment : style.heightCalcTagAdded].join(" ")}>
+						<CommentPane
+							comments={this.props.searchedTranscripts}
+							targetPlayerId={this.props.targetPlayerId}
+							commentDivIdPrefix={TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX}
+						/>
+					</div>
 				</div>
 				<div className={[transcriptStatus == "fetching" ? style.show : style.hide].join(" ")} >
 					fetching
@@ -66,7 +69,8 @@ function mapStateToProps(state) {
 		searchedTranscripts: state.transcriptionPane.searchedTranscripts,
 		matchedTranscriptIndices: state.transcriptionPane.matchedTranscriptIndices,
 		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
-		transcriptStatus: state.transcriptionPane.transcriptStatus
+		transcriptStatus: state.transcriptionPane.transcriptStatus,
+		searchWords: state.transcriptionPane.searchBar.searchWords
 	};
 }
 

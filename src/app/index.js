@@ -39,7 +39,6 @@ class App extends Component {
 			targetCommentContainerRef.lastChild
 		);
 
-
 		this.transcriptionContainerRoot = render(
 			<Provider store={this.context.store}>
 				<TranscriptionContainer

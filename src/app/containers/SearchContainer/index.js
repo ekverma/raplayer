@@ -27,7 +27,7 @@ class SearchContainer extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className={style.floatL}>
 				<SearchBar
 					placeholder={STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER}
 					searchWordsChangedHandler={this.searchWordsChangedHandler}
