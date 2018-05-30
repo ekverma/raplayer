@@ -25,6 +25,13 @@ body{
 			-webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 		}
 	}
+	.searchHighlightStyle{
+		background: #fff6ce;
+		font-weight: normal;
+		border-radius: 4px;
+		padding:0 2px;
+		display: inline-block;
+	}
 }
 .ellipsis{
 overflow: hidden;
@@ -150,11 +157,4 @@ text-overflow: ellipsis;}
 .error {
 	color: red;
 	font-size: 10px;
-}
-.searchHighlightStyle{
-	background: #fff6ce;
-	font-weight: normal;
-	border-radius: 4px;
-	padding:0 2px;
-	display: inline-block;
 }
