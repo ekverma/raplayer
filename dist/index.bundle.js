@@ -2815,7 +2815,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var STRING_ONBOARDING = exports.STRING_ONBOARDING = "Make your review more contextual and insightful for the Learner. Hover your mouse over the video progress bar and add your comments at precise time(s).";
     var MAX_CHAR_LIMIT_COMMENT = exports.MAX_CHAR_LIMIT_COMMENT = 1000;
     var STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER = exports.STRING_TRANSCRIPTION_SEARCHBAR_PLACEHOLDER = "Search words in the transcription";
-    var STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = exports.STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = "No match found";
+    var STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = exports.STRING_SEARCH_NAVIGATION_BAR_NO_MATCHES = "No Match found";
     var DEFAULT_COMMENT_DIV_ID_PREFIX = exports.DEFAULT_COMMENT_DIV_ID_PREFIX = "commentCard_";
     var TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX = exports.TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX = "timestampedTranscriptCard_";
   });
