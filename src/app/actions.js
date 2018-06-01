@@ -452,7 +452,8 @@ export let actions = () => ({
 				timestampedTranscripts: [],
 				searchedTranscripts: [],
 				transcriptionStatus: "NOT_ENABLED",
-				transcriptionApiStatus: "FETCHING"
+				loading: true,
+				error: false
 			}
 		});
 
@@ -588,7 +589,8 @@ export let actions = () => ({
 						timestampedTranscripts: sortedTranscriptArray,
 						searchedTranscripts: sortedTranscriptArray,
 						transcriptionStatus: transcriptionStatus,
-						transcriptionApiStatus: "SUCCESS"
+						loading: false,
+						error: false
 					}
 				};
 			},
@@ -602,7 +604,8 @@ export let actions = () => ({
 						},
 						timestampedTranscripts: [],
 						searchedTranscripts: [],
-						transcriptionApiStatus: "FAILED"
+						loading: false,
+						error: true
 					}
 				};
 			}

@@ -2430,7 +2430,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 							timestampedTranscripts: [],
 							searchedTranscripts: [],
 							transcriptionStatus: "NOT_ENABLED",
-							transcriptionApiStatus: "FETCHING"
+							loading: true,
+							error: false
 						})
 					});
 
@@ -2555,7 +2556,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 								timestampedTranscripts: sortedTranscriptArray,
 								searchedTranscripts: sortedTranscriptArray,
 								transcriptionStatus: transcriptionStatus,
-								transcriptionApiStatus: "SUCCESS"
+								loading: false,
+								error: false
 							})
 						};
 					}, function () {
@@ -2566,7 +2568,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 								}),
 								timestampedTranscripts: [],
 								searchedTranscripts: [],
-								transcriptionApiStatus: "FAILED"
+								loading: false,
+								error: true
 							})
 						};
 					});
@@ -6020,10 +6023,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				key: "render",
 				value: function render() {
 					var _props = this.props,
-					    transcriptionApiStatus = _props.transcriptionApiStatus,
+					    loading = _props.loading,
+					    error = _props.error,
 					    transcriptionStatus = _props.transcriptionStatus;
 
-					return (0, _preact.h)("div", { className: _index2.default.heightCalcTranscription }, (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionSearch }, (0, _preact.h)(_SearchContainer2.default, {
+					return (0, _preact.h)("div", { className: _index2.default.heightCalcTranscription }, (0, _preact.h)("div", { className: [_index2.default.rightContainor, !loading && !error ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: [transcriptionStatus == "SUCCESS" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionSearch }, (0, _preact.h)(_SearchContainer2.default, {
 						namespace: this.props.namespace
 					}), (0, _preact.h)(_FilterContainer2.default, {
 						namespace: this.props.namespace
@@ -6031,7 +6035,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						comments: this.props.searchedTranscripts,
 						targetPlayerId: this.props.targetPlayerId,
 						commentDivIdPrefix: _constants.TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX
-					}))), (0, _preact.h)("div", { className: [transcriptionStatus == "NOT_ENABLED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_TRANSCRIPTION_NOT_ENABLED), (0, _preact.h)("div", { className: [transcriptionStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_TRANSCRIPTION_FAILED), (0, _preact.h)("div", { className: [transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionOnItsWay }, (0, _preact.h)("div", { className: [_index2.default.transcription_truck, _index2.default.marginT120, _index2.default.display_IB].join(" ") }), (0, _preact.h)("div", { className: "F18 color66 marginT30 marginB30" }, _constants.STRING_TRANSCRIPTION_IN_PROGRESS)))), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "FETCHING" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_FETCHING_TRANSCRIPTION_DATA), (0, _preact.h)("div", { className: [_index2.default.rightContainor, transcriptionApiStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_FETCHING_TRANSCRIPTION_DATA_FAILED));
+					}))), (0, _preact.h)("div", { className: [transcriptionStatus == "NOT_ENABLED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_TRANSCRIPTION_NOT_ENABLED), (0, _preact.h)("div", { className: [transcriptionStatus == "FAILED" ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_TRANSCRIPTION_FAILED), (0, _preact.h)("div", { className: [transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? _index2.default.show : _index2.default.hide].join(" ") }, (0, _preact.h)("div", { className: _index2.default.transcriptionOnItsWay }, (0, _preact.h)("div", { className: [_index2.default.transcription_truck, _index2.default.marginT120, _index2.default.display_IB].join(" ") }), (0, _preact.h)("div", { className: "F18 color66 marginT30 marginB30" }, _constants.STRING_TRANSCRIPTION_IN_PROGRESS)))), (0, _preact.h)("div", { className: [_index2.default.rightContainor, loading ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_FETCHING_TRANSCRIPTION_DATA), (0, _preact.h)("div", { className: [_index2.default.rightContainor, !loading && error ? _index2.default.show : _index2.default.hide].join(" ") }, _constants.STRING_FETCHING_TRANSCRIPTION_DATA_FAILED));
 				}
 			}]);
 
@@ -6045,7 +6049,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
 				searchWords: state.transcriptionPane.searchBar.searchWords,
 				transcriptionStatus: state.transcriptionPane.transcriptionStatus,
-				transcriptionApiStatus: state.transcriptionPane.transcriptionApiStatus
+				loading: state.transcriptionPane.loading,
+				error: state.transcriptionPane.error
 			};
 		}
 
