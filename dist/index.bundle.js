@@ -2159,9 +2159,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						activeComments: [],
 						isFetching: true
 					};
-					setState(_extends({}, state, {
+					setState({
 						commentPane: defaultObj
-					}));
+					});
 					var filter = payload.filter;
 					// var commentArray = [
 					// 	{
@@ -2259,19 +2259,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 						var sortedCommentArray = _comment2.default.sort(commentArray);
 
-						return _extends({}, state, {
+						return {
 							commentPane: {
 								allComments: sortedCommentArray,
 								activeComments: sortedCommentArray,
 								isFetching: false
 							}
-						});
+						};
 					}, function () {
-						return _extends({}, state, {
+						return {
 							commentPane: _extends({}, defaultObj, {
 								isFetching: false
 							})
-						});
+						};
 					});
 
 					//commentArray = [];
@@ -2425,14 +2425,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 				// Transcription actions
 				getTranscriptionData: function getTranscriptionData(state, payload, setState) {
-					setState(_extends({}, state, {
+					setState({
 						transcriptionPane: _extends({}, state.transcriptionPane, {
 							timestampedTranscripts: [],
 							searchedTranscripts: [],
 							transcriptionStatus: "NOT_ENABLED",
 							transcriptionApiStatus: "FETCHING"
 						})
-					}));
+					});
 
 					// let requestObj = {
 					// 	"s3_bucket":"mtgame-cdn.mindtickle.com",
@@ -2547,7 +2547,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 						var evalParams = [].concat(_toConsumableArray(response.evaluationParameters));
 						var transcriptionStatus = response.transcriptionStatus;
 
-						return _extends({}, state, {
+						return {
 							transcriptionPane: _extends({}, state.transcriptionPane, {
 								filter: _extends({}, state.transcriptionPane.filter, {
 									evaluationParameters: evalParams
@@ -2557,9 +2557,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 								transcriptionStatus: transcriptionStatus,
 								transcriptionApiStatus: "SUCCESS"
 							})
-						});
+						};
 					}, function () {
-						return _extends({}, state, {
+						return {
 							transcriptionPane: _extends({}, state.transcriptionPane, {
 								filter: _extends({}, state.transcriptionPane.filter, {
 									evaluationParameters: []
@@ -2568,7 +2568,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 								searchedTranscripts: [],
 								transcriptionApiStatus: "FAILED"
 							})
-						});
+						};
 					});
 				},
 
@@ -2721,7 +2721,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					}
 					var namespaceState = state[namespace];
 					var setState = function setState(mutatedState) {
-						var obj = normalizeStateForNamespace(namespace, mutatedState, state);
+						var namespaceState = state[namespace];
+						var obj = normalizeStateForNamespace(namespace, _extends({}, namespaceState, mutatedState), state);
 						(0, _store.getStore)().setState(obj);
 					};
 					var updatedState = boundedAction(namespaceState, payload, setState);
@@ -3622,9 +3623,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				var searchedTranscripts = timestampedTranscripts.map(function (timestampedTranscript, index) {
 					var text = timestampedTranscript.text;
 					searchPhrases.forEach(function (phrase) {
-						var pos = text.toLowerCase().indexOf(phrase.toLowerCase());
+						var phraseWithSpaces = " " + phrase.toLowerCase() + " ";
+						var pos = text.toLowerCase().indexOf(phraseWithSpaces);
 						if (pos != -1) {
-							text = text.substr(0, pos) + transcriptionModel.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
+							var actualPos = pos + 1;
+							text = text.substr(0, actualPos) + transcriptionModel.highlightText(text.substr(actualPos, phrase.length)) + text.substr(actualPos + phrase.length);
 							matchedTranscriptIndices.push(index);
 						}
 					});

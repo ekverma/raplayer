@@ -5,9 +5,11 @@ var transcriptionModel = {
 		let searchedTranscripts = timestampedTranscripts.map(function(timestampedTranscript, index) {
 			let text = timestampedTranscript.text;
 			searchPhrases.forEach((phrase) => {
-				let pos = text.toLowerCase().indexOf(phrase.toLowerCase());
+				let phraseWithSpaces = " " + phrase.toLowerCase() + " ";
+				let pos = text.toLowerCase().indexOf(phraseWithSpaces);
 				if (pos != -1) {
-					text = text.substr(0, pos) + transcriptionModel.highlightText(text.substr(pos, phrase.length)) + text.substr(pos + phrase.length);
+					let actualPos = pos + 1;
+					text = text.substr(0, actualPos) + transcriptionModel.highlightText(text.substr(actualPos, phrase.length)) + text.substr(actualPos + phrase.length);
 					matchedTranscriptIndices.push(index);
 				}
 			});
