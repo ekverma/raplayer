@@ -15,3 +15,5 @@ export const STRING_TRANSCRIPTION_FAILED = "Transcription and Keywords analysis 
 export const STRING_TRANSCRIPTION_IN_PROGRESS = "Transcription is on its way!";
 export const STRING_FETCHING_TRANSCRIPTION_DATA = "Loading...";
 export const STRING_FETCHING_TRANSCRIPTION_DATA_FAILED = "Error while getting data.";
+export const CLASS_SEARCH_HIGHLIGHT = "searchHighlightStyle";
+export const CLASS_CURRENT_MATCH_HIGHLIGHT = "currentMatchHighlightStyle";

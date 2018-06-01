@@ -25,8 +25,15 @@ body{
 			-webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 		}
 	}
-	.searchHighlightStyle{
+	.currentMatchHighlightStyle{
 		background: #fff6ce;
+		font-weight: normal;
+		border-radius: 4px;
+		padding:0 2px;
+		display: inline-block;
+	}
+	.searchHighlightStyle{
+		background: #efefef;
 		font-weight: normal;
 		border-radius: 4px;
 		padding:0 2px;

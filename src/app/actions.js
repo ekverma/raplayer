@@ -613,6 +613,8 @@ export let actions = () => ({
 	},
 
 	navigateToMatchNum:(state, { currentMatchNumber }) => {
+		let { highlightedTranscripts } = transcriptionModel.highlightCurrentMatch(state.transcriptionPane.searchedTranscripts, currentMatchNumber,
+			state.transcriptionPane.searchBar.currentMatchNumber, state.transcriptionPane.matchedTranscriptIndices);
 		return {
 			...state,
 			transcriptionPane: {
@@ -620,7 +622,8 @@ export let actions = () => ({
 				searchBar: {
 					...state.transcriptionPane.searchBar,
 					currentMatchNumber: currentMatchNumber,
-				}
+				},
+				searchedTranscripts: highlightedTranscripts
 			}
 		}
 	},
