@@ -164,7 +164,6 @@ export let actions = () => ({
 			isFetching: true
 		};
 		setState({
-			...state,
 			commentPane: defaultObj
 		});
 		let { filter } = payload;
@@ -268,7 +267,6 @@ export let actions = () => ({
 				let sortedCommentArray = commentModel.sort(commentArray);
 
 				return {
-					...state,
 					commentPane: {
 						allComments: sortedCommentArray,
 						activeComments: sortedCommentArray,
@@ -278,7 +276,6 @@ export let actions = () => ({
 			},
 			() => {
 				return {
-					...state,
 					commentPane: {
 						...defaultObj,
 						isFetching: false
@@ -450,7 +447,6 @@ export let actions = () => ({
 	// Transcription actions
 	getTranscriptionData: (state, payload, setState) => {
 		setState({
-			...state,
 			transcriptionPane: {
 				...state.transcriptionPane,
 				timestampedTranscripts: [],
@@ -583,7 +579,6 @@ export let actions = () => ({
 				let transcriptionStatus = response.transcriptionStatus;
 
 				return {
-					...state,
 					transcriptionPane: {
 						...state.transcriptionPane,
 						filter: {
@@ -599,7 +594,6 @@ export let actions = () => ({
 			},
 			() => {
 				return {
-					...state,
 					transcriptionPane: {
 						...state.transcriptionPane,
 						filter: {

@@ -37,7 +37,8 @@ function namespaceActions(actions) {
 			}
 			var namespaceState = state[namespace];
 			let setState = function(mutatedState) {
-				let obj = normalizeStateForNamespace(namespace, mutatedState, state);
+				let namespaceState = state[namespace];
+				let obj = normalizeStateForNamespace(namespace, { ...namespaceState, ...mutatedState }, state);
 				getStore().setState(obj);
 			};
 			var updatedState = boundedAction(namespaceState, payload, setState);
