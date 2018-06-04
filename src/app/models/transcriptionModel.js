@@ -57,8 +57,12 @@ var transcriptionModel = {
 	},
 
 	highlightCurrentMatch: (searchedTranscripts, currentMatchNumber, prevMatchNumber, matchedTranscriptIndices) => {
+		if (matchedTranscriptIndices.length == 0) {
+			return { highlightedTranscripts: [...searchedTranscripts] };
+		}
 		let transcripts = [...searchedTranscripts];
 		let prevIndex = matchedTranscriptIndices[prevMatchNumber - 1];
+
 		transcripts[prevIndex].text = transcripts[prevIndex].text.replace(CLASS_CURRENT_MATCH_HIGHLIGHT, CLASS_SEARCH_HIGHLIGHT);
 
 		let curIndex = matchedTranscriptIndices[currentMatchNumber - 1];

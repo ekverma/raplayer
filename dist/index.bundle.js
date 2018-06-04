@@ -3696,8 +3696,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			},
 
 			highlightCurrentMatch: function highlightCurrentMatch(searchedTranscripts, currentMatchNumber, prevMatchNumber, matchedTranscriptIndices) {
+				if (matchedTranscriptIndices.length == 0) {
+					return { highlightedTranscripts: [].concat(_toConsumableArray(searchedTranscripts)) };
+				}
 				var transcripts = [].concat(_toConsumableArray(searchedTranscripts));
 				var prevIndex = matchedTranscriptIndices[prevMatchNumber - 1];
+
 				transcripts[prevIndex].text = transcripts[prevIndex].text.replace(_constants.CLASS_CURRENT_MATCH_HIGHLIGHT, _constants.CLASS_SEARCH_HIGHLIGHT);
 
 				var curIndex = matchedTranscriptIndices[currentMatchNumber - 1];
