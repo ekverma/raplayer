@@ -56,7 +56,8 @@
 
 .dropdownMenu{
   ul{
-    max-height: 150px;
+    min-height: 150px;
+    padding:10px 0px;
   }
     &:before, &:after{
     bottom: 100%;
