@@ -6,7 +6,12 @@ import FilterContainer from "@containers/FilterContainer";
 import CommentPane from "@components/CommentPane";
 import style from "./index.scss";
 import {
-	TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX
+	TIMESTAMPED_TRANSCRIPT_DIV_ID_PREFIX,
+	STRING_TRANSCRIPTION_NOT_ENABLED,
+	STRING_TRANSCRIPTION_FAILED,
+	STRING_TRANSCRIPTION_IN_PROGRESS,
+	STRING_FETCHING_TRANSCRIPTION_DATA,
+	STRING_FETCHING_TRANSCRIPTION_DATA_FAILED
 } from "@config/constants";
 
 
@@ -30,10 +35,10 @@ class TranscriptionContainer extends Component {
 
 	render() {
 		// const { isFetching } = this.props;
-		const { transcriptionApiStatus, transcriptionStatus} = this.props;
+		const { loading, error, transcriptionStatus} = this.props;
 		return (
 			<div className={style.heightCalcTranscription}>
-				<div className={[style.rightContainor, transcriptionApiStatus == "SUCCESS" ? style.show : style.hide].join(" ")} >
+				<div className={[style.rightContainor, !loading && !error ? style.show : style.hide].join(" ")} >
 					<div className={[transcriptionStatus == "SUCCESS" ? style.show : style.hide].join(" ")}>
 						<div className={style.transcriptionSearch}>
 							<SearchContainer
@@ -53,23 +58,23 @@ class TranscriptionContainer extends Component {
 						</div>
 					</div>
 					<div className={[transcriptionStatus == "NOT_ENABLED" ? style.show : style.hide].join(" ")} >
-						Transcription and Keywords analysis not enabled for this Submission.
+						{STRING_TRANSCRIPTION_NOT_ENABLED}
 					</div>
 					<div className={[transcriptionStatus == "FAILED" ? style.show : style.hide].join(" ")} >
-						Transcription and Keywords analysis not available for this Submission.
+						{STRING_TRANSCRIPTION_FAILED}
 					</div>
 					<div className={[transcriptionStatus == "STARTED" || transcriptionStatus == "NOT_STARTED" ? style.show : style.hide].join(" ")} >
 						<div className={style.transcriptionOnItsWay}>
 							<div className={[style.transcription_truck, style.marginT120, style.display_IB].join(" ")} />
-							<div className="F18 color66 marginT30 marginB30">Transcription is on its way!</div>
+							<div className="F18 color66 marginT30 marginB30">{STRING_TRANSCRIPTION_IN_PROGRESS}</div>
 						</div>
 					</div>
 				</div>
-				<div className={[transcriptionApiStatus == "FETCHING" ? style.show : style.hide].join(" ")} >
-					Fetching
+				<div className={[style.rightContainor, loading ? style.show : style.hide].join(" ")} >
+					{STRING_FETCHING_TRANSCRIPTION_DATA}
 				</div>
-				<div className={[style.rightContainor, transcriptionApiStatus == "FAILED" ? style.show : style.hide].join(" ")} >
-					Error getting data
+				<div className={[style.rightContainor, !loading && error ? style.show : style.hide].join(" ")} >
+					{STRING_FETCHING_TRANSCRIPTION_DATA_FAILED}
 				</div>
 			</div>
 		);
@@ -84,7 +89,8 @@ function mapStateToProps(state) {
 		currentMatchNumber: state.transcriptionPane.searchBar.currentMatchNumber,
 		searchWords: state.transcriptionPane.searchBar.searchWords,
 		transcriptionStatus: state.transcriptionPane.transcriptionStatus,
-		transcriptionApiStatus: state.transcriptionPane.transcriptionApiStatus
+		loading: state.transcriptionPane.loading,
+		error: state.transcriptionPane.error
 	};
 }
 

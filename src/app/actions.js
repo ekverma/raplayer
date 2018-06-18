@@ -164,7 +164,6 @@ export let actions = () => ({
 			isFetching: true
 		};
 		setState({
-			...state,
 			commentPane: defaultObj
 		});
 		let { filter } = payload;
@@ -268,7 +267,6 @@ export let actions = () => ({
 				let sortedCommentArray = commentModel.sort(commentArray);
 
 				return {
-					...state,
 					commentPane: {
 						allComments: sortedCommentArray,
 						activeComments: sortedCommentArray,
@@ -278,7 +276,6 @@ export let actions = () => ({
 			},
 			() => {
 				return {
-					...state,
 					commentPane: {
 						...defaultObj,
 						isFetching: false
@@ -450,13 +447,13 @@ export let actions = () => ({
 	// Transcription actions
 	getTranscriptionData: (state, payload, setState) => {
 		setState({
-			...state,
 			transcriptionPane: {
 				...state.transcriptionPane,
 				timestampedTranscripts: [],
 				searchedTranscripts: [],
 				transcriptionStatus: "NOT_ENABLED",
-				transcriptionApiStatus: "FETCHING"
+				loading: true,
+				error: false
 			}
 		});
 
@@ -583,7 +580,6 @@ export let actions = () => ({
 				let transcriptionStatus = response.transcriptionStatus;
 
 				return {
-					...state,
 					transcriptionPane: {
 						...state.transcriptionPane,
 						filter: {
@@ -593,13 +589,13 @@ export let actions = () => ({
 						timestampedTranscripts: sortedTranscriptArray,
 						searchedTranscripts: sortedTranscriptArray,
 						transcriptionStatus: transcriptionStatus,
-						transcriptionApiStatus: "SUCCESS"
+						loading: false,
+						error: false
 					}
 				};
 			},
 			() => {
 				return {
-					...state,
 					transcriptionPane: {
 						...state.transcriptionPane,
 						filter: {
@@ -608,7 +604,8 @@ export let actions = () => ({
 						},
 						timestampedTranscripts: [],
 						searchedTranscripts: [],
-						transcriptionApiStatus: "FAILED"
+						loading: false,
+						error: true
 					}
 				};
 			}
@@ -616,6 +613,8 @@ export let actions = () => ({
 	},
 
 	navigateToMatchNum:(state, { currentMatchNumber }) => {
+		let { highlightedTranscripts } = transcriptionModel.highlightCurrentMatch(state.transcriptionPane.searchedTranscripts, currentMatchNumber,
+			state.transcriptionPane.searchBar.currentMatchNumber, state.transcriptionPane.matchedTranscriptIndices);
 		return {
 			...state,
 			transcriptionPane: {
@@ -623,7 +622,8 @@ export let actions = () => ({
 				searchBar: {
 					...state.transcriptionPane.searchBar,
 					currentMatchNumber: currentMatchNumber,
-				}
+				},
+				searchedTranscripts: highlightedTranscripts
 			}
 		}
 	},
